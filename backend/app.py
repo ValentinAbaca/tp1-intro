@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify
 from models import db, Personajes, Ataques, PersonajesAtaques
+import os
 
 user = "valentin" #Cambiar el usuario de la base de datos
 password = "valentin" #Cambiar la contraseña de la base de datos
@@ -104,7 +105,7 @@ def crear_personaje():
 
         verificar_personaje = Personajes.query.filter_by(nombre=nuevo_nombre).first()
         if verificar_personaje:
-            return jsonify({'message': 'Personaje ya existe'}), 400
+            return jsonify({'message': 'El personaje ya existe'}), 400
 
         nueva_vida = data['vida']
         nuevo_ki = data['ki']
@@ -155,6 +156,26 @@ def crear_personaje():
         print(f"Error al crear personaje: {str(error)}")
         return jsonify({'message': 'Error al crear personaje'}), 500
 
+@app.route('/borrar_personaje/<id>', methods=['DELETE'])
+def borrar_personaje(id):
+    try:
+        personaje_ataques = PersonajesAtaques.query.filter_by(id_personaje=id).all()
+        for personaje_ataque in personaje_ataques:
+            db.session.delete(personaje_ataque)
+            db.session.commit()
+        
+        personaje = Personajes.query.get(id)
+
+        img_path = personaje.imagen.split('/')[-1]
+        os.remove(f"static/img/{img_path}")
+
+        db.session.delete(personaje)
+        db.session.commit()
+        return jsonify({'message': 'Personaje borrado correctamente'}), 200
+
+    except Exception as error:
+        print(f"Error al borrar personaje: {str(error)}")
+        return jsonify({'message': 'Error al borrar personaje'}), 500
 
 if __name__ == '__main__':
     db.init_app(app)
