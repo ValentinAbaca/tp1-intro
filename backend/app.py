@@ -93,6 +93,69 @@ def obtener_ataques():
         print(f"Error al obtener ataques: {str(error)}")
         return jsonify({'message': 'Ataques no encontrados'}), 500
 
+@app.route('/nuevo_personaje', methods=['POST'])
+def crear_personaje():
+    try:
+        id_max = Personajes.query.order_by(Personajes.id.desc()).first()
+        id = id_max.id + 1
+
+        data = request.form
+        nuevo_nombre = data['nombre']
+
+        verificar_personaje = Personajes.query.filter_by(nombre=nuevo_nombre).first()
+        if verificar_personaje:
+            return jsonify({'message': 'Personaje ya existe'}), 400
+
+        nueva_vida = data['vida']
+        nuevo_ki = data['ki']
+        nueva_descripcion = data['descripcion']
+        nueva_raza = data['raza']
+        
+        nueva_imagen = request.files['imagen']
+        nueva_imagen.save(f"static/img/{nueva_imagen.filename}")
+        print(f"Imagen guardada en: static/img/{nueva_imagen.filename}")
+        path = f"http://localhost:5000/static/img/{nueva_imagen.filename}"
+
+        personaje = Personajes(id=id, nombre=nuevo_nombre, vida=nueva_vida, ki=nuevo_ki, descripcion=nueva_descripcion, raza=nueva_raza, imagen=path)
+        db.session.add(personaje)
+        db.session.commit()
+
+        ataques = data['ataques'].split(',')
+        for ataque in ataques:
+            ataque_id = int(ataque)
+            max_id_relacion = PersonajesAtaques.query.order_by(PersonajesAtaques.id.desc()).first()
+            id_relacion = max_id_relacion.id + 1
+            personaje_ataque = PersonajesAtaques(id=id_relacion, id_personaje=id, id_ataque=ataque_id)
+            db.session.add(personaje_ataque)
+            db.session.commit()
+
+        nuevos_ataques = []
+        for ataque in ataques:
+            ataque_id = int(ataque)
+            ataque = Ataques.query.get(ataque_id)
+            ataque_data = {
+                'id': ataque.id,
+                'nombre': ataque.nombre,
+                'costo_ki': ataque.costo_ki,
+                'dano_max': ataque.dano_max,
+                'dano_min': ataque.dano_min
+            }
+            nuevos_ataques.append(ataque_data)
+
+        return jsonify({"personaje" : {"id" : personaje.id, 
+                                        "nombre" : personaje.nombre, 
+                                        "vida" : personaje.vida, 
+                                        "ki" : personaje.ki, 
+                                        "descripcion" : personaje.descripcion,
+                                        "raza" : personaje.raza, 
+                                        "imagen" : personaje.imagen,
+                                        "ataques" : nuevos_ataques
+                                        }}), 201
+    except Exception as error:
+        print(f"Error al crear personaje: {str(error)}")
+        return jsonify({'message': 'Error al crear personaje'}), 500
+
+
 if __name__ == '__main__':
     db.init_app(app)
     with app.app_context():
