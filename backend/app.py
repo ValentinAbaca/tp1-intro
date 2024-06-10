@@ -13,6 +13,39 @@ port = 5000
 def main_route():
     return 'Backend del proyecto!'
 
+@app.route('/personajes', methods=['GET'])
+def obtener_personajes():
+    try:
+        personajes = Personajes.query.all()
+        personajes_data = []
+        for personaje in personajes:
+            personaje_data = {
+                'id': personaje.id,
+                'nombre': personaje.nombre,
+                'vida': personaje.vida,
+                'ki': personaje.ki,
+                'descripcion': personaje.descripcion,
+                'ataques': []
+            }
+
+            ataques = PersonajesAtaques.query.filter_by(id_personaje=personaje.id).all()
+            
+            for ataque in ataques:
+                ataque_data = {
+                    'id': ataque.ataque.id,
+                    'nombre': ataque.ataque.nombre,
+                    'costo_ki': ataque.ataque.costo_ki,
+                    'dano_max': ataque.ataque.dano_max,
+                    'dano_min': ataque.ataque.dano_min
+                }
+                
+                personaje_data['ataques'].append(ataque_data)
+            personajes_data.append(personaje_data)
+        return jsonify(personajes_data)
+    except Exception as error:
+        print(f"Error al obtener personajes: {str(error)}")
+        return jsonify({'message': 'Personajes no encontrados'}), 500
+
 if __name__ == '__main__':
     db.init_app(app)
     with app.app_context():
