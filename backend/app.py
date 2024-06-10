@@ -176,6 +176,23 @@ def borrar_personaje(id):
     except Exception as error:
         print(f"Error al borrar personaje: {str(error)}")
         return jsonify({'message': 'Error al borrar personaje'}), 500
+    
+@app.route('/borrar_ataque/<id>', methods=['DELETE'])
+def borrar_ataque(id):
+    try:
+        ataques_personajes = PersonajesAtaques.query.filter_by(id_ataque=id).all()
+        for ataque_personaje in ataques_personajes:
+            db.session.delete(ataque_personaje)
+            db.session.commit()
+        
+        ataque = Ataques.query.get(id)
+        db.session.delete(ataque)
+        db.session.commit()
+        return jsonify({'message': f'Ataque id: {id} borrado correctamente'}), 200
+
+    except Exception as error:
+        print(f"Error al borrar ataque: {str(error)}")
+        return jsonify({'message': f'Error al borrar ataque {id}'}), 500
 
 if __name__ == '__main__':
     db.init_app(app)
