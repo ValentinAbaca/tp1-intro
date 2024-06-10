@@ -74,6 +74,25 @@ def obtener_personaje_id(id):
         print(f"Error al obtener personaje: {str(error)}")
         return jsonify({'message': 'Personaje no encontrado'}), 500
 
+@app.route('/ataques')
+def obtener_ataques():
+    try:
+        ataques = Ataques.query.all()
+        ataques_data = []
+        for ataque in ataques:
+            ataque_data = {
+                'id': ataque.id,
+                'nombre': ataque.nombre,
+                'costo_ki': ataque.costo_ki,
+                'dano_max': ataque.dano_max,
+                'dano_min': ataque.dano_min
+            }
+            ataques_data.append(ataque_data)
+        return jsonify(ataques_data)
+    except Exception as error:
+        print(f"Error al obtener ataques: {str(error)}")
+        return jsonify({'message': 'Ataques no encontrados'}), 500
+
 if __name__ == '__main__':
     db.init_app(app)
     with app.app_context():
