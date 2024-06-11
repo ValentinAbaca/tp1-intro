@@ -244,6 +244,21 @@ def borrar_ataque(id):
         print(f"Error al borrar ataque: {str(error)}")
         return jsonify({'message': f'Error al borrar ataque {id}'}), 500
 
+@app.route('/modificar_ataque/<id>', methods=['PUT'])
+def modificar_ataque(id):
+    try:
+        ataque = Ataques.query.get(id)
+        data = request.form
+        ataque.nombre = data['nombre']
+        ataque.costo_ki = data['costo_ki']
+        ataque.dano_max = data['dano_max']
+        ataque.dano_min = data['dano_min']
+        db.session.commit()
+        return jsonify({'message': f'Ataque id: {id} modificado correctamente'}), 200
+    except Exception as error:
+        print(f"Error al modificar ataque: {str(error)}")
+        return jsonify({'message': f'Error al modificar ataque {id}'}), 500
+
 if __name__ == '__main__':
     db.init_app(app)
     with app.app_context():
