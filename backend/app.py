@@ -94,6 +94,23 @@ def obtener_ataques():
         print(f"Error al obtener ataques: {str(error)}")
         return jsonify({'message': 'Ataques no encontrados'}), 500
 
+
+@app.route('/ataques/<id>')
+def obtener_ataque_id(id):
+    try:
+        ataque = Ataques.query.get(id)
+        ataque_data = {
+            'id': ataque.id,
+            'nombre': ataque.nombre,
+            'costo_ki': ataque.costo_ki,
+            'dano_max': ataque.dano_max,
+            'dano_min': ataque.dano_min
+        }
+        return jsonify(ataque_data)
+    except Exception as error:
+        print(f"Error al obtener ataque: {str(error)}")
+        return jsonify({'message': 'Ataque no encontrado'}), 500
+
 @app.route('/nuevo_personaje', methods=['POST'])
 def crear_personaje():
     try:
@@ -164,7 +181,7 @@ def crear_ataque():
 
         data = request.form
         nuevo_nombre = data['nombre']
-        
+
         verificar_ataque = Ataques.query.filter_by(nombre=nuevo_nombre).first()
         if verificar_ataque:
             return jsonify({'message': 'El ataque ya existe'}), 400
