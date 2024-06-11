@@ -1,0 +1,32 @@
+/* Naranja: #F58220
+Azul: #0072CE
+Gris: #E0E0E0
+Amarillo: #F8E71C */
+
+/* variables */
+:root{
+    --naranja: #F58220;
+    --azul: #0072CE;
+    --gris: #E0E0E0;
+    --amarillo: #F8E71C;
+}
+
+/* estilos generales */
+p, a{
+    font-family: "Montserrat", sans-serif;
+}
+h1, h2, h3, h4, h5, h6{
+    font-family: "Merriweather", serif;
+}
+
+/* fuentes */
+.montserrat{
+    font-family: "Montserrat", sans-serif;
+}
+.merriweather{
+    font-family: "Merriweather", serif;
+}
+/* navbar */
+.navbar{
+    background-color: var(--naranja);
+}
