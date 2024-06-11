@@ -156,6 +156,37 @@ def crear_personaje():
         print(f"Error al crear personaje: {str(error)}")
         return jsonify({'message': 'Error al crear personaje'}), 500
 
+@app.route('/nuevo_ataque', methods=['POST'])
+def crear_ataque():
+    try:
+        id_max = Ataques.query.order_by(Ataques.id.desc()).first()
+        id = id_max.id + 1
+
+        data = request.form
+        nuevo_nombre = data['nombre']
+        
+        verificar_ataque = Ataques.query.filter_by(nombre=nuevo_nombre).first()
+        if verificar_ataque:
+            return jsonify({'message': 'El ataque ya existe'}), 400
+
+        nuevo_costo_ki = data['costo_ki']
+        nuevo_dano_max = data['dano_max']
+        nuevo_dano_min = data['dano_min']
+
+        ataque = Ataques(id=id, nombre=nuevo_nombre, costo_ki=nuevo_costo_ki, dano_max=nuevo_dano_max, dano_min=nuevo_dano_min)
+        db.session.add(ataque)
+        db.session.commit()
+
+        return jsonify({"ataque" : {"id" : ataque.id, 
+                                    "nombre" : ataque.nombre, 
+                                    "costo_ki" : ataque.costo_ki, 
+                                    "dano_max" : ataque.dano_max, 
+                                    "dano_min" : ataque.dano_min
+                                    }}), 201
+    except Exception as error:
+        print(f"Error al crear ataque: {str(error)}")
+        return jsonify({'message': 'Error al crear ataque'}), 500
+
 @app.route('/borrar_personaje/<id>', methods=['DELETE'])
 def borrar_personaje(id):
     try:
