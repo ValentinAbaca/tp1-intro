@@ -1,13 +1,15 @@
 from flask import Flask, request, jsonify
 from models import db, Personajes, Ataques, PersonajesAtaques
+from dotenv import load_dotenv
 import os
 
-user = "valentin" #Cambiar el usuario de la base de datos
-password = "valentin" #Cambiar la contraseña de la base de datos
-database = "prueba" #Cambiar el nombre de la base de datos
+load_dotenv() #Carga variables de ambiente del archivo .env
+DATABASE_USER = os.getenv("DATABASE_USER")
+DATABASE_PASSWORD = os.getenv("DATABASE_PASSWORD")
+DATABASE_NAME = os.getenv("DATABASE_NAME")
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = f"postgresql+psycopg2://{user}:{password}@localhost:5432/{database}" # Conexión a la base de datos
+app.config['SQLALCHEMY_DATABASE_URI'] = f"postgresql+psycopg2://{DATABASE_USER}:{DATABASE_PASSWORD}@localhost:5432/{DATABASE_NAME}" # Conexión a la base de datos
 port = 5000
 
 @app.route('/')
