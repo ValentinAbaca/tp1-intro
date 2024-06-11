@@ -1,0 +1,103 @@
+/* Estilos de seleccion-personaje.html */
+
+
+main{
+    height: 100vh;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+      url("../images/goku-house.jpeg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100%;
+    background-position: center;
+}
+
+.personajes__img{
+    width: 75px;
+    height: auto;
+}
+
+.personajes__btn{
+    background-color: var(--naranja);
+    font-size: .7rem;
+    padding: 5px 10px;
+}
+
+.personajes__btn:hover{
+    background-color: var(--naranja);
+}
+
+.grillaPersonajes{
+    height: 20rem;
+    width: 100%;
+}
+
+.grillaPersonajes__thumbnail{
+    width: 10%;
+    height: 33%;
+    cursor: pointer;
+    padding: 3px;
+}
+
+.grillaPersonajes__thumbnail--img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.grillaPersonajes__thumbnail:hover .grillaPersonajes__thumbnail--img{
+    position: relative;
+    border: 3px solid var(--amarillo);
+    width: 110%;
+    height: 110%;
+    transition: all 0.25s ease-out;
+}
+@media(min-width: 375px){
+    .personajes__img{
+        width: 100px;
+        height: auto;
+    }
+    
+}
+@media(min-width: 768px){
+    .personajes__img{
+        width: 200px;
+        height: auto;
+    }
+    .personajes__btn{
+        font-size: 1rem;
+        padding: 10px 20px;
+    }
+    
+}
+@media (min-width: 1024px){
+    .personajes__img{
+        width: 200px;
+    }
+    .personajes__text{
+        font-size: 1.5rem;
+    }
+    .personajes__btn{
+        font-size: 1.2rem;
+        padding: 10px 20px;
+    }
+
+    .personajes__title{
+        font-size: 4rem;
+    }
+    
+    .personajes__nombre{
+        font-size: 3rem;
+    }
+
+
+    .grillaPersonajes{
+        height: 25rem;
+        width: 80%;
+    }
+}
+
+@media (min-width: 1440px){
+    .personajes__img{
+        width: 350px;
+    }
+}
