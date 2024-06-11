@@ -171,11 +171,11 @@ def borrar_personaje(id):
 
         db.session.delete(personaje)
         db.session.commit()
-        return jsonify({'message': 'Personaje borrado correctamente'}), 200
+        return jsonify({'message': f'Personaje id: {id} borrado correctamente'}), 200
 
     except Exception as error:
         print(f"Error al borrar personaje: {str(error)}")
-        return jsonify({'message': 'Error al borrar personaje'}), 500
+        return jsonify({'message': f'Error al borrar personaje {id}'}), 400
     
 @app.route('/borrar_ataque/<id>', methods=['DELETE'])
 def borrar_ataque(id):
