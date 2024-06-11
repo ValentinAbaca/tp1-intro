@@ -1,4 +1,5 @@
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 from models import db, Personajes, Ataques, PersonajesAtaques
 import os
 
@@ -7,6 +8,7 @@ password = "valentin" #Cambiar la contraseña de la base de datos
 database = "prueba" #Cambiar el nombre de la base de datos
 
 app = Flask(__name__)
+CORS(app)
 app.config['SQLALCHEMY_DATABASE_URI'] = f"postgresql+psycopg2://{user}:{password}@localhost:5432/{database}" # Conexión a la base de datos
 port = 5000
 
@@ -94,6 +96,23 @@ def obtener_ataques():
         print(f"Error al obtener ataques: {str(error)}")
         return jsonify({'message': 'Ataques no encontrados'}), 500
 
+
+@app.route('/ataques/<id>')
+def obtener_ataque_id(id):
+    try:
+        ataque = Ataques.query.get(id)
+        ataque_data = {
+            'id': ataque.id,
+            'nombre': ataque.nombre,
+            'costo_ki': ataque.costo_ki,
+            'dano_max': ataque.dano_max,
+            'dano_min': ataque.dano_min
+        }
+        return jsonify(ataque_data)
+    except Exception as error:
+        print(f"Error al obtener ataque: {str(error)}")
+        return jsonify({'message': 'Ataque no encontrado'}), 500
+
 @app.route('/nuevo_personaje', methods=['POST'])
 def crear_personaje():
     try:
@@ -156,6 +175,37 @@ def crear_personaje():
         print(f"Error al crear personaje: {str(error)}")
         return jsonify({'message': 'Error al crear personaje'}), 500
 
+@app.route('/nuevo_ataque', methods=['POST'])
+def crear_ataque():
+    try:
+        id_max = Ataques.query.order_by(Ataques.id.desc()).first()
+        id = id_max.id + 1
+
+        data = request.form
+        nuevo_nombre = data['nombre']
+
+        verificar_ataque = Ataques.query.filter_by(nombre=nuevo_nombre).first()
+        if verificar_ataque:
+            return jsonify({'message': 'El ataque ya existe'}), 400
+
+        nuevo_costo_ki = data['costo_ki']
+        nuevo_dano_max = data['dano_max']
+        nuevo_dano_min = data['dano_min']
+
+        ataque = Ataques(id=id, nombre=nuevo_nombre, costo_ki=nuevo_costo_ki, dano_max=nuevo_dano_max, dano_min=nuevo_dano_min)
+        db.session.add(ataque)
+        db.session.commit()
+
+        return jsonify({"ataque" : {"id" : ataque.id, 
+                                    "nombre" : ataque.nombre, 
+                                    "costo_ki" : ataque.costo_ki, 
+                                    "dano_max" : ataque.dano_max, 
+                                    "dano_min" : ataque.dano_min
+                                    }}), 201
+    except Exception as error:
+        print(f"Error al crear ataque: {str(error)}")
+        return jsonify({'message': 'Error al crear ataque'}), 500
+
 @app.route('/borrar_personaje/<id>', methods=['DELETE'])
 def borrar_personaje(id):
     try:
@@ -171,11 +221,11 @@ def borrar_personaje(id):
 
         db.session.delete(personaje)
         db.session.commit()
-        return jsonify({'message': 'Personaje borrado correctamente'}), 200
+        return jsonify({'message': f'Personaje id: {id} borrado correctamente'}), 200
 
     except Exception as error:
         print(f"Error al borrar personaje: {str(error)}")
-        return jsonify({'message': 'Error al borrar personaje'}), 500
+        return jsonify({'message': f'Error al borrar personaje {id}'}), 400
     
 @app.route('/borrar_ataque/<id>', methods=['DELETE'])
 def borrar_ataque(id):
@@ -193,6 +243,21 @@ def borrar_ataque(id):
     except Exception as error:
         print(f"Error al borrar ataque: {str(error)}")
         return jsonify({'message': f'Error al borrar ataque {id}'}), 500
+
+@app.route('/modificar_ataque/<id>', methods=['PUT'])
+def modificar_ataque(id):
+    try:
+        ataque = Ataques.query.get(id)
+        data = request.form
+        ataque.nombre = data['nombre']
+        ataque.costo_ki = data['costo_ki']
+        ataque.dano_max = data['dano_max']
+        ataque.dano_min = data['dano_min']
+        db.session.commit()
+        return jsonify({'message': f'Ataque id: {id} modificado correctamente'}), 200
+    except Exception as error:
+        print(f"Error al modificar ataque: {str(error)}")
+        return jsonify({'message': f'Error al modificar ataque {id}'}), 500
 
 if __name__ == '__main__':
     db.init_app(app)
