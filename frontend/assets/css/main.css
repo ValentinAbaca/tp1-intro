@@ -4,29 +4,91 @@ Gris: #E0E0E0
 Amarillo: #F8E71C */
 
 /* variables */
-:root{
-    --naranja: #F58220;
-    --azul: #0072CE;
-    --gris: #E0E0E0;
-    --amarillo: #F8E71C;
+
+:root {
+  --naranja: #f58220;
+  --azul: #0072ce;
+  --gris: #e0e0e0;
+  --amarillo: #f8e71c;
 }
 
 /* estilos generales */
-p, a{
-    font-family: "Montserrat", sans-serif;
+
+p,
+a {
+  font-family: "Montserrat", sans-serif;
 }
-h1, h2, h3, h4, h5, h6{
-    font-family: "Merriweather", serif;
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Merriweather", serif;
 }
 
 /* fuentes */
-.montserrat{
-    font-family: "Montserrat", sans-serif;
+
+.montserrat {
+  font-family: "Montserrat", sans-serif;
 }
-.merriweather{
-    font-family: "Merriweather", serif;
+
+.merriweather {
+  font-family: "Merriweather", serif;
 }
+
 /* navbar */
-.navbar{
-    background-color: var(--naranja);
+
+.navbar {
+  background-color: var(--naranja);
+  height: 10vh;
+}
+
+/* hero */
+
+.hero {
+  height: 90vh;
+  color: #d5ffd0;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url("../images/guerreros-z.webp");
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100%;
+  background-position: center;
+}
+
+.hero__title {
+  font-size: 2rem;
+}
+
+.hero__description {
+  font-size: 1.5rem;
+}
+
+.hero__button {
+    background-color: var(--azul)!important;
+    font-size: 1.5rem !important;
+    color: #fff !important;
+
+}
+
+.hero__button:hover {
+    color: #000 !important;
+}
+
+
+@media(min-width: 1024px) {
+    .hero__title {
+        font-size: 5rem;
+      }
+      
+      .hero__description {
+        font-size: 2rem;
+      }
+      
+      .hero__button {
+          font-size: 2rem !important;
+      }
+
 }
