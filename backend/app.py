@@ -1,4 +1,5 @@
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 from models import db, Personajes, Ataques, PersonajesAtaques
 import os
 
@@ -7,6 +8,7 @@ password = "valentin" #Cambiar la contraseña de la base de datos
 database = "prueba" #Cambiar el nombre de la base de datos
 
 app = Flask(__name__)
+CORS(app)
 app.config['SQLALCHEMY_DATABASE_URI'] = f"postgresql+psycopg2://{user}:{password}@localhost:5432/{database}" # Conexión a la base de datos
 port = 5000
 
