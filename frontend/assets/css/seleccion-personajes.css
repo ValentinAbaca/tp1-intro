@@ -26,6 +26,12 @@ main{
     background-color: var(--naranja);
 }
 
+.personajes__btn:disabled{
+    background-color: #743d0e;
+    border-color: #743d0e;
+    color: #fff;
+}
+
 .grillaPersonajes{
     height: 20rem;
     width: 100%;
