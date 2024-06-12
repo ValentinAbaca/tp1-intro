@@ -30,6 +30,8 @@ def obtener_personajes():
                 'vida': personaje.vida,
                 'ki': personaje.ki,
                 'descripcion': personaje.descripcion,
+                'raza': personaje.raza,
+                'imagen': personaje.imagen,
                 'ataques': []
             }
 
@@ -62,6 +64,8 @@ def obtener_personaje_id(id):
             'vida': personaje.vida,
             'ki': personaje.ki,
             'descripcion': personaje.descripcion,
+            'raza': personaje.raza,
+            'imagen': personaje.imagen,
             'ataques': []
         }
         ataques = PersonajesAtaques.query.filter_by(id_personaje=personaje.id).all()
