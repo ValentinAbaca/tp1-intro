@@ -41,6 +41,7 @@ export const actualizar_contendor_personaje = (contenedor, datos_personaje) => {
   const name = contenedor.querySelector(".personajes__nombre");
   const imagen = contenedor.querySelector(".personajes__img");
   imagen.src = datos_personaje.imagen;
+  imagen.alt = datos_personaje.nombre;
   name.innerText = datos_personaje.nombre;
 };
 
