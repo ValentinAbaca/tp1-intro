@@ -6,11 +6,12 @@ import {
   actualizar_contendor_personaje,
   setear_query_strings,
   actualizar_texto,
-  fetch_personajes
+  fetch_personajes,
 } from "./funciones.js";
 
 const personajes = await fetch_personajes();
 
+// Referencias HTML
 const contenedor_personaje_1 = document.querySelector(".personajes__1");
 const contenedor_personaje_2 = document.querySelector(".personajes__2");
 const boton_confirmar_pj1 = document.querySelector("#confirmar_personaje_1");
@@ -21,13 +22,15 @@ const texto_status = document.querySelector(".personajes__text");
 // Variables de estado
 let id_personaje_1, id_personaje_2, id_personaje_elegido;
 
+// Inicializar html
 actualizar_contendor_personaje(contenedor_personaje_1, personajes[0]);
 actualizar_contendor_personaje(contenedor_personaje_2, personajes[1]);
-
 dibujar_grilla_personajes(personajes);
 const contenedores_personajes = document.querySelectorAll(
   ".grillaPersonajes__thumbnail--img"
 );
+
+// Asignar eventos
 for (const contenedor of contenedores_personajes) {
   contenedor.addEventListener(
     "click",
@@ -65,6 +68,11 @@ boton_confirmar_pj2.addEventListener("click", () => {
     const personaje = personajes.filter((pj) => pj.id === id_personaje_2)[0];
     actualizar_contendor_personaje(contenedor_personaje_2, personaje);
     actualizar_texto(texto_status, "Personajes Listos. ¡A pelear!");
-    setear_query_strings(boton_iniciar, "./juego.html", id_personaje_1, id_personaje_2);
+    setear_query_strings(
+      boton_iniciar,
+      "./juego.html",
+      id_personaje_1,
+      id_personaje_2
+    );
   }
 });
