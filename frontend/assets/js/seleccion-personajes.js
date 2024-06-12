@@ -1,12 +1,15 @@
-import { personajes } from "./personajes.js";
+// import { personajes } from "./personajes.js";
 import {
   dibujar_grilla_personajes,
   switch_botones,
   obtener_id_personaje,
   actualizar_contendor_personaje,
   setear_query_strings,
-  actualizar_texto
+  actualizar_texto,
+  fetch_personajes
 } from "./funciones.js";
+
+const personajes = await fetch_personajes();
 
 const contenedor_personaje_1 = document.querySelector(".personajes__1");
 const contenedor_personaje_2 = document.querySelector(".personajes__2");
@@ -14,8 +17,6 @@ const boton_confirmar_pj1 = document.querySelector("#confirmar_personaje_1");
 const boton_confirmar_pj2 = document.querySelector("#confirmar_personaje_2");
 const boton_iniciar = document.querySelector("#iniciar_juego");
 const texto_status = document.querySelector(".personajes__text");
-
-
 
 // Variables de estado
 let id_personaje_1, id_personaje_2, id_personaje_elegido;
