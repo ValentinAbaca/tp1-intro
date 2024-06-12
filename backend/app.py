@@ -30,6 +30,8 @@ def obtener_personajes():
                 'vida': personaje.vida,
                 'ki': personaje.ki,
                 'descripcion': personaje.descripcion,
+                'raza': personaje.raza,
+                'imagen': personaje.imagen,
                 'ataques': []
             }
 
@@ -62,6 +64,8 @@ def obtener_personaje_id(id):
             'vida': personaje.vida,
             'ki': personaje.ki,
             'descripcion': personaje.descripcion,
+            'raza': personaje.raza,
+            'imagen': personaje.imagen,
             'ataques': []
         }
         ataques = PersonajesAtaques.query.filter_by(id_personaje=personaje.id).all()
@@ -260,6 +264,44 @@ def modificar_ataque(id):
     except Exception as error:
         print(f"Error al modificar ataque: {str(error)}")
         return jsonify({'message': f'Error al modificar ataque {id}'}), 500
+
+@app.route('/modificar_personaje/<id>', methods=['PUT'])
+def modificar_personaje(id):
+    try:
+        personaje = Personajes.query.get(id)
+        data = request.form
+
+        if 'imagen' in request.files:
+            os.remove(f"static/img/{personaje.imagen.split('/')[-1]}")
+            nueva_imagen = request.files['imagen']
+            nueva_imagen.save(f"static/img/{nueva_imagen.filename}")
+            print(f"Imagen guardada en: static/img/{nueva_imagen.filename}")
+            path = f"http://localhost:5000/static/img/{nueva_imagen.filename}"
+            personaje.imagen = path
+
+        personaje.nombre = data['nombre']
+        personaje.vida = data['vida']
+        personaje.ki = data['ki']
+        personaje.descripcion = data['descripcion']
+        personaje.raza = data['raza']
+
+        db.session.commit()
+
+        ids_ataques = data['ataques'].split(',')
+        
+        for id_ataque in ids_ataques:
+            if PersonajesAtaques.query.filter_by(id_personaje=id, id_ataque=id_ataque).count() == 0:
+                max_id_relacion = PersonajesAtaques.query.order_by(PersonajesAtaques.id.desc()).first()
+                id_relacion = max_id_relacion.id + 1
+                personaje_ataque = PersonajesAtaques(id=id_relacion, id_personaje=id, id_ataque=id_ataque)
+                db.session.add(personaje_ataque)
+                db.session.commit()
+        
+        return jsonify({'message': f'Personaje id: {id} modificado correctamente'}), 200
+    
+    except Exception as error:
+        print(f"Error al modificar personaje: {str(error)}")
+        return jsonify({'message': f'Error al modificar personaje {id}'}), 500
 
 if __name__ == '__main__':
     db.init_app(app)
