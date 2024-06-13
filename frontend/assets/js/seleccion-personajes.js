@@ -7,6 +7,7 @@ import {
   setear_query_strings,
   actualizar_texto,
   fetch_personajes,
+  verificar_seleccion
 } from "./funciones.js";
 
 const personajes = await fetch_personajes();
@@ -18,6 +19,7 @@ const boton_confirmar_pj1 = document.querySelector("#confirmar_personaje_1");
 const boton_confirmar_pj2 = document.querySelector("#confirmar_personaje_2");
 const boton_iniciar = document.querySelector("#iniciar_juego");
 const texto_status = document.querySelector(".personajes__text");
+const contenedores_personajes = document.querySelectorAll(".grillaPersonajes__thumbnail--img");
 
 // Variables de estado
 let id_personaje_1, id_personaje_2, id_personaje_elegido;
@@ -26,21 +28,19 @@ let id_personaje_1, id_personaje_2, id_personaje_elegido;
 actualizar_contendor_personaje(contenedor_personaje_1, personajes[0]);
 actualizar_contendor_personaje(contenedor_personaje_2, personajes[1]);
 dibujar_grilla_personajes(personajes);
-const contenedores_personajes = document.querySelectorAll(
-  ".grillaPersonajes__thumbnail--img"
-);
 
 // Asignar eventos
 for (const contenedor of contenedores_personajes) {
-  contenedor.addEventListener(
-    "click",
-    (event) => (id_personaje_elegido = obtener_id_personaje(event))
-  );
+  contenedor.addEventListener("click", (event) => {
+    id_personaje_elegido = obtener_id_personaje(event);
+    verificar_seleccion(contenedores_personajes, id_personaje_elegido);
+  });
 }
 
 boton_confirmar_pj1.addEventListener("click", () => {
   id_personaje_1 = id_personaje_elegido;
   id_personaje_elegido = null;
+  verificar_seleccion(contenedores_personajes, id_personaje_elegido);
   switch_botones(
     id_personaje_1,
     id_personaje_2,
@@ -57,6 +57,7 @@ boton_confirmar_pj1.addEventListener("click", () => {
 boton_confirmar_pj2.addEventListener("click", () => {
   id_personaje_2 = id_personaje_elegido;
   id_personaje_elegido = null;
+  verificar_seleccion(contenedores_personajes, id_personaje_elegido);
   switch_botones(
     id_personaje_1,
     id_personaje_2,

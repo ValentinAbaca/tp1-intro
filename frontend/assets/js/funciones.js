@@ -94,6 +94,24 @@ export const actualizar_texto = (contenedor, texto) => {
   contenedor.innerText = texto;
 };
 
+/**
+ * Actualiza el estado de selección de los contenedores dados basándose en el estado del ID general.
+ *
+ * @param {NodeList} contenedores - La lista de contenedores a actualizar.
+ * @param {number} selected_id - El ID del contenedor seleccionado.
+ * @return {void} Esta función no devuelve un valor.
+ */
+export const verificar_seleccion = (contenedores, selected_id) => {
+  for (const contenedor of contenedores) {
+      const id_target = contenedor.getAttribute("data-id");
+      if(parseInt(id_target) === selected_id){
+        contenedor.classList.add("grillaPersonajes__thumbnail--img--selected");
+      }else{
+        contenedor.classList.remove("grillaPersonajes__thumbnail--img--selected");
+      }
+  }
+}
+
 export const fetch_personajes = async () => {
   try {
     let data = await fetch("http://localhost:5000/personajes");

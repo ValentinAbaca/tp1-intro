@@ -52,11 +52,16 @@ main{
 
 .grillaPersonajes__thumbnail:hover .grillaPersonajes__thumbnail--img{
     position: relative;
-    border: 3px solid var(--amarillo);
+    border: 3px solid var(--naranja);
     width: 110%;
     height: 110%;
     transition: all 0.25s ease-out;
 }
+
+.grillaPersonajes__thumbnail--img--selected{
+    border: 3px solid var(--naranja);
+}
+
 @media(min-width: 375px){
     .personajes__img{
         width: 100px;
