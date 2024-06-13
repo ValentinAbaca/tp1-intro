@@ -19,7 +19,6 @@ const boton_confirmar_pj1 = document.querySelector("#confirmar_personaje_1");
 const boton_confirmar_pj2 = document.querySelector("#confirmar_personaje_2");
 const boton_iniciar = document.querySelector("#iniciar_juego");
 const texto_status = document.querySelector(".personajes__text");
-const contenedores_personajes = document.querySelectorAll(".grillaPersonajes__thumbnail--img");
 
 // Variables de estado
 let id_personaje_1, id_personaje_2, id_personaje_elegido;
@@ -28,19 +27,21 @@ let id_personaje_1, id_personaje_2, id_personaje_elegido;
 actualizar_contendor_personaje(contenedor_personaje_1, personajes[0]);
 actualizar_contendor_personaje(contenedor_personaje_2, personajes[1]);
 dibujar_grilla_personajes(personajes);
+// Recien puedo seleccionar la grilla despues de que se renderice
+const grilla_personajes = document.querySelectorAll(".grillaPersonajes__thumbnail--img");
 
 // Asignar eventos
-for (const contenedor of contenedores_personajes) {
+for (const contenedor of grilla_personajes) {
   contenedor.addEventListener("click", (event) => {
     id_personaje_elegido = obtener_id_personaje(event);
-    verificar_seleccion(contenedores_personajes, id_personaje_elegido);
+    verificar_seleccion(grilla_personajes, id_personaje_elegido);
   });
 }
 
 boton_confirmar_pj1.addEventListener("click", () => {
   id_personaje_1 = id_personaje_elegido;
   id_personaje_elegido = null;
-  verificar_seleccion(contenedores_personajes, id_personaje_elegido);
+  verificar_seleccion(grilla_personajes, id_personaje_elegido);
   switch_botones(
     id_personaje_1,
     id_personaje_2,
@@ -57,7 +58,7 @@ boton_confirmar_pj1.addEventListener("click", () => {
 boton_confirmar_pj2.addEventListener("click", () => {
   id_personaje_2 = id_personaje_elegido;
   id_personaje_elegido = null;
-  verificar_seleccion(contenedores_personajes, id_personaje_elegido);
+  verificar_seleccion(grilla_personajes, id_personaje_elegido);
   switch_botones(
     id_personaje_1,
     id_personaje_2,
