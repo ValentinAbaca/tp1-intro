@@ -44,9 +44,12 @@ export const obtener_id_personaje = (event) => {
  * @return {void} Esta función no devuelve ningún valor.
  */
 export const switch_botones = (id_1, id_2, boton_1, boton_2, boton_iniciar) => {
+  // si el jugador 1 eligio un personaje, deshabilitas el boton del jugador 1, y habilitas el del 2
   if (id_1 && !id_2) {
     boton_1.disabled = true;
     boton_2.disabled = false;
+    /* en caso de que el jugador 2 tambien elija su personaje deshabilito su boton y
+     habilito el boton de inicio */
   } else if (id_1 && id_2) {
     boton_2.disabled = true;
     boton_iniciar.disabled = false;
