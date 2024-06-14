@@ -47,7 +47,7 @@ export const actualizar_contenedor_personaje = (contenedor, personaje) => {
 
 /**
  * Navega a una nueva página con los parámetros de los personajes seleccionados.
- * 
+ *
  * @param {string} route - La ruta base de la página a la que se quiere navegar.
  * @param {string} id_personaje_1 - El ID del primer personaje.
  * @param {string} id_personaje_2 - El ID del segundo personaje.
@@ -59,7 +59,7 @@ export const navegar_pagina = (route, id_personaje_1, id_personaje_2) => {
 
 /**
  * Actualiza el texto de un contenedor.
- * 
+ *
  * @param {HTMLElement} contenedor - El elemento HTML cuyo texto se va a actualizar.
  * @param {string} texto - El nuevo texto a establecer en el contenedor.
  */
@@ -69,7 +69,7 @@ export const actualizar_texto = (contenedor, texto) => {
 
 /**
  * Marca un personaje como seleccionado en una grilla de personajes.
- * 
+ *
  * @param {HTMLDivElement} grilla_personajes - El contenedor de la grilla de personajes.
  * @param {string} id_personaje_elegido - El ID del personaje a marcar como seleccionado.
  */
@@ -82,11 +82,14 @@ export const marcar_seleccion = (grilla_personajes, id_personaje_elegido) => {
 
 /**
  * Desmarca un personaje como seleccionado en una grilla de personajes.
- * 
+ *
  * @param {HTMLDivElement} grilla_personajes - El contenedor de la grilla de personajes.
  * @param {string} id_personaje_elegido - El ID del personaje a desmarcar como seleccionado.
  */
-export const desmarcar_seleccion = (grilla_personajes, id_personaje_elegido) => {
+export const desmarcar_seleccion = (
+  grilla_personajes,
+  id_personaje_elegido
+) => {
   const icono_personaje = grilla_personajes.querySelector(
     `[data-id="${id_personaje_elegido}"]`
   );
@@ -95,7 +98,7 @@ export const desmarcar_seleccion = (grilla_personajes, id_personaje_elegido) => 
 
 /**
  * Deshabilita un botón.
- * 
+ *
  * @param {HTMLButtonElement} boton - El botón a deshabilitar.
  */
 export const deshabilitar_boton = (boton) => {
@@ -104,25 +107,29 @@ export const deshabilitar_boton = (boton) => {
 
 /**
  * Habilita un botón.
- * 
+ *
  * @param {HTMLButtonElement} boton - El botón a habilitar.
  */
 export const habilitar_boton = (boton) => {
   boton.disabled = false;
 };
 
-
 export const fetch_personajes = async () => {
-  try {
-    let data = await fetch("http://localhost:5000/personajes");
-    if (data?.ok) {
-      data = await data.json();
-      return data;
-    }
-    if (data?.status === 500) {
-      throw new Error(data.data.message);
-    }
-  } catch (error) {
-    console.log(error);
-  }
+  let personajes;
+  await fetch("http://localhost:5000/personajes")
+    .then((response) => {
+      return response.json();
+    })
+    .then((response) => {
+      if (response.length > 0) {
+        personajes = response;
+      }
+      if (response?.status === 500) {
+        throw new Error(response.data.message);
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  return personajes;
 };
