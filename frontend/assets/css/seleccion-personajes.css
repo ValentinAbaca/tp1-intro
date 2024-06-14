@@ -60,9 +60,13 @@ main{
     }  
 }
 @media(min-width: 768px){
+    .personajes__title{
+        font-size: 3rem;
+    }
+
     .personajes__img{
-        width: 200px;
-        height: 200px;
+        width: 225px;
+        height: 225px;
     }
     .personajes__btn{
         font-size: 1rem;
@@ -71,6 +75,9 @@ main{
     
 }
 @media (min-width: 1024px){
+    .personajes__title{
+        font-size: 4rem;
+    }
     .personajes__text{
         font-size: 1.5rem;
     }
@@ -79,14 +86,15 @@ main{
         padding: 10px 20px;
     }
 
-    .personajes__title{
-        font-size: 4rem;
-    }
+    
     
     .personajes__nombre{
         font-size: 3rem;
     }
-
+    .personajes__img{
+        width: 300px;
+        height: 300px;
+    }
 
     .grillaPersonajes{
         height: 20rem;
