@@ -123,13 +123,13 @@ export const fetch_personajes = async () => {
     .then((response) => {
       if (response.length > 0) {
         personajes = response;
-      }
-      if (response?.status === 500) {
-        throw new Error(response.data.message);
+      } else {
+        throw new Error(response.message);
       }
     })
     .catch((error) => {
-      console.log(error);
+      location.assign("/");
+      alert(error);
     });
   return personajes;
 };
