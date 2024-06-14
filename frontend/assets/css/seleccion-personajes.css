@@ -13,7 +13,8 @@ main{
 
 .personajes__img{
     width: 75px;
-    height: auto;
+    height: 75px;
+    object-fit: cover;
 }
 
 .personajes__btn{
@@ -33,46 +34,35 @@ main{
 }
 
 .grillaPersonajes{
-    height: 20rem;
+    height: 10rem;
     width: 100%;
 }
 
 .grillaPersonajes__thumbnail{
     width: 10%;
-    height: 33%;
-    cursor: pointer;
-    padding: 3px;
-}
-
-.grillaPersonajes__thumbnail--img{
-    width: 100%;
-    height: 100%;
+    height: 150px;
     object-fit: cover;
+    border: 3px solid var(--azul);
 }
 
-.grillaPersonajes__thumbnail:hover .grillaPersonajes__thumbnail--img{
-    position: relative;
+.grillaPersonajes__thumbnail:hover{
     border: 3px solid var(--naranja);
-    width: 110%;
-    height: 110%;
-    transition: all 0.25s ease-out;
 }
 
-.grillaPersonajes__thumbnail--img--selected{
+.grillaPersonajes__thumbnail--selected{
     border: 3px solid var(--naranja);
 }
 
 @media(min-width: 375px){
     .personajes__img{
         width: 100px;
-        height: auto;
-    }
-    
+        height: 100px;
+    }  
 }
 @media(min-width: 768px){
     .personajes__img{
         width: 200px;
-        height: auto;
+        height: 200px;
     }
     .personajes__btn{
         font-size: 1rem;
@@ -81,9 +71,6 @@ main{
     
 }
 @media (min-width: 1024px){
-    .personajes__img{
-        width: 200px;
-    }
     .personajes__text{
         font-size: 1.5rem;
     }
@@ -102,7 +89,7 @@ main{
 
 
     .grillaPersonajes{
-        height: 25rem;
+        height: 20rem;
         width: 80%;
     }
 }
@@ -110,5 +97,6 @@ main{
 @media (min-width: 1440px){
     .personajes__img{
         width: 350px;
+        height: 350px;
     }
 }

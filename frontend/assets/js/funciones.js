@@ -1,25 +1,16 @@
-/**
- * Renderiza una grilla de personajes en la página web basada en los datos de personajes proporcionados.
- *
- * @param {Array} personajes - Un array de objetos de personajes que contienen imagen, nombre e id.
- * @return {void} Esta función no devuelve un valor.
- */
-export const dibujar_grilla_personajes = (personajes) => {
-  const contenedor = document.querySelector(".grillaPersonajes");
+export const renderizar_personajes = (grilla, personajes) => {
   let esqueleto_contenedor = "";
   for (const personaje of personajes) {
     esqueleto_contenedor += `
-           <div class="grillaPersonajes__thumbnail">
             <img
               src="${personaje.imagen}"
               alt="${personaje.nombre}"
               data-id="${personaje.id}"
-              class="grillaPersonajes__thumbnail--img"
+              class="grillaPersonajes__thumbnail"
             />
-          </div>
           `;
   }
-  contenedor.innerHTML = esqueleto_contenedor;
+  grilla.innerHTML = esqueleto_contenedor;
 };
 
 /**
@@ -29,31 +20,8 @@ export const dibujar_grilla_personajes = (personajes) => {
  * @param {number} id - El ID a asignarle a el atributo 'data-id'.
  * @return {void} La función no devuelve ningun valor.
  */
-export const obtener_id_personaje = (event) => {
-  return parseInt(event.target.getAttribute("data-id"));
-};
-
-/**
- * Una función que cambia los estados de los botones basados en los IDs proporcionados.
- *
- * @param {any} id_1 - El primer ID.
- * @param {any} id_2 - El segundo ID.
- * @param {HTMLElement} boton_1 - El primer elemento de botón.
- * @param {HTMLElement} boton_2 - El segundo elemento de botón.
- * @param {HTMLElement} boton_iniciar - El elemento de botón de inicio.
- * @return {void} Esta función no devuelve ningún valor.
- */
-export const switch_botones = (id_1, id_2, boton_1, boton_2, boton_iniciar) => {
-  // si el jugador 1 eligio un personaje, deshabilitas el boton del jugador 1, y habilitas el del 2
-  if (id_1 && !id_2) {
-    boton_1.disabled = true;
-    boton_2.disabled = false;
-    /* en caso de que el jugador 2 tambien elija su personaje deshabilito su boton y
-     habilito el boton de inicio */
-  } else if (id_1 && id_2) {
-    boton_2.disabled = true;
-    boton_iniciar.disabled = false;
-  }
+export const obtener_id_personaje = (icono_personaje) => {
+  return parseInt(icono_personaje.getAttribute("data-id"));
 };
 
 /**
@@ -63,12 +31,12 @@ export const switch_botones = (id_1, id_2, boton_1, boton_2, boton_iniciar) => {
  * @param {Object} datos_personaje - Los datos del personaje a mostrar.
  * @return {void} Esta función no devuelve un valor.
  */
-export const actualizar_contendor_personaje = (contenedor, datos_personaje) => {
+export const actualizar_contenedor_personaje = (contenedor, personaje) => {
   const name = contenedor.querySelector(".personajes__nombre");
   const imagen = contenedor.querySelector(".personajes__img");
-  imagen.src = datos_personaje.imagen;
-  imagen.alt = datos_personaje.nombre;
-  name.innerText = datos_personaje.nombre;
+  imagen.src = personaje.imagen;
+  imagen.alt = personaje.nombre;
+  name.innerText = personaje.nombre;
 };
 
 /**
@@ -80,37 +48,38 @@ export const actualizar_contendor_personaje = (contenedor, datos_personaje) => {
  * @param {number} id_personaje_2 - El ID del segundo personaje.
  * @return {void} La función no devuelve ningun valor.
  */
-export const setear_query_strings = (
-  boton,
-  route,
-  id_personaje_1,
-  id_personaje_2
-) => {
+export const navegar_pagina = (route, id_personaje_1, id_personaje_2) => {
   const url = `${route}?personaje_1=${id_personaje_1}&personaje_2=${id_personaje_2}`;
-  boton.href = url;
+  location.assign(url);
 };
 
 export const actualizar_texto = (contenedor, texto) => {
   contenedor.innerText = texto;
 };
 
-/**
- * Actualiza el estado de selección de los contenedores dados basándose en el estado del ID general.
- *
- * @param {NodeList} contenedores - La lista de contenedores a actualizar.
- * @param {number} selected_id - El ID del contenedor seleccionado.
- * @return {void} Esta función no devuelve un valor.
- */
-export const verificar_seleccion = (contenedores, selected_id) => {
-  for (const contenedor of contenedores) {
-      const id_target = contenedor.getAttribute("data-id");
-      if(parseInt(id_target) === selected_id){
-        contenedor.classList.add("grillaPersonajes__thumbnail--img--selected");
-      }else{
-        contenedor.classList.remove("grillaPersonajes__thumbnail--img--selected");
-      }
-  }
-}
+export const marcar_seleccion = (grilla_personajes, id_personaje_elegido) => {
+  const icono_personaje = grilla_personajes.querySelector(
+    `[data-id="${id_personaje_elegido}"]`
+  );
+  icono_personaje.classList.add("grillaPersonajes__thumbnail--selected");
+};
+
+export const desmarcar_seleccion = (
+  grilla_personajes,
+  id_personaje_elegido
+) => {
+  const icono_personaje = grilla_personajes.querySelector(
+    `[data-id="${id_personaje_elegido}"]`
+  );
+  icono_personaje.classList.remove("grillaPersonajes__thumbnail--selected");
+};
+
+export const deshabilitar_boton = (boton) => {
+  boton.disabled = true;
+};
+export const habilitar_boton = (boton) => {
+  boton.disabled = false;
+};
 
 export const fetch_personajes = async () => {
   try {
