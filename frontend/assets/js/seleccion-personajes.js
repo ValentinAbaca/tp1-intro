@@ -14,7 +14,9 @@ import {
 const personajes = await fetch_personajes();
 
 // Referencias HTML
-const grilla_personajes = document.querySelector(".grillaPersonajes");
+const grilla_personajes = document.querySelector(
+  ".grillaPersonajes__contenedor"
+);
 const contenedor_personaje_1 = document.querySelector(".personajes__1");
 const contenedor_personaje_2 = document.querySelector(".personajes__2");
 const boton_confirmar_jugador1 = document.querySelector(
@@ -25,6 +27,8 @@ const boton_confirmar_jugador2 = document.querySelector(
 );
 const boton_iniciar = document.querySelector("#iniciar_juego");
 const texto_estado = document.querySelector(".personajes__text");
+const flecha_arriba = document.querySelector(".grillaPersonajes__flechaArriba");
+const flecha_abajo = document.querySelector(".grillaPersonajes__flechaAbajo");
 renderizar_personajes(grilla_personajes, personajes);
 const iconos_personajes = document.querySelectorAll(
   ".grillaPersonajes__thumbnail"
@@ -106,6 +110,20 @@ const iniciar_juego = () => {
   );
 };
 
+const scroll_arriba = () => {
+  grilla_personajes.scrollTo({
+    top: grilla_personajes.scrollTop - grilla_personajes.clientHeight,
+    behavior: "smooth",
+  });
+};
+
+const scroll_abajo = () => {
+  grilla_personajes.scrollTo({
+    top: grilla_personajes.scrollTop + grilla_personajes.clientHeight,
+    behavior: "smooth",
+  });
+};
+
 // Inicializar html
 actualizar_contenedor_personaje(
   contenedor_personaje_1,
@@ -132,3 +150,7 @@ boton_confirmar_jugador2.addEventListener(
 );
 
 boton_iniciar.addEventListener("click", iniciar_juego);
+
+flecha_arriba.addEventListener("click", scroll_arriba);
+
+flecha_abajo.addEventListener("click", scroll_abajo);

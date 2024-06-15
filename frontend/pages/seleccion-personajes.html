@@ -16,7 +16,7 @@
   </head>
   <body>
     <main
-      class="container-fluid d-flex flex-column justify-content-center align-items-center gap-5 p-0 text-light"
+      class="container-fluid d-flex flex-column align-items-center gap-5 p-0 text-light"
     >
       <section class="personajes row w-100">
         <article class="personajes__1 col-4 p-0 text-center">
@@ -56,8 +56,16 @@
           </div>
         </article>
       </section>
-      <section class="grillaPersonajes container px-3">
-        <!-- Acá van los personajes generados via JS -->
+      <section class="grillaPersonajes d-flex justify-content-center position-relative px-3">
+        <span class="grillaPersonajes__flechaArriba">
+          <img src="../assets/svg/arrow-up.svg" alt="arrow-up">
+        </span>
+        <div class="grillaPersonajes__contenedor">
+          <!-- Acá van los personajes generados via JS -->
+        </div>
+        <span class="grillaPersonajes__flechaAbajo">
+          <img src="../assets/svg/arrow-down.svg" alt="arrow-down">
+        </span>
       </section>
     </main>
     <script

@@ -33,10 +33,11 @@ main{
     color: #fff;
 }
 
-.grillaPersonajes{
+.grillaPersonajes__contenedor{
     height: 10rem;
     width: 100%;
     overflow-y: scroll;
+    position: relative;
     /* hide scrollbar */
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
@@ -44,8 +45,35 @@ main{
 }
 
 /* Hide scrollbar for Chrome, Safari and Opera */
-.grillaPersonajes::-webkit-scrollbar {
+.grillaPersonajes__contenedor::-webkit-scrollbar {
     display: none;
+}
+
+.grillaPersonajes__flechaArriba{
+    position: absolute;
+    top: -27%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
+    cursor: pointer;
+}
+
+.grillaPersonajes__flechaAbajo{
+    position: absolute;
+    bottom: -27%;
+    left: 50%;
+    transform: translateX(-50%);
+    cursor: pointer;
+    z-index: 1;
+} 
+
+.grillaPersonajes__flechaAbajo img, .grillaPersonajes__flechaArriba img{
+    height: 50px;
+    width: 50px;
+}
+
+.grillaPersonajes__fila{
+    scroll-snap-align: center;
 }
 
 .grillaPersonajes__thumbnail{
@@ -53,10 +81,10 @@ main{
     height: 100%;
     object-fit: cover;
     border: 3px solid var(--azul);
+    cursor: pointer;
 }
-.grillaPersonajes__fila{
-    scroll-snap-align: center;
-}
+
+
 .grillaPersonajes__thumbnail:hover{
     border: 3px solid var(--naranja);
 }
@@ -64,6 +92,7 @@ main{
 .grillaPersonajes__thumbnail--selected{
     border: 3px solid var(--naranja);
 }
+
 
 @media(min-width: 375px){
     .personajes__img{
@@ -110,9 +139,22 @@ main{
         height: 300px;
     }
 
-    .grillaPersonajes{
+    .grillaPersonajes__contenedor{
         width: 95%;
         height: 15rem;
+    }
+
+    .grillaPersonajes__flechaArriba{
+        top: -39%;
+    }
+
+    .grillaPersonajes__flechaAbajo{
+        bottom: -39%;
+    }
+
+    .grillaPersonajes__flechaAbajo img, .grillaPersonajes__flechaArriba img{
+        height: 100px;
+        width: 100px;
     }
 }
 
