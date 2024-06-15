@@ -34,12 +34,13 @@ main{
 }
 
 .grillaPersonajes{
-    height: 9rem;
+    height: 10rem;
     width: 100%;
     overflow-y: scroll;
     /* hide scrollbar */
     -ms-overflow-style: none;  /* IE and Edge */
-     scrollbar-width: none;  /* Firefox */
+    scrollbar-width: none;  /* Firefox */
+    scroll-snap-type: y mandatory;
 }
 
 /* Hide scrollbar for Chrome, Safari and Opera */
@@ -48,12 +49,14 @@ main{
 }
 
 .grillaPersonajes__thumbnail{
-    width: 33%;
+    width: 20%;
     height: 100%;
     object-fit: cover;
     border: 3px solid var(--azul);
 }
-
+.grillaPersonajes__fila{
+    scroll-snap-align: center;
+}
 .grillaPersonajes__thumbnail:hover{
     border: 3px solid var(--naranja);
 }
@@ -82,14 +85,6 @@ main{
         font-size: 1rem;
         padding: 10px 20px;
     }
-
-    .grillaPersonajes{
-        height: 10rem;
-    }
-
-    .grillaPersonajes__thumbnail{
-        width: 20%;
-    }
     
 }
 @media (min-width: 1024px){
@@ -116,7 +111,7 @@ main{
     }
 
     .grillaPersonajes{
-        width: 80%;
+        width: 95%;
         height: 15rem;
     }
 }

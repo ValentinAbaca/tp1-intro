@@ -6,18 +6,31 @@
  * @return {void} Esta función no devuelve nada.
  */
 export const renderizar_personajes = (grilla, personajes) => {
-  let esqueleto_contenedor = "";
-  for (const personaje of personajes) {
-    esqueleto_contenedor += `
-            <img
-              src="${personaje.imagen}"
-              alt="${personaje.nombre}"
-              data-id="${personaje.id}"
-              class="grillaPersonajes__thumbnail"
-            />
-          `;
+  const COLUMNAS = 5;
+  const FILAS = Math.ceil(personajes.length / 5);
+  let indice_personaje = 0;
+  for (let i = 0; i < FILAS; i++) {
+    let esqueleto_fila = "";
+    const fila = document.createElement("div");
+    fila.classList.add("grillaPersonajes__fila", "h-100", "w-100", "d-flex");
+    let j = 0;
+    while(j < COLUMNAS && indice_personaje < personajes.length) {
+      const personaje = personajes[indice_personaje];
+      esqueleto_fila += `
+              <img
+                src="${personaje.imagen}"
+                alt="${personaje.nombre}"
+                data-id="${personaje.id}"
+                class="grillaPersonajes__thumbnail"
+              />
+             
+            `;
+      j++;
+      indice_personaje++;
+    }
+    fila.innerHTML = esqueleto_fila;
+    grilla.appendChild(fila);
   }
-  grilla.innerHTML = esqueleto_contenedor;
 };
 
 /**
