@@ -16,38 +16,56 @@
   </head>
   <body>
     <main
-      class="container-fluid d-flex flex-column justify-content-center align-items-center text-light"
+      class="container-fluid d-flex flex-column align-items-center gap-5 p-0 text-light"
     >
-      <section class="personajes d-flex justify-content-between w-100">
-        <article class="personajes__1">
+      <section class="personajes row w-100">
+        <article class="personajes__1 col-4 p-0 text-center">
           <h2 class="personajes__title">Jugador 1</h2>
-          <img
-            class="personajes__img"
-          />
-          <div class="d-flex flex-column flex-md-row justify-content-between align-items-center mt-2 gap-2">
-            <button class="btn personajes__btn" id="confirmar_personaje_1">CONFIRMAR</button>
-            <h3 class="personajes__nombre"></h3>
+          <img class="personajes__img" />
+          <div
+            class="d-flex flex-column justify-content-center align-items-center mt-2 gap-2"
+          >
+          <h3 class="personajes__nombre"></h3>
+          <button class="btn personajes__btn" id="confirmar_personaje_1">
+            CONFIRMAR
+          </button>
           </div>
         </article>
         <article
-          class="h-100 d-flex flex-column justify-content-center align-items-center text-center"
+          class="h-100 p-0 col-4 d-flex flex-column justify-content-center align-items-center text-center"
         >
-          <a class="btn personajes__btn mb-2" id="iniciar_juego" disabled>COMENZAR</a>
+          <button class="btn personajes__btn mb-2" id="iniciar_juego" disabled>
+            COMENZAR
+          </button>
           <p class="personajes__text">Jugador 1 seleccionando...</p>
         </article>
-        <article class="personajes__2 text-end">
+        <article class="personajes__2 col-4 p-0 text-center">
           <h2 class="personajes__title">Jugador 2</h2>
-          <img
-            class="personajes__img"
-          />
-          <div class="d-flex flex-column-reverse flex-md-row justify-content-between align-items-center gap-2 mt-2">
+          <img class="personajes__img" />
+          <div
+            class="d-flex flex-column justify-content-center align-items-center gap-2 mt-2"
+          >
             <h3 class="personajes__nombre"></h3>
-            <button class="btn personajes__btn" id="confirmar_personaje_2" disabled>CONFIRMAR</button>
+            <button
+              class="btn personajes__btn"
+              id="confirmar_personaje_2"
+              disabled
+            >
+              CONFIRMAR
+            </button>
           </div>
         </article>
       </section>
-      <section class="grillaPersonajes d-flex flex-wrap">
-        <!-- Acá van los personajes generados via JS -->
+      <section class="grillaPersonajes d-flex justify-content-center position-relative px-3">
+        <span class="grillaPersonajes__flechaArriba">
+          <img src="../assets/svg/arrow-up.svg" alt="arrow-up">
+        </span>
+        <div class="grillaPersonajes__contenedor">
+          <!-- Acá van los personajes generados via JS -->
+        </div>
+        <span class="grillaPersonajes__flechaAbajo">
+          <img src="../assets/svg/arrow-down.svg" alt="arrow-down">
+        </span>
       </section>
     </main>
     <script

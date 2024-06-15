@@ -13,7 +13,8 @@ main{
 
 .personajes__img{
     width: 75px;
-    height: auto;
+    height: 75px;
+    object-fit: cover;
 }
 
 .personajes__btn{
@@ -32,43 +33,83 @@ main{
     color: #fff;
 }
 
-.grillaPersonajes{
-    height: 20rem;
+.grillaPersonajes__contenedor{
+    height: 10rem;
     width: 100%;
+    overflow-y: scroll;
+    position: relative;
+    /* hide scrollbar */
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+    scroll-snap-type: y mandatory;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.grillaPersonajes__contenedor::-webkit-scrollbar {
+    display: none;
+}
+
+.grillaPersonajes__flechaArriba{
+    position: absolute;
+    top: -27%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
+    cursor: pointer;
+}
+
+.grillaPersonajes__flechaAbajo{
+    position: absolute;
+    bottom: -27%;
+    left: 50%;
+    transform: translateX(-50%);
+    cursor: pointer;
+    z-index: 1;
+} 
+
+.grillaPersonajes__flechaAbajo img, .grillaPersonajes__flechaArriba img{
+    height: 50px;
+    width: 50px;
+}
+
+.grillaPersonajes__fila{
+    scroll-snap-align: center;
 }
 
 .grillaPersonajes__thumbnail{
-    width: 10%;
-    height: 33%;
-    cursor: pointer;
-    padding: 3px;
-}
-
-.grillaPersonajes__thumbnail--img{
-    width: 100%;
+    width: 20%;
     height: 100%;
     object-fit: cover;
+    border: 3px solid var(--azul);
+    cursor: pointer;
 }
 
-.grillaPersonajes__thumbnail:hover .grillaPersonajes__thumbnail--img{
-    position: relative;
-    border: 3px solid var(--amarillo);
-    width: 110%;
-    height: 110%;
-    transition: all 0.25s ease-out;
+
+.grillaPersonajes__thumbnail:hover{
+    border: 3px solid var(--naranja);
 }
+
+.grillaPersonajes__thumbnail--selected{
+    border: 3px solid var(--naranja);
+}
+
+
 @media(min-width: 375px){
     .personajes__img{
         width: 100px;
-        height: auto;
-    }
-    
+        height: 100px;
+    }  
 }
 @media(min-width: 768px){
-    .personajes__img{
-        width: 200px;
-        height: auto;
+    .personajes__title{
+        font-size: 3rem;
     }
+
+    .personajes__img{
+        width: 225px;
+        height: 225px;
+    }
+
     .personajes__btn{
         font-size: 1rem;
         padding: 10px 20px;
@@ -76,34 +117,50 @@ main{
     
 }
 @media (min-width: 1024px){
-    .personajes__img{
-        width: 200px;
+    .personajes__title{
+        font-size: 4rem;
     }
+
     .personajes__text{
         font-size: 1.5rem;
     }
+
     .personajes__btn{
         font-size: 1.2rem;
         padding: 10px 20px;
-    }
-
-    .personajes__title{
-        font-size: 4rem;
     }
     
     .personajes__nombre{
         font-size: 3rem;
     }
 
+    .personajes__img{
+        width: 300px;
+        height: 300px;
+    }
 
-    .grillaPersonajes{
-        height: 25rem;
-        width: 80%;
+    .grillaPersonajes__contenedor{
+        width: 95%;
+        height: 15rem;
+    }
+
+    .grillaPersonajes__flechaArriba{
+        top: -39%;
+    }
+
+    .grillaPersonajes__flechaAbajo{
+        bottom: -39%;
+    }
+
+    .grillaPersonajes__flechaAbajo img, .grillaPersonajes__flechaArriba img{
+        height: 100px;
+        width: 100px;
     }
 }
 
 @media (min-width: 1440px){
     .personajes__img{
         width: 350px;
+        height: 350px;
     }
 }

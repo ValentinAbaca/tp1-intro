@@ -1,107 +1,148 @@
 /**
- * Renderiza una grilla de personajes en la página web basada en los datos de personajes proporcionados.
+ * Renderiza la lista de personajes dada en el elemento de contenedor especificado.
  *
- * @param {Array} personajes - Un array de objetos de personajes que contienen imagen, nombre e id.
- * @return {void} Esta función no devuelve un valor.
+ * @param {HTMLDivElement} grilla - El elemento de contenedor donde se renderizarán los personajes.
+ * @param {Array<Object>} personajes - La lista de personajes a renderizar.
+ * @return {void} Esta función no devuelve nada.
  */
-export const dibujar_grilla_personajes = (personajes) => {
-  const contenedor = document.querySelector(".grillaPersonajes");
-  let esqueleto_contenedor = "";
-  for (const personaje of personajes) {
-    esqueleto_contenedor += `
-           <div class="grillaPersonajes__thumbnail">
-            <img
-              src="${personaje.imagen}"
-              alt="${personaje.nombre}"
-              data-id="${personaje.id}"
-              class="grillaPersonajes__thumbnail--img"
-            />
-          </div>
-          `;
+export const renderizar_personajes = (grilla, personajes) => {
+  const COLUMNAS = 5;
+  const FILAS = Math.ceil(personajes.length / 5);
+  let indice_personaje = 0;
+  for (let i = 0; i < FILAS; i++) {
+    let esqueleto_fila = "";
+    const fila = document.createElement("div");
+    fila.classList.add("grillaPersonajes__fila", "h-100", "w-100", "d-flex");
+    let j = 0;
+    while(j < COLUMNAS && indice_personaje < personajes.length) {
+      const personaje = personajes[indice_personaje];
+      esqueleto_fila += `
+              <img
+                src="${personaje.imagen}"
+                alt="${personaje.nombre}"
+                data-id="${personaje.id}"
+                class="grillaPersonajes__thumbnail"
+              />
+             
+            `;
+      j++;
+      indice_personaje++;
+    }
+    fila.innerHTML = esqueleto_fila;
+    grilla.appendChild(fila);
   }
-  contenedor.innerHTML = esqueleto_contenedor;
 };
 
 /**
- * Asigna el valor de el atributo 'data-id' del target el evento al parámetro 'id' .
+ * Devuelve el ID de un personaje a partir del elemento icono_personaje dado.
  *
- * @param {Event} event - El objeto event.
- * @param {number} id - El ID a asignarle a el atributo 'data-id'.
- * @return {void} La función no devuelve ningun valor.
+ * @param {HTMLImageElement} icono_personaje - El elemento icono_personaje del cual se obtendrá el ID.
+ * @return {number} El ID del personaje.
  */
-export const obtener_id_personaje = (event) => {
-  return parseInt(event.target.getAttribute("data-id"));
-};
-
-/**
- * Una función que cambia los estados de los botones basados en los IDs proporcionados.
- *
- * @param {any} id_1 - El primer ID.
- * @param {any} id_2 - El segundo ID.
- * @param {HTMLElement} boton_1 - El primer elemento de botón.
- * @param {HTMLElement} boton_2 - El segundo elemento de botón.
- * @param {HTMLElement} boton_iniciar - El elemento de botón de inicio.
- * @return {void} Esta función no devuelve ningún valor.
- */
-export const switch_botones = (id_1, id_2, boton_1, boton_2, boton_iniciar) => {
-  if (id_1 && !id_2) {
-    boton_1.disabled = true;
-    boton_2.disabled = false;
-  } else if (id_1 && id_2) {
-    boton_2.disabled = true;
-    boton_iniciar.disabled = false;
-  }
+export const obtener_id_personaje = (icono_personaje) => {
+  return parseInt(icono_personaje.getAttribute("data-id"));
 };
 
 /**
  * Actualiza el contenedor con los datos del personaje proporcionados.
  *
- * @param {HTMLElement} contenedor - El elemento contenedor que se actualizará.
+ * @param {HTMLDivElement} contenedor - El elemento contenedor que se actualizará.
  * @param {Object} datos_personaje - Los datos del personaje a mostrar.
  * @return {void} Esta función no devuelve un valor.
  */
-export const actualizar_contendor_personaje = (contenedor, datos_personaje) => {
+export const actualizar_contenedor_personaje = (contenedor, personaje) => {
   const name = contenedor.querySelector(".personajes__nombre");
   const imagen = contenedor.querySelector(".personajes__img");
-  imagen.src = datos_personaje.imagen;
-  imagen.alt = datos_personaje.nombre;
-  name.innerText = datos_personaje.nombre;
+  imagen.src = personaje.imagen;
+  imagen.alt = personaje.nombre;
+  name.innerText = personaje.nombre;
 };
 
 /**
- * Setea los query strings para la ruta dada and con los IDs de personajes, y actualiza el href del botón.
+ * Navega a una nueva página con los parámetros de los personajes seleccionados.
  *
- * @param {HTMLElement} boton - El boton a actualizar.
- * @param {string} route - La ruta base para construir la URL.
- * @param {number} id_personaje_1 - El ID del primer personaje.
- * @param {number} id_personaje_2 - El ID del segundo personaje.
- * @return {void} La función no devuelve ningun valor.
+ * @param {string} route - La ruta base de la página a la que se quiere navegar.
+ * @param {string} id_personaje_1 - El ID del primer personaje.
+ * @param {string} id_personaje_2 - El ID del segundo personaje.
  */
-export const setear_query_strings = (
-  boton,
-  route,
-  id_personaje_1,
-  id_personaje_2
-) => {
+export const navegar_pagina = (route, id_personaje_1, id_personaje_2) => {
   const url = `${route}?personaje_1=${id_personaje_1}&personaje_2=${id_personaje_2}`;
-  boton.href = url;
+  location.assign(url);
 };
 
+/**
+ * Actualiza el texto de un contenedor.
+ *
+ * @param {HTMLElement} contenedor - El elemento HTML cuyo texto se va a actualizar.
+ * @param {string} texto - El nuevo texto a establecer en el contenedor.
+ */
 export const actualizar_texto = (contenedor, texto) => {
   contenedor.innerText = texto;
 };
 
+/**
+ * Marca un personaje como seleccionado en una grilla de personajes.
+ *
+ * @param {HTMLDivElement} grilla_personajes - El contenedor de la grilla de personajes.
+ * @param {string} id_personaje_elegido - El ID del personaje a marcar como seleccionado.
+ */
+export const marcar_seleccion = (grilla_personajes, id_personaje_elegido) => {
+  const icono_personaje = grilla_personajes.querySelector(
+    `[data-id="${id_personaje_elegido}"]`
+  );
+  icono_personaje.classList.add("grillaPersonajes__thumbnail--selected");
+};
+
+/**
+ * Desmarca un personaje como seleccionado en una grilla de personajes.
+ *
+ * @param {HTMLDivElement} grilla_personajes - El contenedor de la grilla de personajes.
+ * @param {string} id_personaje_elegido - El ID del personaje a desmarcar como seleccionado.
+ */
+export const desmarcar_seleccion = (
+  grilla_personajes,
+  id_personaje_elegido
+) => {
+  const icono_personaje = grilla_personajes.querySelector(
+    `[data-id="${id_personaje_elegido}"]`
+  );
+  icono_personaje.classList.remove("grillaPersonajes__thumbnail--selected");
+};
+
+/**
+ * Deshabilita un botón.
+ *
+ * @param {HTMLButtonElement} boton - El botón a deshabilitar.
+ */
+export const deshabilitar_boton = (boton) => {
+  boton.disabled = true;
+};
+
+/**
+ * Habilita un botón.
+ *
+ * @param {HTMLButtonElement} boton - El botón a habilitar.
+ */
+export const habilitar_boton = (boton) => {
+  boton.disabled = false;
+};
+
 export const fetch_personajes = async () => {
-  try {
-    let data = await fetch("http://localhost:5000/personajes");
-    if (data?.ok) {
-      data = await data.json();
-      return data;
-    }
-    if (data?.status === 500) {
-      throw new Error(data.data.message);
-    }
-  } catch (error) {
-    console.log(error);
-  }
+  let personajes;
+  await fetch("http://localhost:5000/personajes")
+    .then((response) => {
+      return response.json();
+    })
+    .then((response) => {
+      if (response.length > 0) {
+        personajes = response;
+      } else {
+        throw new Error(response.message);
+      }
+    })
+    .catch((error) => {
+      location.assign("/");
+      alert(error);
+    });
+  return personajes;
 };
