@@ -1,0 +1,36 @@
+/* Estilos de la ventana del juego =) */
+
+main{
+    min-height: 100vh;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+      url("../images/kame-house.jpeg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100%;
+    background-position: center;
+}
+
+.card, .list-group-item, .ataques__select{
+    background-color: var(--gris);
+}
+
+.progress{
+    background-color: var(--gris);
+    border: 3px solid var(--naranja);
+    height: 35px;
+}
+
+.jugador2__ataques, .jugador2__ataques:focus, .jugador1__ataques, .jugador1__ataques:focus{
+    border-color: var(--naranja);
+    box-shadow: none;
+}
+
+.boton__atacar{
+    font-size: 1.5rem;
+    background-color: var(--naranja);
+    padding: 5px 10px;
+}
+
+.boton__atacar:hover{
+    background-color: var(--naranja);
+}
