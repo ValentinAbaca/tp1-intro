@@ -254,12 +254,6 @@ def borrar_ataque(id_ataque : int) -> bool | None:
     except Exception as error:
         return f"Error al borrar un ataque: {str(error)}"
 
-def verificar_existencia_relacion(id_personaje : int, id_ataque : int) -> bool:
-    '''Recibe un ID de personaje y un ID de ataque, verifica si existe una relación de personaje-ataque y retorna True o False.'''
-    try:
-        return PersonajesAtaques.query.filter_by(id_personaje=id_personaje, id_ataque=id_ataque).count() > 0
-    except Exception as error:
-        return f"Error al verificar la existencia de la relación: {str(error)}"
 
 def agregar_relacion_personaje_ataque(id_personaje : int, id_ataque: int):
     '''Recibe un ID de personaje y un ID de ataque, agrega una nueva relación de personaje-ataque en la base de datos.'''
@@ -287,13 +281,6 @@ def borrar_relacion_personaje_ataque(id_personaje : int, id_ataque : int):
         db.session.commit()
     except Exception as error:
         return f"Error al borrar una relación de personaje y ataque: {str(error)}"
-    
-def obtener_ataques_personaje(id_personaje : int) -> list[PersonajesAtaques]:
-    '''Recibe el ID de un personaje y retorna una lista con los ataques que tiene asignados.'''
-    try:
-        return PersonajesAtaques.query.filter_by(id_personaje=id_personaje).all()
-    except Exception as error:
-        return f"Error al obtener ataques del personaje: {str(error)}"
 
 def obtener_ids_ataques_personaje(id_personaje: int) -> list[int]:
     '''Recibe el ID de un personaje y retorna una lista con los IDs de los ataques que tiene asignados.'''
