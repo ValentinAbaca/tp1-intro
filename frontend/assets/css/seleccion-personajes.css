@@ -17,13 +17,18 @@ main{
     object-fit: cover;
 }
 
-.personajes__btn{
+.boton__volver{
+    position: absolute;
+    top:10px;
+
+}
+.personajes__btn, .boton__volver{
     background-color: var(--naranja);
     font-size: .7rem;
     padding: 5px 10px;
 }
 
-.personajes__btn:hover{
+.personajes__btn:hover, .boton__volver:hover{
     background-color: var(--naranja);
 }
 
@@ -125,7 +130,7 @@ main{
         font-size: 1.5rem;
     }
 
-    .personajes__btn{
+    .personajes__btn, .boton__volver{
         font-size: 1.2rem;
         padding: 10px 20px;
     }
