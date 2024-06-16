@@ -33,8 +33,8 @@ def crear_diccionario_ataque(ataque : Ataques) -> dict:
     except Exception as error:
         return f"Error al crear diccionario de ataque: {str(error)}"
 
-def obtener_ataques_personaje(id_personaje : int) -> list:
-    '''Recibe el ID de un personaje y retorna una lista con los ataques (relaciones) que tiene asignados.'''
+def obtener_ataques_personaje(id_personaje : int) -> list[PersonajesAtaques]:
+    '''Recibe el ID de un personaje y retorna una lista con los ataques que tiene asignados obtenidos de la tabla de relaciones personajes_ataques.'''
     try:
         return PersonajesAtaques.query.filter_by(id_personaje=id_personaje).all()
     except Exception as error:
@@ -50,15 +50,15 @@ def agregar_data_ataques_personaje(diccionario_personaje : dict, relaciones_ataq
     except Exception as error:
         return f"Error al agregar datos de ataques al personaje: {str(error)}"
 
-def obtener_personajes():
+def obtener_personajes() -> list[Personajes]:
     '''Retorna una lista con todos los personajes de la tabla personajes de la base de datos.'''
     try:
         return Personajes.query.all()
     except Exception as error:
         return f"Error al obtener personajes: {str(error)}"
 
-def obtener_data_personajes():
-    '''Retorna una lista con diccionarios de todos los personajes y sus ataques, en caso de no encotrar los personajes retorna None'''
+def obtener_data_personajes() -> list[dict] | None:
+    '''Retorna una lista de diccionarios de todos los personajes y sus ataques, en caso de no encontrar los personajes retorna None'''
     try:
         personajes = obtener_personajes()
 
@@ -76,14 +76,14 @@ def obtener_data_personajes():
         return f"Error al obtener datos de personajes: {str(error)}"
 
 def obtener_personaje_por_id(id_personaje : int) -> Personajes:
-    '''Recibe un ID de personaje y retorna un objeto de la clase Personajes, obtenido de la tabla personajes.'''
+    '''Recibe el ID de un personaje y retorna un objeto de la clase Personajes, obtenido de la tabla personajes.'''
     try:
         return Personajes.query.filter_by(id=id_personaje).first()
     except Exception as error:
         return f"Error al obtener personaje por ID: {str(error)}"
 
-def obtener_data_personaje_id(id_personaje : int) -> dict:
-    '''Recibe un ID de personaje y retorna un diccionario con los datos del personaje y sus ataques, en caso de no encontrar el personaje retorna None.'''
+def obtener_data_personaje_id(id_personaje : int) -> dict | None:
+    '''Recibe el ID de un personaje y retorna un diccionario con los datos del personaje y sus ataques, en caso de no encontrar el personaje retorna None.'''
     try:
         personaje = obtener_personaje_por_id(id_personaje)
 
@@ -97,14 +97,14 @@ def obtener_data_personaje_id(id_personaje : int) -> dict:
     except Exception as error:
         return f"Error al obtener datos del personaje por ID: {str(error)}"
 
-def obtener_ataques() -> list:
+def obtener_ataques() -> list[Ataques]:
     '''Retorna una lista con todos los ataques de la tabla ataques de la base de datos.'''
     try:
         return Ataques.query.all()
     except Exception as error:
         return f"Error al obtener ataques: {str(error)}"
 
-def obtener_data_ataques() -> list:
+def obtener_data_ataques() -> list | None:
     '''Retorna una lista con diccionarios de todos los ataques, en caso de no encontrar los ataques retorna None.'''
     try:
         ataques = obtener_ataques()
@@ -119,14 +119,14 @@ def obtener_data_ataques() -> list:
         return f"Error al obtener datos de ataques: {str(error)}"
 
 def obtener_ataque_id(id_ataque : int) -> Ataques:
-    '''Recibe un ID de ataque y retorna un objeto de la clase Ataques, obtenido de la tabla ataques.'''
+    '''Recibe el ID de un ataque y retorna un objeto de la clase Ataques, obtenido de la tabla ataques.'''
     try:
         return Ataques.query.filter_by(id=id_ataque).first()
     except Exception as error:
         return f"Error al obtener ataque por ID: {str(error)}"
 
-def obtener_data_ataque_id(id_ataque : int) -> dict:
-    '''Recibe un ID de ataque y retorna un diccionario con los datos del ataque, en caso de no encontrar el ataque retorna None.'''
+def obtener_data_ataque_id(id_ataque : int) -> dict | None:
+    '''Recibe el ID de un ataque y retorna un diccionario con los datos del ataque, en caso de no encontrar el ataque retorna None.'''
     try:
         ataque = obtener_ataque_id(id_ataque)
         if not ataque:
@@ -173,7 +173,7 @@ def guardar_imagen(imagen) -> str:
     except Exception as error:
         return f"Error al guardar la imagen: {str(error)}"
 
-def crear_nuevo_personaje(data, imagen) -> dict:
+def crear_nuevo_personaje(data, imagen) -> dict | None:
     '''Recibe un diccionario con los datos de un personaje y una imagen, guarda la imagen y \
     crea un nuevo personaje en la base de datos y retorna un diccionario con los datos del personaje, \
     en caso de ya existir el personaje retorna None.'''
@@ -196,7 +196,7 @@ def crear_nuevo_personaje(data, imagen) -> dict:
     except Exception as error:
         return f"Error al crear un nuevo personaje: {str(error)}"
 
-def crear_nuevo_ataque(data : dict) -> dict:
+def crear_nuevo_ataque(data : dict) -> dict | None:
     '''Recibe un diccionario con los datos de un ataque y crea un nuevo ataque en la base de datos, \
         retorna un diccionario con los datos del ataque y en caso de existir el ataque retorna None'''
     try:
@@ -293,7 +293,7 @@ def obtener_ids_ataques_personaje(id_personaje: int) -> list[int]:
     except Exception as error:
         return f"Error al obtener los IDs de los ataques del personaje: {str(error)}"
     
-def modificar_relaciones(id_personaje, lista_ids_nuevos_ataques):
+def modificar_relaciones(id_personaje : int, lista_ids_nuevos_ataques : list[int]):
     '''Recibe el ID de un personaje y una lista con los IDs de los nuevos ataques, \
     compara los IDs de los ataques viejos con los nuevos y agrega o borra las relaciones de personaje-ataque necesarias.'''
     try:
@@ -309,7 +309,7 @@ def modificar_relaciones(id_personaje, lista_ids_nuevos_ataques):
 
 def modificar_personaje(id : int, data : dict, imagen) -> dict | None:
     '''Recibe un ID de personaje y un diccionario con los datos del personaje, puede recibir una imagen, si recibe imagen la modifica en el servidor, \
-    modifica los datos del personaje y sus relaciones de personaje-ataque y retorna un diccionario con los datos del personaje, \
+    modifica los datos del personaje y sus relaciones de personaje-ataque y retorna un diccionario con los datos del personaje modificado, \
     en caso de no encontrar el personaje retorna None.'''
     try:
         personaje = obtener_personaje_por_id(id)
@@ -339,7 +339,7 @@ def modificar_personaje(id : int, data : dict, imagen) -> dict | None:
     
 
 def modificar_ataque(id : int, data: dict) -> dict | None:
-    '''Recibe un ID de ataque y un diccionario con los datos del ataque, modifica los datos del ataque y retorna un diccionario con los datos del ataque, \
+    '''Recibe un ID de ataque y un diccionario con los datos del ataque, modifica los datos del ataque y retorna un diccionario con los datos del ataque modificado, \
     en caso de no encontrar el ataque retorna None.'''
     try:
         ataque = obtener_ataque_id(id)
