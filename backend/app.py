@@ -54,10 +54,7 @@ def obtener_ataque_id(id):
 @app.route('/nuevo_personaje', methods=['POST'])
 def crear_personaje():
     data = request.form
-    imagen = request.files['imagen']
-    if not imagen:
-        return jsonify({'message': 'Mala request imagen no encontrada'}), 400
-    personaje = crear_nuevo_personaje(data, imagen)
+    personaje = crear_nuevo_personaje(data)
     if personaje == None:
         return jsonify({'message': 'El personaje ya existe'}), 400
     return jsonify({'succes' : True, 'personaje' : personaje}), 201
@@ -86,23 +83,19 @@ def borrar_ataque_por_id(id):
 
 @app.route('/modificar_ataque/<id>', methods=['PUT'])
 def modificar_ataque_por_id(id):
-    data = request.form
+    data = request.json
     ataque = modificar_ataque(id, data)
     if not ataque:
         return jsonify({'message': 'Ataque no encontrado'}), 404
-    return jsonify({"Ataque" : ataque}), 200
+    return jsonify({"Ataque" : ataque, "success" : True}), 200
 
 @app.route('/modificar_personaje/<id>', methods=['PUT'])
 def modificar_personaje_por_id(id):
-    data = request.form
-    if 'imagen' in request.files:
-        imagen = request.files['imagen']
-    else:
-        imagen = None 
-    personaje = modificar_personaje(id, data, imagen)
+    data = request.json
+    personaje = modificar_personaje(id, data)
     if not personaje:
         return jsonify({'message': 'Personaje no encontrado'}), 404
-    return jsonify({"Personaje" : personaje}), 200
+    return jsonify({"personaje" : personaje, "success" : True}), 200
 
 if __name__ == '__main__':
     db.init_app(app)
