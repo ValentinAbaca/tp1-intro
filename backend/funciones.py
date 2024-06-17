@@ -291,7 +291,7 @@ def modificar_relaciones(id_personaje : int, lista_ids_nuevos_ataques : list[int
     except Exception as error:
         return f"Error al modificar las relaciones de personaje y ataque: {str(error)}"
 
-def modificar_personaje(id : int, data) -> dict | None:
+def modificar_personaje(id : int, data : dict) -> dict | None:
     '''Recibe un ID de personaje y un diccionario con los datos del personaje, \
     modifica los datos del personaje y sus relaciones de personaje-ataque y retorna un diccionario con los datos del personaje modificado, \
     en caso de no encontrar el personaje retorna None.'''
@@ -301,12 +301,12 @@ def modificar_personaje(id : int, data) -> dict | None:
         if not personaje:
             return None
 
-        personaje.nombre = data.get('nombre')
-        personaje.vida = data.get('vida')
-        personaje.ki = data.get('ki')
-        personaje.descripcion = data.get('descripcion')
-        personaje.raza = data.get('raza')
-        personaje.imagen = data.get('imagen')
+        personaje.nombre = data['nombre']
+        personaje.vida = data['vida']
+        personaje.ki = data['ki']
+        personaje.descripcion = data['descripcion']
+        personaje.raza = data['raza']
+        personaje.imagen = data['imagen']
         db.session.commit()
 
         ataques = data.get('ataques')
@@ -319,19 +319,17 @@ def modificar_personaje(id : int, data) -> dict | None:
         return f"Error al modificar un personaje: {str(error)}"
     
 
-def modificar_ataque(id : int, data) -> dict | None:
+def modificar_ataque(id : int, data : dict) -> dict | None:
     '''Recibe un ID de ataque y un diccionario con los datos del ataque, modifica los datos del ataque y retorna un diccionario con los datos del ataque modificado, \
     en caso de no encontrar el ataque retorna None.'''
     try:
         ataque = obtener_ataque_id(id)
         if not ataque:
             return None
-        prueba = data.get('nombre')
-        print(prueba)
-        ataque.nombre = data.get('nombre')
-        ataque.costo_ki = data.get('costo_ki')
-        ataque.dano_max = data.get('dano_max')
-        ataque.dano_min = data.get('dano_min')
+        ataque.nombre = data['nombre']
+        ataque.costo_ki = data['costo_ki']
+        ataque.dano_max = data['dano_max']
+        ataque.dano_min = data['dano_min']
         db.session.commit()
         return obtener_data_ataque_id(id)
     except Exception as error:
