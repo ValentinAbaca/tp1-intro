@@ -178,7 +178,7 @@ def crear_nuevo_personaje(data) -> dict | None:
         personaje = Personajes(id=id, nombre=data['nombre'], vida=data['vida'], ki=data['ki'], descripcion=data['descripcion'], raza=data['raza'], imagen=data['imagen'])
         db.session.add(personaje)
 
-        ataques = data['ataques'].split(',')
+        ataques = data['ataques']
         for ataque in ataques:
             agregar_relacion_personaje_ataque(id, ataque)
 
@@ -309,7 +309,7 @@ def modificar_personaje(id : int, data : dict) -> dict | None:
         personaje.imagen = data['imagen']
         db.session.commit()
 
-        ataques = data.get('ataques')
+        ataques = data['ataques']
         
         modificar_relaciones(id, ataques)
 

@@ -65,7 +65,7 @@ def crear_ataque():
     ataque = crear_nuevo_ataque(data)
     if not ataque:
         return jsonify({'message': 'El ataque ya existe'}), 400
-    return jsonify({'succes' : True, 'Ataque': ataque}), 201
+    return jsonify({'success' : True, 'Ataque': ataque}), 201
 
 @app.route('/borrar_personaje/<id>', methods=['DELETE'])
 def borrar_personaje_por_id(id):
