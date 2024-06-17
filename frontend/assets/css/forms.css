@@ -26,17 +26,27 @@ body {
     background-color: #1e1e1e; 
     color: #fff; 
     border: 1px solid #ffcc00; 
-    border-radius: 10px;
+}
+
+.btn-warning {
+    background-color: #ff7300d0;
+}
+
+.btn-warning:hover {
+    background-color: #d6ba48ef;
 }
 
 .btn-success {
-    background-color: #ff7300d0;
-    border: 1px solid #ffcc0086;
-    color: #fff; 
-    font-weight: bold;
-    border-radius: 10px;
+    
+    background-color: #166138d0;
 }
 
 .btn-success:hover {
-    background-color: #ffcc0086;
+    background-color: #389763d0;
+}
+
+.list-group-item {
+    background-color: #282828;
+    color: #fff;
+    border: 1px solid #ffcc00;
 }

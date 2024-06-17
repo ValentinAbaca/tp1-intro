@@ -49,6 +49,39 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
     crossorigin="anonymous"></script>
-    <script src="../assets/js/creacion-ataque.js"></script>
+    <script>
+        function manejo_respuesta(data) {
+            if (data.succes){
+                alert("Ataque creado exitosamente")
+                console.log(data.ataque)
+            } else {
+                alert("Error al crear el ataque")
+            }
+            }
+
+        function crear_ataque(event) {
+            event.preventDefault(); 
+            const formData = new FormData(event.target);
+
+            const nombre = formData.get("nombre");
+            const dano_max = formData.get("dano_max");
+            const dano_min = formData.get("dano_min");
+            const costo_ki = formData.get("costo_ki");
+
+            fetch(`http://localhost:5000/nuevo_ataque`, {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json"},
+                    body: JSON.stringify({
+                        nombre: nombre,
+                        dano_max: dano_max,
+                        dano_min: dano_min,
+                        costo_ki: costo_ki})
+                })
+            .then((res) => res.json())
+            .then(manejo_respuesta)
+            .catch((error) => console.log("ERROR", error));
+        }
+    </script>
 </body>
 </html>
