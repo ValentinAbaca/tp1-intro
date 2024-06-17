@@ -51,18 +51,26 @@
 
                             <div class="mb-3">
                                 <label for="imagen" class="form-label">Imagen</label>
-                                <input type="file" class="form-control" id="imagen" name="imagen"
-                                    required>
+                                <input type="text" class="form-control" id="imagen" name="imagen" placeholder="url a la imagen" required>
                             </div>
 
                             <div class="mb-3">
                                 <label for="ataques" class="form-label">Ataques:</label>
-                                <select class="form-select form-control" id="select_ataques">
-                                    <option value="">Seleccione el ataque</option>
+                                <ul id="lista_ataques_personajes" class="list-group list-group-flush texto-blanco">
+                                </ul>
                                 </select>
                             </div>
 
-                            <button type="submit" class="btn btn-success">Crear</button>
+                            <div class="mb-3">
+                                <label for="select_ataques" class="form-label">Ataques disponibles:</label>
+                                <div class="row align-items-center">
+                                    <div class="col-8 col-sm-9 col-xl-10 mb-2"><select class="form-select" id="select_ataques"></select> </div>
+                                    <div class="col"><button type="button" class="btn btn-success" onclick="agregar_ataque()">Agregar</button></div>
+                                    
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-warning">Crear</button>
                         </form>
                     </div>
                 </div>
@@ -75,53 +83,100 @@
         crossorigin="anonymous"></script>
     <script>
         function handle_response(data) {
-            console.log(data);
+            if (data.success) {
+                alert("Personaje creado exitosamente");
+                console.log(data.personaje);
+            } else {
+                console.log(data);
+                alert("Error al crear el personaje");
+            }
         }
 
         function crear_personaje(event) {
             event.preventDefault();
 
             const formData = new FormData(event.target);
-            console.log(formData);
+            const nombre = formData.get("nombre");
+            const raza = formData.get("raza");
+            const ki = formData.get("ki");
+            const vida = formData.get("vida");
+            const descripcion = formData.get("descripcion");
+            const imagen = formData.get("imagen");
 
             fetch("http://localhost:5000/nuevo_personaje", {
                 method: "POST",
-                body: formData
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    nombre: nombre,
+                    raza: raza,
+                    ki: ki,
+                    vida: vida,
+                    descripcion: descripcion,
+                    imagen: imagen,
+                    ataques: ids_ataques_personaje,
+                }),
             })
                 .then((res) => res.json())
                 .then(handle_response)
                 .catch((error) => console.log("ERROR", error)) 
         }
 
-        //ataques en select
-        function respuesta_ataques(respuesta){
-            return respuesta.json();
+        const ids_ataques_personaje = [];
+
+        function eliminar_ataque(id_ataque) {
+            const index = ids_ataques_personaje.indexOf(id_ataque); // lo saque de stackoverflow
+            ids_ataques_personaje.splice(index, 1);
+            const li = document.getElementById(`ataque_${id_ataque}`);
+            li.remove();
         }
 
-        function error_ataques(error){
-            console.log(error);
-        }
+        function agregar_ataque() {
+            let id_ataque = document.getElementById("select_ataques").value;
+            id_ataque = parseInt(id_ataque);
+            const nombre_ataque = document.getElementById("select_ataques").selectedOptions[0].text;
 
-        function proceso_ataques(cont_ataques){     
-            console.log(cont_ataques[0].nombre);       
-            const contenedor = document.getElementById("select_ataques");
-
-            for (let i = 0; i < cont_ataques.length; i++){
-                const item = document.createElement("option");
-                console.log(cont_ataques[i].id);
-                item.setAttribute("value", cont_ataques[i].id);
-                item.setAttribute("name", cont_ataques[i].id);
-                item.textContent = cont_ataques[i].nombre;
-
-                contenedor.appendChild(item);
+            if (ids_ataques_personaje.includes(id_ataque)) {
+                alert("El personaje ya tiene ese ataque");
+            } else {
+                ids_ataques_personaje.push(id_ataque);
+                const li = document.createElement("li");
+                li.setAttribute("id", `ataque_${id_ataque}`);
+                li.setAttribute("class", "list-group-item");
+                const row = document.createElement("div");
+                row.setAttribute("class", "row justify-content-between align-items-center");
+                li.appendChild(row);
+                const text = document.createElement("p");
+                text.innerText = nombre_ataque;
+                text.setAttribute("class", "col-8 col-md-6");
+                row.appendChild(text);
+                const boton = document.createElement("button");
+                boton.innerText = "Eliminar";
+                boton.setAttribute("class", "btn btn-danger col-auto");
+                boton.setAttribute("onclick", `eliminar_ataque(${id_ataque})`);
+                row.appendChild(boton);
+                document.getElementById("lista_ataques_personajes").appendChild(li);
             }
-            
         }
+
+
+        function manejo_data_ataques(data) {
+            const ataques = data;
+            const select = document.getElementById("select_ataques");
+            for (let index = 0; index < ataques.length; index++) {
+                const ataque = ataques[index];
+                const opcion = document.createElement("option");
+                opcion.value = ataque.id;
+                opcion.text = ataque.nombre;
+                select.appendChild(opcion);
+                }
+            }
 
         fetch("http://localhost:5000/ataques")
-            .then(respuesta_ataques)
-            .then(proceso_ataques)
-            .catch(error_ataques)
+            .then((res) => res.json())
+            .then(manejo_data_ataques)
+            .catch((error) => console.log("ERROR", error)) 
     </script>
 </body>
 
