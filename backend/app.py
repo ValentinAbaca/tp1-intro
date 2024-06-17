@@ -53,7 +53,7 @@ def obtener_ataque_id(id):
 
 @app.route('/nuevo_personaje', methods=['POST'])
 def crear_personaje():
-    data = request.form
+    data = request.json
     personaje = crear_nuevo_personaje(data)
     if personaje == None:
         return jsonify({'message': 'El personaje ya existe'}), 400
@@ -61,7 +61,7 @@ def crear_personaje():
 
 @app.route('/nuevo_ataque', methods=['POST'])
 def crear_ataque():
-    data = request.form
+    data = request.json
     ataque = crear_nuevo_ataque(data)
     if not ataque:
         return jsonify({'message': 'El ataque ya existe'}), 400
