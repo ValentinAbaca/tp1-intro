@@ -165,26 +165,17 @@ def verificar_existencia_por_nombre(tabla, nombre : str) -> bool:
     except Exception as error:
         return f"Error al verificar la existencia por nombre de la tabla {tabla}: {str(error)}"
 
-def guardar_imagen(imagen) -> str:
-    '''Recibe una imagen y la guarda en la carpeta static/img del proyecto, retorna la ruta relativa de la imagen guardada.'''
-    try:
-        imagen.save(f'static/img/{imagen.filename}')
-        return f'static/img/{imagen.filename}'
-    except Exception as error:
-        return f"Error al guardar la imagen: {str(error)}"
 
-def crear_nuevo_personaje(data, imagen) -> dict | None:
-    '''Recibe un diccionario con los datos de un personaje y una imagen, guarda la imagen y \
+def crear_nuevo_personaje(data) -> dict | None:
+    '''Recibe un json con los datos de un personaje, \
     crea un nuevo personaje en la base de datos y retorna un diccionario con los datos del personaje, \
     en caso de ya existir el personaje retorna None.'''
     try:
         if verificar_existencia_por_nombre(Personajes , data['nombre']):
             return None
-        
-        path_imagen = f"http://localhost:5000/{guardar_imagen(imagen)}"
 
         id = generar_id_nuevo(Personajes)
-        personaje = Personajes(id=id, nombre=data['nombre'], vida=data['vida'], ki=data['ki'], descripcion=data['descripcion'], raza=data['raza'], imagen=path_imagen)
+        personaje = Personajes(id=id, nombre=data['nombre'], vida=data['vida'], ki=data['ki'], descripcion=data['descripcion'], raza=data['raza'], imagen=data['imagen'])
         db.session.add(personaje)
 
         ataques = data['ataques'].split(',')
@@ -211,12 +202,6 @@ def crear_nuevo_ataque(data : dict) -> dict | None:
     except Exception as error:
         return f"Error al crear un nuevo ataque: {str(error)}"
 
-def borrar_imagen(nombre_imagen):
-    '''Recibe el nombre de una imagen y la borra de la carpeta static/img del proyecto.'''
-    try:
-        os.remove(f"static/img/{nombre_imagen}")
-    except Exception as error:
-        return f"Error al borrar la imagen: {str(error)}"
 
 def borrar_ataques_personaje(id_personaje : int):
     '''Recibe el ID de un personaje y borra todas las relaciones de personaje-ataque que tenga asignadas.'''
@@ -233,11 +218,10 @@ def borrar_personaje(id_personaje: int) -> bool | None:
         if not personaje:
             return None
 
-        nombre_imagen = personaje.imagen.split('/')[-1]
+    
         borrar_ataques_personaje(id_personaje)
         db.session.delete(personaje)
         db.session.commit()
-        borrar_imagen(nombre_imagen)
         return True
     except Exception as error:
         return f"Error al borrar un personaje: {str(error)}"
@@ -307,8 +291,8 @@ def modificar_relaciones(id_personaje : int, lista_ids_nuevos_ataques : list[int
     except Exception as error:
         return f"Error al modificar las relaciones de personaje y ataque: {str(error)}"
 
-def modificar_personaje(id : int, data : dict, imagen) -> dict | None:
-    '''Recibe un ID de personaje y un diccionario con los datos del personaje, puede recibir una imagen, si recibe imagen la modifica en el servidor, \
+def modificar_personaje(id : int, data) -> dict | None:
+    '''Recibe un ID de personaje y un diccionario con los datos del personaje, \
     modifica los datos del personaje y sus relaciones de personaje-ataque y retorna un diccionario con los datos del personaje modificado, \
     en caso de no encontrar el personaje retorna None.'''
     try:
@@ -317,19 +301,16 @@ def modificar_personaje(id : int, data : dict, imagen) -> dict | None:
         if not personaje:
             return None
 
-        if imagen:
-            path_imagen = f"http://localhost:5000/{guardar_imagen(imagen)}"
-            borrar_imagen(personaje.imagen.split('/')[-1])
-            personaje.imagen = path_imagen
-
-        personaje.nombre = data['nombre']
-        personaje.vida = data['vida']
-        personaje.ki = data['ki']
-        personaje.descripcion = data['descripcion']
-        personaje.raza = data['raza']
+        personaje.nombre = data.get('nombre')
+        personaje.vida = data.get('vida')
+        personaje.ki = data.get('ki')
+        personaje.descripcion = data.get('descripcion')
+        personaje.raza = data.get('raza')
+        personaje.imagen = data.get('imagen')
         db.session.commit()
 
-        ataques = data['ataques'].split(',')
+        ataques = data.get('ataques')
+        
         modificar_relaciones(id, ataques)
 
         return obtener_data_personaje_id(id)
@@ -338,17 +319,19 @@ def modificar_personaje(id : int, data : dict, imagen) -> dict | None:
         return f"Error al modificar un personaje: {str(error)}"
     
 
-def modificar_ataque(id : int, data: dict) -> dict | None:
+def modificar_ataque(id : int, data) -> dict | None:
     '''Recibe un ID de ataque y un diccionario con los datos del ataque, modifica los datos del ataque y retorna un diccionario con los datos del ataque modificado, \
     en caso de no encontrar el ataque retorna None.'''
     try:
         ataque = obtener_ataque_id(id)
         if not ataque:
             return None
-        ataque.nombre = data['nombre']
-        ataque.costo_ki = data['costo_ki']
-        ataque.dano_max = data['dano_max']
-        ataque.dano_min = data['dano_min']
+        prueba = data.get('nombre')
+        print(prueba)
+        ataque.nombre = data.get('nombre')
+        ataque.costo_ki = data.get('costo_ki')
+        ataque.dano_max = data.get('dano_max')
+        ataque.dano_min = data.get('dano_min')
         db.session.commit()
         return obtener_data_ataque_id(id)
     except Exception as error:
