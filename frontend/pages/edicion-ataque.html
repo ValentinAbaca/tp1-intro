@@ -43,7 +43,7 @@
                                 <input type="number" class="form-control" name="costo_ki" id="costo_ki"
                                     required>
                             </div>
-                            <button type="submit" class="btn btn-warning">Cambiar</button>
+                            <button type="submit" class="btn btn-warning">Editar</button>
                         </form>
                     </div>
                 </div>
@@ -76,7 +76,7 @@
 
         function manejo_respuesta(data) {
             if (data.success) {
-                window.location.href = `/ataques/${data.id}`
+                alert("Ataque modificado")
             } else {
                 alert("Error")
             }
@@ -91,7 +91,7 @@
             const dano_min= formData.get("dano_min")
             const costo_ki= formData.get("costo_ki")
 
-            fetch(`http://localhost:5000/modificar_ataque/${data.id}`, {
+            fetch(`http://localhost:5000/modificar_ataque/${id}`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json"
