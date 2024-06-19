@@ -21,6 +21,7 @@ main{
 }
 
 .jugador__ataques, .jugador__ataques:focus{
+    background-color: var(--gris);
     border-color: var(--naranja);
     box-shadow: none;
 }
@@ -33,4 +34,8 @@ main{
 
 .boton__atacar:hover{
     background-color: var(--naranja);
+}
+
+.jugador__imagen{
+    aspect-ratio: 1/1;
 }
