@@ -16,16 +16,12 @@
   </head>
   <body>
     <main class="container-fluid d-flex align-items-center">
-      <section class="juego row">
-        <article class="jugador1 col-12 col-md-4 p-2" id="jugador_1">
+      <section class="juego row w-100">
+        <article class="jugador col-12 col-md-4 p-2" id="jugador_1">
           <div class="card w-100">
-            <img
-              src="../assets/images/kame-house.jpeg"
-              class="jugador1__imagen card-img-top"
-              alt="el cocu"
-            />
+            <img class="jugador__imagen card-img-top" />
             <div class="card-body">
-              <h3 class="jugador1__nombre card-title">El koku</h3>
+              <h3 class="jugador__nombre card-title"></h3>
             </div>
             <ul class="list-group list-group-flush">
               <li class="list-group-item">
@@ -33,17 +29,15 @@
                 <div
                   class="progress"
                   role="progressbar"
-                  aria-label="Basic example"
+                  aria-label="Vida"
                   aria-valuenow="25"
                   aria-valuemin="0"
                   aria-valuemax="100"
                 >
                   <div
-                    class="jugador1__vida progress-bar progress-bar-striped progress-bar-animated bg-danger fs-5"
+                    class="jugador__vida progress-bar progress-bar-striped progress-bar-animated bg-danger fs-5"
                     style="width: 25%"
-                  >
-                    25/800
-                  </div>
+                  ></div>
                 </div>
               </li>
               <li class="list-group-item">
@@ -51,22 +45,23 @@
                 <div
                   class="progress"
                   role="progressbar"
-                  aria-label="Basic example"
+                  aria-label="Ki"
                   aria-valuenow="25"
                   aria-valuemin="0"
                   aria-valuemax="100"
                 >
                   <div
-                    class="jugador1__ki progress-bar progress-bar-striped progress-bar-animated bg-info fs-5"
+                    class="jugador__ki progress-bar progress-bar-striped progress-bar-animated bg-info fs-5"
                     style="width: 25%"
-                  >
-                    25/600
-                  </div>
+                  ></div>
                 </div>
               </li>
               <li class="list-group-item">
                 Seleccionar Ataque:
-                <select class="jugador1__ataques form-select">
+                <select
+                  class="jugador__ataques form-select"
+                  onchange="seleccionar_ataque_jugador_1(event)"
+                >
                   <!-- Ataques generados dinamicamente -->
                 </select>
               </li>
@@ -76,15 +71,15 @@
               <ul class="list-group list-group-flush">
                 <li class="list-group-item">
                   Daño minimo:
-                  <span class="jugador1__ataque_dano_minimo">100</span>
+                  <span class="jugador__ataque_dano_minimo"></span>
                 </li>
                 <li class="list-group-item">
                   Daño Máximo:
-                  <span class="jugador1__ataque_dano_maximo">900</span>
+                  <span class="jugador__ataque_dano_maximo"></span>
                 </li>
                 <li class="list-group-item">
                   Costo de ki:
-                  <span class="jugador1__ataque_costo_ki">100</span>
+                  <span class="jugador__ataque_costo_ki"></span>
                 </li>
               </ul>
             </div>
@@ -94,15 +89,11 @@
           <h2 class="display-1">Turno <span id="turno">1</span></h2>
           <button class="btn boton__atacar" id="boton_atacar">Atacar</button>
         </article>
-        <article class="jugador2 col-12 col-md-4 p-2" id="jugador_2">
+        <article class="jugador col-12 col-md-4 p-2" id="jugador_2">
           <div class="card w-100">
-            <img
-              src="../assets/images/kame-house.jpeg"
-              class="jugador2__imagen card-img-top"
-              alt="el cocu"
-            />
+            <img class="jugador__imagen card-img-top" />
             <div class="card-body">
-              <h3 class="jugador2__nombre card-title">El koku</h3>
+              <h3 class="jugador__nombre card-title"></h3>
             </div>
             <ul class="list-group list-group-flush">
               <li class="list-group-item">
@@ -116,11 +107,9 @@
                   aria-valuemax="100"
                 >
                   <div
-                    class="jugador2__vida progress-bar progress-bar-striped progress-bar-animated bg-danger fs-5"
+                    class="jugador__vida progress-bar progress-bar-striped progress-bar-animated bg-danger fs-5"
                     style="width: 25%"
-                  >
-                    25/800
-                  </div>
+                  ></div>
                 </div>
               </li>
               <li class="list-group-item">
@@ -134,16 +123,17 @@
                   aria-valuemax="100"
                 >
                   <div
-                    class="jugador2__kiprogress-bar progress-bar-striped progress-bar-animated bg-info fs-5"
+                    class="jugador__ki progress-bar-striped progress-bar-animated bg-info fs-5"
                     style="width: 25%"
-                  >
-                    25/600
-                  </div>
+                  ></div>
                 </div>
               </li>
               <li class="list-group-item">
                 Seleccionar Ataque:
-                <select class="jugador2__ataques form-select">
+                <select
+                  class="jugador__ataques form-select"
+                  onchange="seleccionar_ataque_jugador_2(event)"
+                >
                   <!-- Ataques generados dinamicamente -->
                 </select>
               </li>
@@ -153,15 +143,15 @@
               <ul class="list-group list-group-flush">
                 <li class="list-group-item">
                   Daño minimo:
-                  <span class="jugador2__ataque_dano_minimo">100</span>
+                  <span class="jugador__ataque_dano_minimo"></span>
                 </li>
                 <li class="list-group-item">
                   Daño Máximo:
-                  <span class="jugador2__ataque_dano_maximo">900</span>
+                  <span class="jugador__ataque_dano_maximo"></span>
                 </li>
                 <li class="list-group-item">
                   Costo de ki:
-                  <span class="jugador2__ataque_costo_ki">100</span>
+                  <span class="jugador__ataque_costo_ki"></span>
                 </li>
               </ul>
             </div>
@@ -174,5 +164,108 @@
       integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
       crossorigin="anonymous"
     ></script>
+    <script>
+      //Helpers
+      const actualizar_info_ataque = (ataque, contenedor_ataque) => {
+        contenedor_ataque.querySelector(
+          ".jugador__ataque_dano_minimo"
+        ).innerText = ataque.dano_min;
+        contenedor_ataque.querySelector(
+          ".jugador__ataque_dano_maximo"
+        ).innerText = ataque.dano_max;
+        contenedor_ataque.querySelector(".jugador__ataque_costo_ki").innerText =
+          ataque.costo_ki;
+      };
+      const rellenar_info_peronaje = (personaje, contenedor_personaje) => {
+        contenedor_personaje.querySelector(".jugador__nombre").innerHTML =
+          personaje.nombre;
+        contenedor_personaje.querySelector(".jugador__imagen").src =
+          personaje.imagen;
+        const barra_vida = contenedor_personaje.querySelector(".jugador__vida");
+        barra_vida.style.width = "100%";
+        barra_vida.innerText = `Vida: ${personaje.vida}/${personaje.vida_max}`;
+        const barra_ki = contenedor_personaje.querySelector(".jugador__ki");
+        barra_ki.style.width = "100%";
+        barra_ki.innerText = `Ki: ${personaje.ki}/${personaje.ki_max}`;
+        let opciones = "";
+        for (const ataque of personaje.ataques) {
+          opciones += `<option value="${ataque.id}">${ataque.nombre}</option>`;
+        }
+        contenedor_personaje.querySelector(".jugador__ataques").innerHTML =
+          opciones;
+        actualizar_info_ataque(personaje.ataques[0], contenedor_personaje);
+      };
+
+      //Referencias HTML
+      const contenedor_jugador1 = document.querySelector("#jugador_1");
+      const contenedor_jugador2 = document.querySelector("#jugador_2");
+      //Estado
+      const estado = {
+        jugador1: {
+          personaje: null,
+          ataque_seleccionado: null,
+        },
+        jugador2: {
+          personaje: null,
+          ataque_seleccionado: null,
+        },
+        turno: 1,
+      };
+      //Fetches
+      const fetch_personaje1 = () => {
+        fetch("http://localhost:5000/personajes/6")
+          .then((response) => response.json())
+          .then((data) => {
+            estado.jugador1 = {
+              personaje: {
+                ...data,
+                vida_max: data.vida,
+                ki_max: data.ki,
+              },
+              ataque_seleccionado: data.ataques[0].id,
+            };
+            rellenar_info_peronaje(
+              estado.jugador1.personaje,
+              contenedor_jugador1
+            );
+          });
+      };
+      const fetch_personaje2 = () => {
+        fetch("http://localhost:5000/personajes/2")
+          .then((response) => response.json())
+          .then((data) => {
+            estado.jugador2 = {
+              personaje: {
+                ...data,
+                vida_max: data.vida,
+                ki_max: data.ki,
+              },
+              ataque_seleccionado: data.ataques[0].id,
+            };
+            rellenar_info_peronaje(
+              estado.jugador2.personaje,
+              contenedor_jugador2
+            );
+          });
+      };
+      //Funciones de Eventos
+      const seleccionar_ataque_jugador_1 = (event) => {
+        estado.jugador1.ataque_seleccionado = parseInt(event.target.value);
+        const ataque = estado.jugador1.personaje.ataques.find(
+          (ataque) => ataque.id === estado.jugador1.ataque_seleccionado
+        );
+        actualizar_info_ataque(ataque, contenedor_jugador1);
+      };
+      const seleccionar_ataque_jugador_2 = (event) => {
+        estado.jugador2.ataque_seleccionado = parseInt(event.target.value);
+        const ataque = estado.jugador2.personaje.ataques.find(
+          (ataque) => ataque.id === estado.jugador2.ataque_seleccionado
+        );
+        actualizar_info_ataque(ataque, contenedor_jugador2);
+      };
+
+      fetch_personaje1();
+      fetch_personaje2();
+    </script>
   </body>
 </html>

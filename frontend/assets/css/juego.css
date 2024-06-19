@@ -20,7 +20,7 @@ main{
     height: 35px;
 }
 
-.jugador2__ataques, .jugador2__ataques:focus, .jugador1__ataques, .jugador1__ataques:focus{
+.jugador__ataques, .jugador__ataques:focus{
     border-color: var(--naranja);
     box-shadow: none;
 }
