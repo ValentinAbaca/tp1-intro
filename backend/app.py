@@ -57,7 +57,7 @@ def crear_personaje():
     personaje = crear_nuevo_personaje(data)
     if personaje == None:
         return jsonify({'message': 'El personaje ya existe'}), 400
-    return jsonify({'succes' : True, 'personaje' : personaje}), 201
+    return jsonify({'success' : True, 'personaje' : personaje}), 201
 
 @app.route('/nuevo_ataque', methods=['POST'])
 def crear_ataque():
