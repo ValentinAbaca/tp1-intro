@@ -17,7 +17,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h2 class="card-title">Crear Ataque</h2>
-                        <form id="crear-ataque-form" onsubmit="handle_submit(event)">
+                        <form id="crear-ataque-form" onsubmit="crear_ataque(event)">
                             <div class="mb-3">
                                 <label for="nombre" class="form-label">Nombre del Ataque</label>
                                 <input type="text" class="form-control" id="nombre" name="nombre" placeholder="kamehameha" required>
@@ -69,7 +69,7 @@
             const costo_ki = formData.get("costo_ki");
 
             fetch(`http://localhost:5000/nuevo_ataque`, {
-                    method: "PUT",
+                    method: "POST",
                     headers: {
                         "Content-Type": "application/json"},
                     body: JSON.stringify({
