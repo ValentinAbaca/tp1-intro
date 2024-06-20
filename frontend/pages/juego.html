@@ -94,6 +94,7 @@
           >
             Atacar
           </button>
+          <p class="logs mt-2 fs-3"></p>
         </article>
         <article class="jugador col-12 col-md-4 p-2" id="jugador_2">
           <div class="card w-100">
@@ -167,7 +168,9 @@
       <dialog class="endMessage">
         <h2 class="endMessage__title fs-1"></h2>
         <p class="endMessage__text fs-3"></p>
-        <button class="endMessage__btn btn" onclick="reiniciar()">Volver</button>
+        <button class="endMessage__btn btn" onclick="reiniciar()">
+          Volver
+        </button>
       </dialog>
     </main>
     <script
@@ -227,6 +230,7 @@
       const contenedor_jugador2 = document.querySelector("#jugador_2");
       const turno = document.querySelector("#turno");
       const dialogo = document.querySelector(".endMessage");
+      const logs = document.querySelector(".logs");
       //Estado
       const estado = {
         jugador1: {
@@ -277,7 +281,7 @@
       //Funciones de Eventos
       const reiniciar = () => {
         location.assign("/pages/seleccion-personajes.html");
-      }
+      };
       const seleccionar_ataque_jugador_1 = (event) => {
         const ataque = parseInt(event.target.value);
         estado.jugador1.ataque_seleccionado =
@@ -300,18 +304,24 @@
       const atacar = () => {
         estado.turno++;
         turno.innerText = estado.turno;
-        estado.jugador1.personaje.ki -=
-          estado.jugador1.ataque_seleccionado.costo_ki;
-        estado.jugador2.personaje.vida -= numero_random(
+        const dano_jugador1 = numero_random(
           estado.jugador1.ataque_seleccionado.dano_min,
           estado.jugador1.ataque_seleccionado.dano_max
         );
-        estado.jugador2.personaje.ki -=
-          estado.jugador2.ataque_seleccionado.costo_ki;
-        estado.jugador1.personaje.vida -= numero_random(
+        const dano_jugador2 = numero_random(
           estado.jugador2.ataque_seleccionado.dano_min,
           estado.jugador2.ataque_seleccionado.dano_max
         );
+        estado.jugador1.personaje.ki -=
+          estado.jugador1.ataque_seleccionado.costo_ki;
+        estado.jugador2.personaje.vida -= dano_jugador1;
+        estado.jugador2.personaje.ki -=
+          estado.jugador2.ataque_seleccionado.costo_ki;
+        estado.jugador1.personaje.vida -= dano_jugador2;
+        logs.innerHTML = `<span class="text-info">${estado.jugador1.personaje.nombre}</span>
+        causó un daño de <span class="text-danger">${dano_jugador1}</span> <br>
+        <span class="text-info">${estado.jugador2.personaje.nombre}</span> causó un daño de 
+        <span class="text-danger">${dano_jugador2}</span> <br>`;
         rellenar_info_personaje(estado.jugador1, contenedor_jugador1);
         rellenar_info_personaje(estado.jugador2, contenedor_jugador2);
         if (
