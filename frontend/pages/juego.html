@@ -87,7 +87,13 @@
         </article>
         <article class="col-12 col-md-4 text-light text-center">
           <h2 class="display-1">Turno <span id="turno">1</span></h2>
-          <button class="btn boton__atacar" id="boton_atacar">Atacar</button>
+          <button
+            class="btn boton__atacar"
+            id="boton_atacar"
+            onclick="atacar()"
+          >
+            Atacar
+          </button>
         </article>
         <article class="jugador col-12 col-md-4 p-2" id="jugador_2">
           <div class="card w-100">
@@ -176,29 +182,39 @@
         contenedor_ataque.querySelector(".jugador__ataque_costo_ki").innerText =
           ataque.costo_ki;
       };
-      const rellenar_info_peronaje = (personaje, contenedor_personaje) => {
+      const rellenar_info_peronaje = (jugador, contenedor_personaje) => {
         contenedor_personaje.querySelector(".jugador__nombre").innerHTML =
-          personaje.nombre;
+          jugador.personaje.nombre;
         contenedor_personaje.querySelector(".jugador__imagen").src =
-          personaje.imagen;
+          jugador.personaje.imagen;
         const barra_vida = contenedor_personaje.querySelector(".jugador__vida");
-        barra_vida.style.width = "100%";
-        barra_vida.innerText = `Vida: ${personaje.vida}/${personaje.vida_max}`;
+        barra_vida.style.width = `${
+          (jugador.personaje.vida * 100) / jugador.personaje.vida_max
+        }%`;
+        barra_vida.innerText = `Vida: ${jugador.personaje.vida}/${jugador.personaje.vida_max}`;
         const barra_ki = contenedor_personaje.querySelector(".jugador__ki");
-        barra_ki.style.width = "100%";
-        barra_ki.innerText = `Ki: ${personaje.ki}/${personaje.ki_max}`;
+        barra_ki.style.width = `${
+          (jugador.personaje.ki * 100) / jugador.personaje.ki_max
+        }%`;
+        barra_ki.innerText = `Ki: ${jugador.personaje.ki}/${jugador.personaje.ki_max}`;
         let opciones = "";
-        for (const ataque of personaje.ataques) {
+        for (const ataque of jugador.personaje.ataques) {
           opciones += `<option value="${ataque.id}">${ataque.nombre}</option>`;
         }
         contenedor_personaje.querySelector(".jugador__ataques").innerHTML =
           opciones;
-        actualizar_info_ataque(personaje.ataques[0], contenedor_personaje);
+        actualizar_info_ataque(
+          jugador.ataque_seleccionado,
+          contenedor_personaje
+        );
       };
-
+      const numero_random = (min, max) => {
+        return Math.floor(Math.random() * (max - min + 1) + min);
+      };
       //Referencias HTML
       const contenedor_jugador1 = document.querySelector("#jugador_1");
       const contenedor_jugador2 = document.querySelector("#jugador_2");
+      const turno = document.querySelector("#turno");
       //Estado
       const estado = {
         jugador1: {
@@ -222,12 +238,9 @@
                 vida_max: data.vida,
                 ki_max: data.ki,
               },
-              ataque_seleccionado: data.ataques[0].id,
+              ataque_seleccionado: data.ataques[0],
             };
-            rellenar_info_peronaje(
-              estado.jugador1.personaje,
-              contenedor_jugador1
-            );
+            rellenar_info_peronaje(estado.jugador1, contenedor_jugador1);
           });
       };
       const fetch_personaje2 = () => {
@@ -240,30 +253,74 @@
                 vida_max: data.vida,
                 ki_max: data.ki,
               },
-              ataque_seleccionado: data.ataques[0].id,
+              ataque_seleccionado: data.ataques[0],
             };
-            rellenar_info_peronaje(
-              estado.jugador2.personaje,
-              contenedor_jugador2
-            );
+            rellenar_info_peronaje(estado.jugador2, contenedor_jugador2);
           });
       };
       //Funciones de Eventos
       const seleccionar_ataque_jugador_1 = (event) => {
-        estado.jugador1.ataque_seleccionado = parseInt(event.target.value);
-        const ataque = estado.jugador1.personaje.ataques.find(
-          (ataque) => ataque.id === estado.jugador1.ataque_seleccionado
+        const ataque = parseInt(event.target.value);
+        estado.jugador1.ataque_seleccionado =
+          estado.jugador1.personaje.ataques.find((atq) => atq.id === ataque);
+        actualizar_info_ataque(
+          estado.jugador1.ataque_seleccionado,
+          contenedor_jugador1
         );
-        actualizar_info_ataque(ataque, contenedor_jugador1);
       };
       const seleccionar_ataque_jugador_2 = (event) => {
-        estado.jugador2.ataque_seleccionado = parseInt(event.target.value);
-        const ataque = estado.jugador2.personaje.ataques.find(
-          (ataque) => ataque.id === estado.jugador2.ataque_seleccionado
+        const ataque = parseInt(event.target.value);
+        estado.jugador2.ataque_seleccionado =
+          estado.jugador2.personaje.ataques.find((atq) => atq.id === ataque);
+        actualizar_info_ataque(
+          estado.jugador2.ataque_seleccionado,
+          contenedor_jugador2
         );
-        actualizar_info_ataque(ataque, contenedor_jugador2);
       };
-
+      //goku eta vaina e' seria
+      const atacar = () => {
+        estado.turno++;
+        turno.innerText = estado.turno;
+        estado.jugador1.personaje.ki -=
+          estado.jugador1.ataque_seleccionado.costo_ki;
+        estado.jugador2.personaje.vida -= numero_random(
+          estado.jugador1.ataque_seleccionado.dano_min,
+          estado.jugador1.ataque_seleccionado.dano_max
+        );
+        estado.jugador2.personaje.ki -=
+          estado.jugador2.ataque_seleccionado.costo_ki;
+        estado.jugador1.personaje.vida -= numero_random(
+          estado.jugador2.ataque_seleccionado.dano_min,
+          estado.jugador2.ataque_seleccionado.dano_max
+        );
+        rellenar_info_peronaje(estado.jugador1, contenedor_jugador1);
+        rellenar_info_peronaje(estado.jugador2, contenedor_jugador2);
+        if (estado.jugador1.personaje.vida <= 0 && estado.jugador2.personaje.vida <= 0) {
+          alert("EMPATE");
+          location.assign("/pages/seleccion-personajes.html");
+        } else if (estado.jugador1.personaje.ki <= 0 && estado.jugador2.personaje.ki <= 0) {
+          alert("EMPATE");
+          location.assign("/pages/seleccion-personajes.html");
+        }
+         else if (estado.jugador1.personaje.vida <= 0) {
+          alert(`El jugador 1 murió RIP ${estado.jugador1.personaje.nombre}, \n
+           el jugador 2 ha ganado felicidades ${estado.jugador2.personaje.nombre}`);
+          location.assign("/pages/seleccion-personajes.html");
+        }
+         else if (estado.jugador2.personaje.vida <= 0) {
+          alert(`El jugador 2 murió RIP ${estado.jugador2.personaje.nombre}, \n
+           el jugador 1 ha ganado felicidades ${estado.jugador1.personaje.nombre}`);
+          location.assign("/pages/seleccion-personajes.html");
+        } else if (estado.jugador1.personaje.ki <= 0) {
+          alert(`El jugador 1 se quedó sin KI XD ${estado.jugador1.personaje.nombre}, \n
+           el jugador 2 ha ganado felicidades ${estado.jugador2.personaje.nombre}`);
+          location.assign("/pages/seleccion-personajes.html");
+        } else if (estado.jugador2.personaje.ki <= 0) {
+          alert(`El jugador 2 se quedó sin KI XD ${estado.jugador2.personaje.nombre}, \n
+           el jugador 1 ha ganado felicidades ${estado.jugador1.personaje.nombre}`);
+          location.assign("/pages/seleccion-personajes.html");
+        }
+      };
       fetch_personaje1();
       fetch_personaje2();
     </script>
