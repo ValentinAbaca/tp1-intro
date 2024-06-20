@@ -211,6 +211,8 @@
       const numero_random = (min, max) => {
         return Math.floor(Math.random() * (max - min + 1) + min);
       };
+      const obtener_parametros_url = () => new URLSearchParams(location.search);
+      
       //Referencias HTML
       const contenedor_jugador1 = document.querySelector("#jugador_1");
       const contenedor_jugador2 = document.querySelector("#jugador_2");
@@ -229,7 +231,9 @@
       };
       //Fetches
       const fetch_personaje1 = () => {
-        fetch("http://localhost:5000/personajes/6")
+        const parametros = obtener_parametros_url();
+        const id = parametros.get("personaje_1");
+        fetch(`http://localhost:5000/personajes/${id}`)
           .then((response) => response.json())
           .then((data) => {
             estado.jugador1 = {
@@ -244,7 +248,9 @@
           });
       };
       const fetch_personaje2 = () => {
-        fetch("http://localhost:5000/personajes/2")
+        const parametros = obtener_parametros_url();
+        const id = parametros.get("personaje_2");
+        fetch(`http://localhost:5000/personajes/${id}`)
           .then((response) => response.json())
           .then((data) => {
             estado.jugador2 = {
