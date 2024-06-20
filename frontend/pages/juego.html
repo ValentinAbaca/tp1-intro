@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- estilos -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="../assets/css/main.css" />
+    <link rel="stylesheet" href="../assets/css/juego.css" />
+    <title>Z Warriors | Batalla</title>
+  </head>
+  <body>
+    <main class="container-fluid d-flex align-items-center">
+      <section class="juego row w-100">
+        <article class="jugador col-12 col-md-4 p-2" id="jugador_1">
+          <div class="card w-100">
+            <img class="jugador__imagen card-img-top" />
+            <div class="card-body">
+              <h3 class="jugador__nombre card-title"></h3>
+            </div>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">
+                Vida:
+                <div
+                  class="progress"
+                  role="progressbar"
+                  aria-label="Vida"
+                  aria-valuenow="25"
+                  aria-valuemin="0"
+                  aria-valuemax="100"
+                >
+                  <div
+                    class="jugador__vida progress-bar progress-bar-striped progress-bar-animated bg-danger fs-5"
+                    style="width: 25%"
+                  ></div>
+                </div>
+              </li>
+              <li class="list-group-item">
+                Ki:
+                <div
+                  class="progress"
+                  role="progressbar"
+                  aria-label="Ki"
+                  aria-valuenow="25"
+                  aria-valuemin="0"
+                  aria-valuemax="100"
+                >
+                  <div
+                    class="jugador__ki progress-bar progress-bar-striped progress-bar-animated bg-info fs-5"
+                    style="width: 25%"
+                  ></div>
+                </div>
+              </li>
+              <li class="list-group-item">
+                Seleccionar Ataque:
+                <select
+                  class="jugador__ataques form-select"
+                  onchange="seleccionar_ataque_jugador_1(event)"
+                >
+                  <!-- Ataques generados dinamicamente -->
+                </select>
+              </li>
+            </ul>
+            <div class="card-body">
+              <h5>Info ataque seleccionado</h5>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                  Daño minimo:
+                  <span class="jugador__ataque_dano_minimo"></span>
+                </li>
+                <li class="list-group-item">
+                  Daño Máximo:
+                  <span class="jugador__ataque_dano_maximo"></span>
+                </li>
+                <li class="list-group-item">
+                  Costo de ki:
+                  <span class="jugador__ataque_costo_ki"></span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </article>
+        <article class="col-12 col-md-4 text-light text-center">
+          <h2 class="display-1">Turno <span id="turno">1</span></h2>
+          <button
+            class="btn boton__atacar"
+            id="boton_atacar"
+            onclick="atacar()"
+          >
+            Atacar
+          </button>
+          <p class="logs mt-2 fs-3"></p>
+        </article>
+        <article class="jugador col-12 col-md-4 p-2" id="jugador_2">
+          <div class="card w-100">
+            <img class="jugador__imagen card-img-top" />
+            <div class="card-body">
+              <h3 class="jugador__nombre card-title"></h3>
+            </div>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">
+                Vida:
+                <div
+                  class="progress"
+                  role="progressbar"
+                  aria-label="Basic example"
+                  aria-valuenow="25"
+                  aria-valuemin="0"
+                  aria-valuemax="100"
+                >
+                  <div
+                    class="jugador__vida progress-bar progress-bar-striped progress-bar-animated bg-danger fs-5"
+                    style="width: 25%"
+                  ></div>
+                </div>
+              </li>
+              <li class="list-group-item">
+                Ki:
+                <div
+                  class="progress"
+                  role="progressbar"
+                  aria-label="Basic example"
+                  aria-valuenow="25"
+                  aria-valuemin="0"
+                  aria-valuemax="100"
+                >
+                  <div
+                    class="jugador__ki progress-bar progress-bar-striped progress-bar-animated bg-info fs-5"
+                    style="width: 25%"
+                  ></div>
+                </div>
+              </li>
+              <li class="list-group-item">
+                Seleccionar Ataque:
+                <select
+                  class="jugador__ataques form-select"
+                  onchange="seleccionar_ataque_jugador_2(event)"
+                >
+                  <!-- Ataques generados dinamicamente -->
+                </select>
+              </li>
+            </ul>
+            <div class="card-body">
+              <h5>Info ataque seleccionado</h5>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                  Daño minimo:
+                  <span class="jugador__ataque_dano_minimo"></span>
+                </li>
+                <li class="list-group-item">
+                  Daño Máximo:
+                  <span class="jugador__ataque_dano_maximo"></span>
+                </li>
+                <li class="list-group-item">
+                  Costo de ki:
+                  <span class="jugador__ataque_costo_ki"></span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </article>
+      </section>
+      <dialog class="endMessage">
+        <h2 class="endMessage__title fs-1"></h2>
+        <p class="endMessage__text fs-3"></p>
+        <button class="endMessage__btn btn" onclick="reiniciar()">
+          Volver
+        </button>
+      </dialog>
+    </main>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      //Helpers
+      const actualizar_info_ataque = (ataque, contenedor_ataque) => {
+        contenedor_ataque.querySelector(
+          ".jugador__ataque_dano_minimo"
+        ).innerText = ataque.dano_min;
+        contenedor_ataque.querySelector(
+          ".jugador__ataque_dano_maximo"
+        ).innerText = ataque.dano_max;
+        contenedor_ataque.querySelector(".jugador__ataque_costo_ki").innerText =
+          ataque.costo_ki;
+      };
+      const rellenar_info_personaje = (jugador, contenedor_personaje) => {
+        contenedor_personaje.querySelector(".jugador__nombre").innerHTML =
+          jugador.personaje.nombre;
+        contenedor_personaje.querySelector(".jugador__imagen").src =
+          jugador.personaje.imagen;
+        const barra_vida = contenedor_personaje.querySelector(".jugador__vida");
+        barra_vida.style.width = `${
+          (jugador.personaje.vida * 100) / jugador.personaje.vida_max
+        }%`;
+        barra_vida.innerText = `Vida: ${jugador.personaje.vida}/${jugador.personaje.vida_max}`;
+        const barra_ki = contenedor_personaje.querySelector(".jugador__ki");
+        barra_ki.style.width = `${
+          (jugador.personaje.ki * 100) / jugador.personaje.ki_max
+        }%`;
+        barra_ki.innerText = `Ki: ${jugador.personaje.ki}/${jugador.personaje.ki_max}`;
+        let opciones = "";
+        for (const ataque of jugador.personaje.ataques) {
+          opciones += `<option value="${ataque.id}">${ataque.nombre}</option>`;
+        }
+        contenedor_personaje.querySelector(".jugador__ataques").innerHTML =
+          opciones;
+        actualizar_info_ataque(
+          jugador.ataque_seleccionado,
+          contenedor_personaje
+        );
+      };
+      const numero_random = (min, max) => {
+        return Math.floor(Math.random() * (max - min + 1) + min);
+      };
+      const obtener_parametros_url = () => new URLSearchParams(location.search);
+      const abrir_dialogo = (title, text, dialog) => {
+        dialog.querySelector(".endMessage__title").innerText = title;
+        dialog.querySelector(".endMessage__text").innerText = text;
+        dialog.showModal();
+      };
+      //Referencias HTML
+      const contenedor_jugador1 = document.querySelector("#jugador_1");
+      const contenedor_jugador2 = document.querySelector("#jugador_2");
+      const turno = document.querySelector("#turno");
+      const dialogo = document.querySelector(".endMessage");
+      const logs = document.querySelector(".logs");
+      //Estado
+      const estado = {
+        jugador1: {
+          personaje: null,
+          ataque_seleccionado: null,
+        },
+        jugador2: {
+          personaje: null,
+          ataque_seleccionado: null,
+        },
+        turno: 1,
+      };
+      //Fetches
+      const fetch_personaje1 = () => {
+        const parametros = obtener_parametros_url();
+        const id = parametros.get("personaje_1");
+        fetch(`http://localhost:5000/personajes/${id}`)
+          .then((response) => response.json())
+          .then((data) => {
+            estado.jugador1 = {
+              personaje: {
+                ...data,
+                vida_max: data.vida,
+                ki_max: data.ki,
+              },
+              ataque_seleccionado: data.ataques[0],
+            };
+            rellenar_info_personaje(estado.jugador1, contenedor_jugador1);
+          });
+      };
+      const fetch_personaje2 = () => {
+        const parametros = obtener_parametros_url();
+        const id = parametros.get("personaje_2");
+        fetch(`http://localhost:5000/personajes/${id}`)
+          .then((response) => response.json())
+          .then((data) => {
+            estado.jugador2 = {
+              personaje: {
+                ...data,
+                vida_max: data.vida,
+                ki_max: data.ki,
+              },
+              ataque_seleccionado: data.ataques[0],
+            };
+            rellenar_info_personaje(estado.jugador2, contenedor_jugador2);
+          });
+      };
+      //Funciones de Eventos
+      const reiniciar = () => {
+        location.assign("/pages/seleccion-personajes.html");
+      };
+      const seleccionar_ataque_jugador_1 = (event) => {
+        const ataque = parseInt(event.target.value);
+        estado.jugador1.ataque_seleccionado =
+          estado.jugador1.personaje.ataques.find((atq) => atq.id === ataque);
+        actualizar_info_ataque(
+          estado.jugador1.ataque_seleccionado,
+          contenedor_jugador1
+        );
+      };
+      const seleccionar_ataque_jugador_2 = (event) => {
+        const ataque = parseInt(event.target.value);
+        estado.jugador2.ataque_seleccionado =
+          estado.jugador2.personaje.ataques.find((atq) => atq.id === ataque);
+        actualizar_info_ataque(
+          estado.jugador2.ataque_seleccionado,
+          contenedor_jugador2
+        );
+      };
+      //goku eta vaina e' seria
+      const atacar = () => {
+        estado.turno++;
+        turno.innerText = estado.turno;
+        const dano_jugador1 = numero_random(
+          estado.jugador1.ataque_seleccionado.dano_min,
+          estado.jugador1.ataque_seleccionado.dano_max
+        );
+        const dano_jugador2 = numero_random(
+          estado.jugador2.ataque_seleccionado.dano_min,
+          estado.jugador2.ataque_seleccionado.dano_max
+        );
+        estado.jugador1.personaje.ki -=
+          estado.jugador1.ataque_seleccionado.costo_ki;
+        estado.jugador2.personaje.vida -= dano_jugador1;
+        estado.jugador2.personaje.ki -=
+          estado.jugador2.ataque_seleccionado.costo_ki;
+        estado.jugador1.personaje.vida -= dano_jugador2;
+        logs.innerHTML = `<span class="text-info">${estado.jugador1.personaje.nombre}</span>
+        causó un daño de <span class="text-danger">${dano_jugador1}</span> <br>
+        <span class="text-info">${estado.jugador2.personaje.nombre}</span> causó un daño de 
+        <span class="text-danger">${dano_jugador2}</span> <br>`;
+        rellenar_info_personaje(estado.jugador1, contenedor_jugador1);
+        rellenar_info_personaje(estado.jugador2, contenedor_jugador2);
+        if (
+          estado.jugador1.personaje.vida <= 0 &&
+          estado.jugador2.personaje.vida <= 0
+        ) {
+          abrir_dialogo(
+            "EMPATE",
+            "Los dos jugadores se han quedado sin vida",
+            dialogo
+          );
+        } else if (
+          estado.jugador1.personaje.vida > 0 &&
+          estado.jugador2.personaje.vida <= 0
+        ) {
+          abrir_dialogo(
+            `Felicidades ${estado.jugador1.personaje.nombre}`,
+            `${estado.jugador2.personaje.nombre} murió, RIP `,
+            dialogo
+          );
+        } else if (
+          estado.jugador2.personaje.vida > 0 &&
+          estado.jugador1.personaje.vida <= 0
+        ) {
+          abrir_dialogo(
+            `Felicidades ${estado.jugador2.personaje.nombre}`,
+            `${estado.jugador1.personaje.nombre} murió, RIP `,
+            dialogo
+          );
+        } else if (
+          estado.jugador1.personaje.ki <= 0 &&
+          estado.jugador2.personaje.ki <= 0
+        ) {
+          abrir_dialogo(
+            "EMPATE",
+            "Los dos peleadores se han quedado sin Ki",
+            dialogo
+          );
+        } else if (estado.jugador1.personaje.ki <= 0) {
+          abrir_dialogo(
+            `Felicidades ${estado.jugador2.personaje.nombre}`,
+            `${estado.jugador1.personaje.nombre} se quedó sin ki `,
+            dialogo
+          );
+        } else if (estado.jugador2.personaje.ki <= 0) {
+          abrir_dialogo(
+            `Felicidades ${estado.jugador1.personaje.nombre}`,
+            `${estado.jugador2.personaje.nombre} se quedó sin ki `,
+            dialogo
+          );
+        }
+      };
+      fetch_personaje1();
+      fetch_personaje2();
+    </script>
+  </body>
+</html>
