@@ -182,7 +182,7 @@
         contenedor_ataque.querySelector(".jugador__ataque_costo_ki").innerText =
           ataque.costo_ki;
       };
-      const rellenar_info_peronaje = (jugador, contenedor_personaje) => {
+      const rellenar_info_personaje = (jugador, contenedor_personaje) => {
         contenedor_personaje.querySelector(".jugador__nombre").innerHTML =
           jugador.personaje.nombre;
         contenedor_personaje.querySelector(".jugador__imagen").src =
@@ -244,7 +244,7 @@
               },
               ataque_seleccionado: data.ataques[0],
             };
-            rellenar_info_peronaje(estado.jugador1, contenedor_jugador1);
+            rellenar_info_personaje(estado.jugador1, contenedor_jugador1);
           });
       };
       const fetch_personaje2 = () => {
@@ -261,7 +261,7 @@
               },
               ataque_seleccionado: data.ataques[0],
             };
-            rellenar_info_peronaje(estado.jugador2, contenedor_jugador2);
+            rellenar_info_personaje(estado.jugador2, contenedor_jugador2);
           });
       };
       //Funciones de Eventos
@@ -299,8 +299,8 @@
           estado.jugador2.ataque_seleccionado.dano_min,
           estado.jugador2.ataque_seleccionado.dano_max
         );
-        rellenar_info_peronaje(estado.jugador1, contenedor_jugador1);
-        rellenar_info_peronaje(estado.jugador2, contenedor_jugador2);
+        rellenar_info_personaje(estado.jugador1, contenedor_jugador1);
+        rellenar_info_personaje(estado.jugador2, contenedor_jugador2);
         if (estado.jugador1.personaje.vida <= 0 && estado.jugador2.personaje.vida <= 0) {
           alert("EMPATE");
           location.assign("/pages/seleccion-personajes.html");
