@@ -26,16 +26,22 @@ main{
     box-shadow: none;
 }
 
-.boton__atacar{
+.boton__atacar, .endMessage__btn{
     font-size: 1.5rem;
     background-color: var(--naranja);
     padding: 5px 10px;
 }
 
-.boton__atacar:hover{
+.boton__atacar:hover, .endMessage__btn:hover{
     background-color: var(--naranja);
 }
 
 .jugador__imagen{
     aspect-ratio: 1/1;
+}
+
+.endMessage{
+    font-size: 1.5rem;
+    background-color: var(--gris);
+    border: 3px solid var(--naranja);
 }

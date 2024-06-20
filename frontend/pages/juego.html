@@ -164,6 +164,11 @@
           </div>
         </article>
       </section>
+      <dialog class="endMessage">
+        <h2 class="endMessage__title fs-1"></h2>
+        <p class="endMessage__text fs-3"></p>
+        <button class="endMessage__btn btn" onclick="reiniciar()">Volver</button>
+      </dialog>
     </main>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
@@ -212,11 +217,16 @@
         return Math.floor(Math.random() * (max - min + 1) + min);
       };
       const obtener_parametros_url = () => new URLSearchParams(location.search);
-      
+      const abrir_dialogo = (title, text, dialog) => {
+        dialog.querySelector(".endMessage__title").innerText = title;
+        dialog.querySelector(".endMessage__text").innerText = text;
+        dialog.showModal();
+      };
       //Referencias HTML
       const contenedor_jugador1 = document.querySelector("#jugador_1");
       const contenedor_jugador2 = document.querySelector("#jugador_2");
       const turno = document.querySelector("#turno");
+      const dialogo = document.querySelector(".endMessage");
       //Estado
       const estado = {
         jugador1: {
@@ -265,6 +275,9 @@
           });
       };
       //Funciones de Eventos
+      const reiniciar = () => {
+        location.assign("/pages/seleccion-personajes.html");
+      }
       const seleccionar_ataque_jugador_1 = (event) => {
         const ataque = parseInt(event.target.value);
         estado.jugador1.ataque_seleccionado =
@@ -301,30 +314,54 @@
         );
         rellenar_info_personaje(estado.jugador1, contenedor_jugador1);
         rellenar_info_personaje(estado.jugador2, contenedor_jugador2);
-        if (estado.jugador1.personaje.vida <= 0 && estado.jugador2.personaje.vida <= 0) {
-          alert("EMPATE");
-          location.assign("/pages/seleccion-personajes.html");
-        } else if (estado.jugador1.personaje.ki <= 0 && estado.jugador2.personaje.ki <= 0) {
-          alert("EMPATE");
-          location.assign("/pages/seleccion-personajes.html");
-        }
-         else if (estado.jugador1.personaje.vida <= 0) {
-          alert(`El jugador 1 murió RIP ${estado.jugador1.personaje.nombre}, \n
-           el jugador 2 ha ganado felicidades ${estado.jugador2.personaje.nombre}`);
-          location.assign("/pages/seleccion-personajes.html");
-        }
-         else if (estado.jugador2.personaje.vida <= 0) {
-          alert(`El jugador 2 murió RIP ${estado.jugador2.personaje.nombre}, \n
-           el jugador 1 ha ganado felicidades ${estado.jugador1.personaje.nombre}`);
-          location.assign("/pages/seleccion-personajes.html");
+        if (
+          estado.jugador1.personaje.vida <= 0 &&
+          estado.jugador2.personaje.vida <= 0
+        ) {
+          abrir_dialogo(
+            "EMPATE",
+            "Los dos jugadores se han quedado sin vida",
+            dialogo
+          );
+        } else if (
+          estado.jugador1.personaje.vida > 0 &&
+          estado.jugador2.personaje.vida <= 0
+        ) {
+          abrir_dialogo(
+            `Felicidades ${estado.jugador1.personaje.nombre}`,
+            `${estado.jugador2.personaje.nombre} murió, RIP `,
+            dialogo
+          );
+        } else if (
+          estado.jugador2.personaje.vida > 0 &&
+          estado.jugador1.personaje.vida <= 0
+        ) {
+          abrir_dialogo(
+            `Felicidades ${estado.jugador2.personaje.nombre}`,
+            `${estado.jugador1.personaje.nombre} murió, RIP `,
+            dialogo
+          );
+        } else if (
+          estado.jugador1.personaje.ki <= 0 &&
+          estado.jugador2.personaje.ki <= 0
+        ) {
+          abrir_dialogo(
+            "EMPATE",
+            "Los dos peleadores se han quedado sin Ki",
+            dialogo
+          );
         } else if (estado.jugador1.personaje.ki <= 0) {
-          alert(`El jugador 1 se quedó sin KI XD ${estado.jugador1.personaje.nombre}, \n
-           el jugador 2 ha ganado felicidades ${estado.jugador2.personaje.nombre}`);
-          location.assign("/pages/seleccion-personajes.html");
+          abrir_dialogo(
+            `Felicidades ${estado.jugador2.personaje.nombre}`,
+            `${estado.jugador1.personaje.nombre} se quedó sin ki `,
+            dialogo
+          );
         } else if (estado.jugador2.personaje.ki <= 0) {
-          alert(`El jugador 2 se quedó sin KI XD ${estado.jugador2.personaje.nombre}, \n
-           el jugador 1 ha ganado felicidades ${estado.jugador1.personaje.nombre}`);
-          location.assign("/pages/seleccion-personajes.html");
+          abrir_dialogo(
+            `Felicidades ${estado.jugador1.personaje.nombre}`,
+            `${estado.jugador2.personaje.nombre} se quedó sin ki `,
+            dialogo
+          );
         }
       };
       fetch_personaje1();
