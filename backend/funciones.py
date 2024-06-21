@@ -212,7 +212,17 @@ def borrar_ataques_personaje(id_personaje : int):
         db.session.commit()
     except Exception as error:
         raise error
-    
+
+def borrar_personajes_ataque(id_ataque : int):
+    '''Recibe el ID de un ataque y borra todas las relaciones de personaje-ataque que tenga asignadas.'''
+    try:
+        personajes_ataque = PersonajesAtaques.query.filter_by(id_ataque=id_ataque).all()
+        for personaje_ataque in personajes_ataque:
+            db.session.delete(personaje_ataque)
+        db.session.commit()
+    except Exception as error:
+        raise error
+
 def borrar_personaje(id_personaje: int) -> dict:
     '''Recibe el ID de un personaje y lo borra de la base de datos, retorna un diccionario con el campo success y un mensaje de error en caso de no poder borrarlo'''
     try:
@@ -234,6 +244,8 @@ def borrar_ataque(id_ataque : int) -> bool | None:
         ataque = obtener_ataque_id(id_ataque)
         if not ataque:
             return {'success' : False, 'error' : 'ERROR: No se encontro el ataque'}
+        
+        borrar_personajes_ataque(id_ataque)
         db.session.delete(ataque)
         db.session.commit()
         return {'success' : True, 'message' : 'Ataque borrado correctamente'}
