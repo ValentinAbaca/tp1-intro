@@ -24,78 +24,86 @@ def main_route():
 @app.route('/personajes', methods=['GET'])
 def obtener_personajes():
     personajes_data = obtener_data_personajes()
-
-    if not personajes_data:
-        return jsonify({'Error': 'Personajes no encontrados'}), 404
-
-    return jsonify(personajes_data)
+    if personajes_data['success']:
+        return jsonify(personajes_data['personajes']), 200
+    else:
+        return jsonify(personajes_data['error']), 500
 
 @app.route('/personajes/<id>', methods=['GET'])
 def obtener_personaje_id(id):
     personaje_data = obtener_data_personaje_id(id)
-    if not personaje_data:
-        return jsonify({'Error': 'Personaje no encontrado'}), 404
-    return jsonify(personaje_data)
+    if personaje_data['success']:
+        return jsonify(personaje_data['personaje']), 200
+    else:
+        return jsonify(personaje_data['error']), 500
 
 @app.route('/ataques', methods=['GET'])
 def obtener_ataques():
     ataques_data = obtener_data_ataques()
-    if not ataques_data:
-        return jsonify({'Error': 'Ataques no encontrados'}), 404
-    return jsonify(ataques_data)
+    if ataques_data['success']:
+        return jsonify(ataques_data['ataques']), 200
+    else:
+        return jsonify(ataques_data['error']), 500
 
 @app.route('/ataques/<id>', methods=['GET'])
 def obtener_ataque_id(id):
     ataque_data = obtener_data_ataque_id(id)
-    if not ataque_data:
-        return jsonify({'Error': 'Ataque no encontrado'}), 404
-    return jsonify(ataque_data)
+    if ataque_data['success']:
+        return jsonify(ataque_data['ataque']), 200
+    else:
+        return jsonify(ataque_data['error']), 500
 
 @app.route('/nuevo_personaje', methods=['POST'])
 def crear_personaje():
     data = request.json
     personaje = crear_nuevo_personaje(data)
-    if personaje == None:
-        return jsonify({'message': 'El personaje ya existe'}), 400
-    return jsonify({'success' : True, 'personaje' : personaje}), 201
+    if personaje['success']:
+        return jsonify(personaje), 201
+    else:
+        return jsonify(personaje), 500
 
 @app.route('/nuevo_ataque', methods=['POST'])
 def crear_ataque():
     data = request.json
     ataque = crear_nuevo_ataque(data)
-    if not ataque:
-        return jsonify({'message': 'El ataque ya existe'}), 400
-    return jsonify({'success' : True, 'Ataque': ataque}), 201
+    if ataque['success']:
+        return jsonify(ataque), 201
+    else:
+        return jsonify(ataque), 500
 
 @app.route('/borrar_personaje/<id>', methods=['DELETE'])
 def borrar_personaje_por_id(id):
     borrar = borrar_personaje(id)
-    if not borrar:
-        return jsonify({'message': 'Personaje no encontrado'}), 404
-    return jsonify({'message': f'Personaje id: {id} borrado correctamente'}), 200
+    if borrar['success']:
+        return jsonify(borrar), 200
+    else:
+        return jsonify(borrar), 500
 
 @app.route('/borrar_ataque/<id>', methods=['DELETE'])
 def borrar_ataque_por_id(id):
     borrar = borrar_ataque(id)
-    if not borrar:
-        return jsonify({'message': 'Ataque no encontrado'}), 404
-    return jsonify({'message': f'Ataque id: {id} borrado correctamente'}), 200
+    if borrar['success']:
+        return jsonify(borrar), 200
+    else:
+        return jsonify(borrar), 500
 
 @app.route('/modificar_ataque/<id>', methods=['PUT'])
 def modificar_ataque_por_id(id):
     data = request.json
     ataque = modificar_ataque(id, data)
-    if not ataque:
-        return jsonify({'message': 'Ataque no encontrado'}), 404
-    return jsonify({"Ataque" : ataque, "success" : True}), 200
+    if ataque['success']:
+        return jsonify(ataque), 200
+    else:
+        return jsonify(ataque), 500
 
 @app.route('/modificar_personaje/<id>', methods=['PUT'])
 def modificar_personaje_por_id(id):
     data = request.json
     personaje = modificar_personaje(id, data)
-    if not personaje:
-        return jsonify({'message': 'Personaje no encontrado'}), 404
-    return jsonify({"personaje" : personaje, "success" : True}), 200
+    if personaje['success']:
+        return jsonify(personaje), 200
+    else:
+        return jsonify(personaje), 500
 
 if __name__ == '__main__':
     db.init_app(app)
