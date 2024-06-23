@@ -256,6 +256,9 @@ def borrar_ataque(id_ataque : int) -> bool | None:
 def agregar_relacion_personaje_ataque(id_personaje : int, id_ataque: int):
     '''Recibe un ID de personaje y un ID de ataque, agrega una nueva relación de personaje-ataque en la base de datos.'''
     try:
+        ataque = obtener_ataque_id(id_ataque)
+        if not ataque:
+            raise Exception(f"El ataque id {id_ataque} que intentas agregar no existe.")
         id = generar_id_nuevo(PersonajesAtaques)
         personaje_ataque = PersonajesAtaques(id= id, id_personaje=id_personaje, id_ataque=id_ataque)
         db.session.add(personaje_ataque)
