@@ -183,7 +183,7 @@ def crear_nuevo_personaje(data) -> dict | None:
             agregar_relacion_personaje_ataque(id, ataque)
 
         db.session.commit()
-        return {'success' : True, 'personaje' : obtener_data_personaje_id(id)}
+        return {'success' : True, 'personaje' : obtener_data_personaje_id(id)['personaje']}
     except Exception as error:
         return {'success' : False, 'error' : "ERROR: " + str(error)}
 
@@ -198,7 +198,7 @@ def crear_nuevo_ataque(data : dict) -> dict:
         ataque = Ataques(id=id, nombre=data['nombre'], costo_ki=data['costo_ki'], dano_max=data['dano_max'], dano_min=data['dano_min'])
         db.session.add(ataque)
         db.session.commit()
-        return {'success' : True, 'ataque' : obtener_data_ataque_id(id)}
+        return {'success' : True, 'ataque' : obtener_data_ataque_id(id)['ataque']}
     except Exception as error:
         return {'success' : False, 'error' : "ERROR: " + str(error)}
 
