@@ -1,0 +1,52 @@
+body {
+    background-color: #e7e3e3; 
+    color: #212121; 
+    font-family: 'Merriweather', serif;
+}
+
+.navbar {
+    background-color: #f58220; 
+    height: 10vh;
+}
+
+a {
+  font-family: "Montserrat", sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Merriweather", serif;
+}
+.btn-orange {
+    background-color: #f58220;
+    border-color: #f58220;
+    color: #212121;
+}
+
+.card-title {
+    color: #f58220;
+    text-align: center;
+    font-weight:bold ;
+    font-size:22px;
+    
+}
+
+.card-body .btn .btn-orange{
+    background-color: #ff9800;
+    border-color: #e65100;
+    color: #212121;
+}
+
+.card-body .btn:hover,
+.btn-success:hover {
+    background-color: #fb8c00;
+    border-color: #d84315;
+}
+
+.btn-danger .btn-warning{
+    color: #212121;
+}
