@@ -1,0 +1,58 @@
+body {
+    background-color: #d6cece; 
+    color: #212121; 
+    font-family: 'Merriweather', serif;
+}
+
+.navbar {
+    background-color: #f58220; 
+    height: 10vh;
+}
+
+a {
+  font-family: "Montserrat", sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Merriweather", serif;
+}
+.card-body {
+    padding: 20px;
+    font-size: 1.2em; /* Aumenta el tamaño de la fuente para todo el card-body */
+}
+
+/* Ajustar tamaño del título */
+.card-body h4 {
+    color: #f58220;
+    font-size: 1.5em; /* Aumenta el tamaño de la fuente del título */
+    font-weight: bold; /* Hace que el título sea negrita */
+}
+
+/* Ajustar tamaño del texto */
+.card-body p {
+    font-size: 1.1em; /* Aumenta el tamaño de la fuente del texto */
+    line-height: 1.5; /* Aumenta el espacio entre líneas para mejor legibilidad */
+}
+
+/* Ajustar tamaño de la lista de ataques */
+.card-body h3 {
+    color: #f58220;
+    font-size: 1.3em; /* Aumenta el tamaño de la fuente para el subtítulo "Ataques" */
+    margin-top: 20px; /* Añade un margen superior para separarlo del texto anterior */
+}
+
+.card-body ul li {
+    font-size: 1.1em; /* Aumenta el tamaño de la fuente de los elementos de la lista */
+    padding: 5px 0; /* Añade espacio interno a los elementos de la lista */
+    margin: 5px;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: #f58220;
+}
+
+
