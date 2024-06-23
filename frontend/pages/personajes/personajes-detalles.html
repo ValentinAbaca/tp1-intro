@@ -14,7 +14,7 @@
 <body>
     <nav class="navbar navbar-expand-lg text-light">
         <div class="container-fluid">
-          <a class="navbar-brand text-light fw-bold fs-2 merriweather" href="#">Z Warriors</a>
+          <a class="navbar-brand text-light fw-bold fs-2 merriweather" href="../../index.html">Z Warriors</a>
           <button
             class="navbar-toggler"
             type="button"
@@ -28,16 +28,16 @@
           <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto text-light">
               <li class="nav-item">
-                <a class="nav-link text-light fs-4" aria-current="page" href="#">Home</a>
+                <a class="nav-link text-light fs-4" aria-current="page" href="../../index.html">Home</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link text-light fs-4" href="#">Jugar</a>
+                <a class="nav-link text-light fs-4" href="../juego.html">Jugar</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link text-light fs-4" href="#">Personajes</a>
+                <a class="nav-link text-light fs-4" href="../personajes/index.html">Personajes</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link text-light fs-4" href="#">Ataques</a>
+                <a class="nav-link text-light fs-4" href="../ataques/index.html">Ataques</a>
               </li>
             </ul>
           </div>
@@ -75,6 +75,8 @@
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
     <script>
+        document.getElementById("Editar").setAttribute("href", `edicion-ataque.html?id=${id}`);
+        
         //DATA PERSONAJES
         const params = new URLSearchParams(window.location.search);
         const id = params.get("id");
@@ -82,8 +84,6 @@
         if (id === null) {
             window.location.href = "/pages/personajes";
         }
-
-        document.getElementById("Editar").setAttribute("href", `pages/edicion-ataque.html/${id}`);
 
         function respuesta_recibida(respuesta) {
             return respuesta.json();

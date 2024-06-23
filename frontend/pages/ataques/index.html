@@ -13,9 +13,7 @@
     <body data-bs-theme="g-4 bg-secondary">
         <nav class="navbar navbar-expand-lg text-light">
             <div class="container-fluid">
-              <a class="navbar-brand text-light fw-bold fs-2 merriweather" href="#"
-                >Z Warriors</a
-              >
+              <a class="navbar-brand text-light fw-bold fs-2 merriweather" href="../../index.html">Z Warriors</a>
               <button
                 class="navbar-toggler"
                 type="button"
@@ -23,25 +21,21 @@
                 data-bs-target="#navbarNav"
                 aria-controls="navbarNav"
                 aria-expanded="false"
-                aria-label="Toggle navigation"
-              >
-                <span class="navbar-toggler-icon"></span>
+                aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span>
               </button>
               <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto text-light">
                   <li class="nav-item">
-                    <a class="nav-link text-light fs-4" aria-current="page" href="#"
-                      >Home</a
-                    >
+                    <a class="nav-link text-light fs-4" aria-current="page" href="../../index.html">Home</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link text-light fs-4" href="#">Jugar</a>
+                    <a class="nav-link text-light fs-4" href="../juego.html">Jugar</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link text-light fs-4" href="#">Personajes</a>
+                    <a class="nav-link text-light fs-4" href="../personajes/index.html">Personajes</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link text-light fs-4" href="#">Ataques</a>
+                    <a class="nav-link text-light fs-4" href="../ataques/index.html">Ataques</a>
                   </li>
                 </ul>
               </div>
@@ -51,7 +45,7 @@
             <div class="row">
                 <div class="col">
                     <h1 class="mt-5">ATAQUES DE Z WARRIORS</h1>
-                        <a href="../creacion-ataque.html" class="btn btn-orange btn-success mt-2 mb-3">Agregar Ataque</a>
+                        <a href="creacion-ataque.html" class="btn btn-orange btn-success mt-2 mb-3">Agregar Ataque</a>
                 </div>
             </div>
         </div>
@@ -122,7 +116,7 @@
                     const editar = document.createElement("a");
                     editar.setAttribute("id", "btn-editar");
                     editar.setAttribute("class", "btn btn-warning");
-                    editar.setAttribute("href", `../editar/${cont_ataques[i].id}`);
+                    editar.setAttribute("href", `edicion-ataque.html?id=${cont_ataques[i].id}`);
                     editar.innerText = "Editar";
 
                     const borrar = document.createElement("button");

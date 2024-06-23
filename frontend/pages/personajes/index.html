@@ -13,9 +13,7 @@
     <body>
         <nav class="navbar navbar-expand-lg text-light">
             <div class="container-fluid">
-              <a class="navbar-brand text-light fw-bold fs-2 merriweather" href="#"
-                >Z Warriors</a
-              >
+              <a class="navbar-brand text-light fw-bold fs-2 merriweather" href="../../index.html">Z Warriors</a>
               <button
                 class="navbar-toggler"
                 type="button"
@@ -23,25 +21,21 @@
                 data-bs-target="#navbarNav"
                 aria-controls="navbarNav"
                 aria-expanded="false"
-                aria-label="Toggle navigation"
-              >
-                <span class="navbar-toggler-icon"></span>
+                aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span>
               </button>
               <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto text-light">
                   <li class="nav-item">
-                    <a class="nav-link text-light fs-4" aria-current="page" href="#"
-                      >Home</a
-                    >
+                    <a class="nav-link text-light fs-4" aria-current="page" href="../../index.html">Home</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link text-light fs-4" href="#">Jugar</a>
+                    <a class="nav-link text-light fs-4" href="../juego.html">Jugar</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link text-light fs-4" href="#">Personajes</a>
+                    <a class="nav-link text-light fs-4" href="../personajes/index.html">Personajes</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link text-light fs-4" href="#">Ataques</a>
+                    <a class="nav-link text-light fs-4" href="../ataques/index.html">Ataques</a>
                   </li>
                 </ul>
               </div>
@@ -51,7 +45,7 @@
             <div class="row">
                 <div class="col">
                     <h1 class="mt-5 pb-2">PERSONAJES DE Z WARRIORS</h1>
-                    <a href="../creacion-personaje.html" class="btn btn-orange btn-success mb-3 py-2">Agregar Personaje</a>
+                    <a href="creacion-personaje.html" class="btn btn-orange btn-success mb-3 py-2">Agregar Personaje</a>
                 </div>
             </div>
         </div>
@@ -97,7 +91,7 @@
                     const boton = document.createElement("a");
                     boton.setAttribute("class", "btn btn-orange btn-lg");
                     boton.innerText = "Mas Detalles";
-                    boton.setAttribute("href", `personaje/index.html?id=${cont_personajes[i].id}`);
+                    boton.setAttribute("href", `personajes-detalles.html?id=${cont_personajes[i].id}`);
 
                     card_body.append(titulo, boton);
                     card.append(imagen);
