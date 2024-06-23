@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Guerreros Z</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+            integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+        <link rel="stylesheet" href="../../assets/css/personajes-ataques.css">
+
+    </head>
+
+    <body data-bs-theme="g-4 bg-secondary">
+        <nav class="navbar navbar-expand-lg text-light">
+            <div class="container-fluid">
+              <a class="navbar-brand text-light fw-bold fs-2 merriweather" href="#"
+                >Z Warriors</a
+              >
+              <button
+                class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarNav"
+                aria-controls="navbarNav"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+              >
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto text-light">
+                  <li class="nav-item">
+                    <a class="nav-link text-light fs-4" aria-current="page" href="#"
+                      >Home</a
+                    >
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link text-light fs-4" href="#">Jugar</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link text-light fs-4" href="#">Personajes</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link text-light fs-4" href="#">Ataques</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </nav>
+        <div class="g-4 container">
+            <div class="row">
+                <div class="col">
+                    <h1 class="mt-5">ATAQUES DE Z WARRIORS</h1>
+                        <a href="../creacion-ataque.html" class="btn btn-orange btn-success mt-2 mb-3">Agregar Ataque</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row g-4" id="ataques">
+            </div>
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+
+        <script>
+            // ELIMINAR ATAQUE
+            function eliminar_ataque(id) {
+                console.log("ID a borrar: ", id);
+                fetch(`http://localhost:5000/borrar_ataque/${id}`, 
+                    { method: "DELETE" }
+                )
+                    .then((res) => res.json())
+                    .then((data) => {
+                        console.log("Mensaje del servidor:", data.message);
+                        if (data.message.includes('borrado correctamente')) {
+                            window.location.href = "/pages/ataques";
+                        }
+                    })
+                    .catch((error) => console.log("Error!", error));
+            }
+
+            //ATAQUES
+            function respuesta_recibida(respuesta) {
+                return respuesta.json();
+            }
+
+            function error_solicitud(error) {
+                console.log('Surgio el siguiente error: ' + error);
+            }
+
+            function analisis_datos(cont_ataques) {
+                const contenedor = document.getElementById("ataques");
+
+                for (let i = 0; i < cont_ataques.length; i++) {
+                    const item = document.createElement("div");
+                    item.setAttribute("class", "col-6 col-md-6 col-lg-3 col-xl-3 mb-4");
+
+                    const card = document.createElement("div");
+                    card.setAttribute("class", "card text-bg-primary h-100 d-flex flex-column");
+
+                    const card_body = document.createElement("div");
+                    card_body.setAttribute("class", "card-body flex-grow-1 d-flex flex-column");
+
+                    const titulo = document.createElement("h5");
+                    titulo.setAttribute("class", "card-title card-header");
+                    titulo.innerText = cont_ataques[i].nombre;
+
+                    const texto = document.createElement("p");
+                    texto.setAttribute("class", "card-text flex-grow-1");
+                    texto.innerText = `
+                    Costo de KI: ${cont_ataques[i].costo_ki}
+                    Daño Maximo: ${cont_ataques[i].dano_max}
+                    Daño Minimo: ${cont_ataques[i].dano_min}
+                    `;
+
+                    const contenedor_botones = document.createElement("div");
+                    contenedor_botones.setAttribute("class", "mt-auto d-flex gap-1");
+                    
+                    const editar = document.createElement("a");
+                    editar.setAttribute("id", "btn-editar");
+                    editar.setAttribute("class", "btn btn-warning");
+                    editar.setAttribute("href", `../editar/${cont_ataques[i].id}`);
+                    editar.innerText = "Editar";
+
+                    const borrar = document.createElement("button");
+                    borrar.setAttribute("id", "btn-borrar");
+                    borrar.setAttribute("class", "btn btn-danger");
+                    borrar.setAttribute("onclick", `eliminar_ataque(${cont_ataques[i].id})`);
+                    borrar.innerText = "Borrar";
+                    
+                    contenedor_botones.append(editar, borrar)
+                    card_body.append(titulo, texto, contenedor_botones);
+                    card.append(card_body);
+                    item.append(card);
+
+                    contenedor.append(item);
+                }
+            }
+
+            fetch("http://localhost:5000/ataques")
+                .then(respuesta_recibida)
+                .then(analisis_datos)
+                .catch(error_solicitud);
+        </script>
+    </body>
+</html>
