@@ -23,32 +23,29 @@ h6 {
 }
 .card-body {
     padding: 20px;
-    font-size: 1.2em; /* Aumenta el tamaño de la fuente para todo el card-body */
+    font-size: 1.2em; 
 }
 
-/* Ajustar tamaño del título */
 .card-body h4 {
     color: #f58220;
-    font-size: 1.5em; /* Aumenta el tamaño de la fuente del título */
-    font-weight: bold; /* Hace que el título sea negrita */
+    font-size: 1.5em; 
+    font-weight: bold; 
 }
 
-/* Ajustar tamaño del texto */
 .card-body p {
-    font-size: 1.1em; /* Aumenta el tamaño de la fuente del texto */
-    line-height: 1.5; /* Aumenta el espacio entre líneas para mejor legibilidad */
+    font-size: 1.1em; 
+    line-height: 1.5; 
 }
 
-/* Ajustar tamaño de la lista de ataques */
 .card-body h3 {
     color: #f58220;
-    font-size: 1.3em; /* Aumenta el tamaño de la fuente para el subtítulo "Ataques" */
-    margin-top: 20px; /* Añade un margen superior para separarlo del texto anterior */
+    font-size: 1.3em; 
+    margin-top: 20px; 
 }
 
 .card-body ul li {
-    font-size: 1.1em; /* Aumenta el tamaño de la fuente de los elementos de la lista */
-    padding: 5px 0; /* Añade espacio interno a los elementos de la lista */
+    font-size: 1.1em; 
+    padding: 5px 0; 
     margin: 5px;
     padding: 5px;
     border-radius: 5px;
