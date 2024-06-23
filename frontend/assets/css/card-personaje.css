@@ -1,0 +1,55 @@
+body {
+    background-color: #d6cece; 
+    color: #212121; 
+    font-family: 'Merriweather', serif;
+}
+
+.navbar {
+    background-color: #f58220; 
+    height: 10vh;
+}
+
+a {
+  font-family: "Montserrat", sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Merriweather", serif;
+}
+.card-body {
+    padding: 20px;
+    font-size: 1.2em; 
+}
+
+.card-body h4 {
+    color: #f58220;
+    font-size: 1.5em; 
+    font-weight: bold; 
+}
+
+.card-body p {
+    font-size: 1.1em; 
+    line-height: 1.5; 
+}
+
+.card-body h3 {
+    color: #f58220;
+    font-size: 1.3em; 
+    margin-top: 20px; 
+}
+
+.card-body ul li {
+    font-size: 1.1em; 
+    padding: 5px 0; 
+    margin: 5px;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: #f58220;
+}
+
+
