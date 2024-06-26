@@ -179,6 +179,8 @@ def crear_nuevo_personaje(data) -> dict | None:
         db.session.add(personaje)
 
         ataques = data['ataques']
+        if len(ataques) == 0:
+            return {'success' : False, 'error' : 'No se puede dejar un personaje sin ataques'}
         for ataque in ataques:
             agregar_relacion_personaje_ataque(id, ataque)
 
@@ -322,6 +324,8 @@ def modificar_personaje(id : int, data : dict) -> dict:
             return {'success' : False, 'error' : 'No se encontro el personaje'}
 
         ataques = data['ataques']
+        if len(ataques) == 0:
+            return {'success' : False, 'error' : 'No se puede dejar un personaje sin ataques'}
         modificar_relaciones(id, ataques)
 
         personaje.nombre = data['nombre']
