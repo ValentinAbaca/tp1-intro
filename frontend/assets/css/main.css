@@ -12,7 +12,9 @@
 /* estilos generales */
 
 p,
-a {
+a,
+li,
+button {
   font-family: "Montserrat", sans-serif;
 }
 
