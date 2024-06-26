@@ -206,6 +206,12 @@
 
         function editar_personaje(event) {
             event.preventDefault();
+
+            if (ids_ataques_personaje.length == 0) {
+                alert("El personaje debe tener al menos un ataque");
+                return;
+            }
+
             const formData = new FormData(event.target);
 
             const nombre = formData.get("nombre");

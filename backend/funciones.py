@@ -63,7 +63,7 @@ def obtener_data_personajes() -> dict:
         personajes = obtener_personajes()
 
         if not personajes:
-            return {'success' : False, 'error' : 'ERROR: No se encontraron personajes'}
+            return {'success' : True, 'personajes' : []}
 
         personajes_data = []
         for personaje in personajes:
@@ -109,7 +109,7 @@ def obtener_data_ataques() -> dict:
     try:
         ataques = obtener_ataques()
         if not ataques:
-            return {'success' : False, 'error' : 'ERROR: No se encontraron ataques'}
+            return {'success' : True, 'ataques' : []}
         ataques_data = []
         for ataque in ataques:
             ataque_data = crear_diccionario_ataque(ataque)
@@ -179,6 +179,8 @@ def crear_nuevo_personaje(data) -> dict | None:
         db.session.add(personaje)
 
         ataques = data['ataques']
+        if len(ataques) == 0:
+            return {'success' : False, 'error' : 'No se puede dejar un personaje sin ataques'}
         for ataque in ataques:
             agregar_relacion_personaje_ataque(id, ataque)
 
@@ -218,7 +220,11 @@ def borrar_personajes_ataque(id_ataque : int):
     try:
         personajes_ataque = PersonajesAtaques.query.filter_by(id_ataque=id_ataque).all()
         for personaje_ataque in personajes_ataque:
-            db.session.delete(personaje_ataque)
+            id_personaje = personaje_ataque.id_personaje
+            if PersonajesAtaques.query.filter_by(id_personaje=id_personaje).count() == 1:
+                raise Exception(f"No se puede borrar el ataque porque es el único ataque de un personaje")
+            else:
+                db.session.delete(personaje_ataque)
         db.session.commit()
     except Exception as error:
         raise error
@@ -318,6 +324,8 @@ def modificar_personaje(id : int, data : dict) -> dict:
             return {'success' : False, 'error' : 'No se encontro el personaje'}
 
         ataques = data['ataques']
+        if len(ataques) == 0:
+            return {'success' : False, 'error' : 'No se puede dejar un personaje sin ataques'}
         modificar_relaciones(id, ataques)
 
         personaje.nombre = data['nombre']

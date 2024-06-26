@@ -28,7 +28,7 @@
       </style>     
     </head>
 
-    <body data-bs-theme="dark">
+    <body>
         <nav class="navbar navbar-expand-lg text-light">
             <div class="container-fluid">
               <a class="navbar-brand text-light fw-bold fs-2 merriweather" href="../../index.html">Z Warriors</a>
@@ -62,7 +62,7 @@
         <div class="g-4 container">
             <div class="row">
                 <div class="col">
-                    <h1 class="mt-5 pb-2">PERSONAJES DE Z WARRIORS</h1>
+                    <h1 class="mt-5 pb-2" id="titulo_personajes">PERSONAJES DE Z WARRIORS</h1>
                     <a href="creacion-personaje.html" class="btn btn-orange btn-success mb-3 py-2">Agregar Personaje</a>
                 </div>
             </div>
@@ -87,6 +87,10 @@
             }
 
             function analisis_datos(cont_personajes) {
+              if (cont_personajes.length == 0) {
+                const titulo = document.getElementById("titulo_personajes")
+                titulo.innerText = "No hay personajes disponibles"
+              }else {
                 const contenedor = document.getElementById("personajes");
 
                 for (let i = 0; i < cont_personajes.length; i++) {
@@ -116,8 +120,8 @@
                     card.append(card_body);
                     item.append(card);
 
-                    contenedor.append(item);
-                }
+                    contenedor.append(item);}
+                  }
             }
 
             fetch("http://localhost:5000/personajes")
