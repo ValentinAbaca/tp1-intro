@@ -218,7 +218,11 @@ def borrar_personajes_ataque(id_ataque : int):
     try:
         personajes_ataque = PersonajesAtaques.query.filter_by(id_ataque=id_ataque).all()
         for personaje_ataque in personajes_ataque:
-            db.session.delete(personaje_ataque)
+            id_personaje = personaje_ataque.id_personaje
+            if PersonajesAtaques.query.filter_by(id_personaje=id_personaje).count() == 1:
+                raise Exception(f"No se puede borrar el ataque porque es el único ataque de un personaje")
+            else:
+                db.session.delete(personaje_ataque)
         db.session.commit()
     except Exception as error:
         raise error
