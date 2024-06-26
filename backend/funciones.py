@@ -63,7 +63,7 @@ def obtener_data_personajes() -> dict:
         personajes = obtener_personajes()
 
         if not personajes:
-            return {'success' : False, 'error' : 'ERROR: No se encontraron personajes'}
+            return {'success' : True, 'personajes' : []}
 
         personajes_data = []
         for personaje in personajes:
@@ -109,7 +109,7 @@ def obtener_data_ataques() -> dict:
     try:
         ataques = obtener_ataques()
         if not ataques:
-            return {'success' : False, 'error' : 'ERROR: No se encontraron ataques'}
+            return {'success' : True, 'ataques' : []}
         ataques_data = []
         for ataque in ataques:
             ataque_data = crear_diccionario_ataque(ataque)
