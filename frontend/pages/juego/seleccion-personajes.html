@@ -270,14 +270,13 @@
         fetch("http://localhost:5000/personajes")
           .then((response) => response.json())
           .then((response) => {
-            if (response.length > 0) {
-              estado.personajes = response;
-              estado.jugador1.personaje = estado.personajes[0];
-              estado.jugador2.personaje = estado.personajes[1];
-              renderizar_ui_inicial(estado.personajes);
-            } else {
-              throw new Error(response.message);
+            if (response.length === 0){
+              throw new Error("No hay personajes creados");
             }
+            estado.personajes = response;
+            estado.jugador1.personaje = estado.personajes[0];
+            estado.jugador2.personaje = estado.personajes[1];
+            renderizar_ui_inicial(estado.personajes);
           })
           .catch((error) => {
             location.assign("/");

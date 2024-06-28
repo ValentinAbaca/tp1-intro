@@ -259,7 +259,11 @@
               ataque_seleccionado: data.ataques[0],
             };
             rellenar_info_personaje(estado.jugador1, contenedor_jugador1);
-          });
+          })
+          .catch((error) => {
+            location.assign("/pages/juego/seleccion-personajes.html");
+            alert('Error! no se pudo obtener el personaje 1');
+          })
       };
       const fetch_personaje2 = () => {
         const parametros = obtener_parametros_url();
@@ -276,7 +280,11 @@
               ataque_seleccionado: data.ataques[0],
             };
             rellenar_info_personaje(estado.jugador2, contenedor_jugador2);
-          });
+          })
+          .catch((error) => {
+            location.assign("/pages/juego/seleccion-personajes.html");
+            alert('Error! no se pudo obtener el personaje 2');
+          })
       };
       //Funciones de Eventos
       const reiniciar = () => {
