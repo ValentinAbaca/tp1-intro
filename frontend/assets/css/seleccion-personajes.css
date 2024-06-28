@@ -38,6 +38,10 @@ main{
     color: #fff;
 }
 
+.grillaPersonajes{
+    width: 100%;
+}
+
 .grillaPersonajes__contenedor{
     height: 10rem;
     width: 100%;
@@ -121,7 +125,7 @@ main{
     }
     
 }
-@media (min-width: 1024px){
+@media (min-width: 900px){
     .personajes__title{
         font-size: 4rem;
     }
@@ -145,8 +149,8 @@ main{
     }
 
     .grillaPersonajes__contenedor{
-        width: 95%;
-        height: 15rem;
+        width: 75%;
+        height: 10rem;
     }
 
     .grillaPersonajes__flechaArriba{
@@ -158,12 +162,19 @@ main{
     }
 
     .grillaPersonajes__flechaAbajo img, .grillaPersonajes__flechaArriba img{
-        height: 100px;
-        width: 100px;
+        height: 75px;
+        width: 75px;
     }
 }
-
 @media (min-width: 1440px){
+    main{
+        height: 120vh;
+    }
+
+    .grillaPersonajes{
+        width: 80%;
+    }
+
     .personajes__img{
         width: 350px;
         height: 350px;
