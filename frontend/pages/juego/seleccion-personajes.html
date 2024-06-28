@@ -10,15 +10,15 @@
       integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
       crossorigin="anonymous"
     />
-    <link rel="stylesheet" href="../assets/css/main.css" />
-    <link rel="stylesheet" href="../assets/css/seleccion-personajes.css" />
+    <link rel="stylesheet" href="../../assets/css/main.css" />
+    <link rel="stylesheet" href="../../assets/css/seleccion-personajes.css" />
     <title>Selección de Personajes</title>
   </head>
   <body>
     <main
       class="container-fluid d-flex flex-column align-items-center gap-5 p-0 text-light"
     >
-      <a href="../index.html" class="boton__volver btn">Volver</a>
+      <a href="../../index.html" class="boton__volver btn">Volver</a>
       <section class="personajes row w-100">
         <article class="personajes__1 col-4 p-0 text-center">
           <h2 class="personajes__title">Jugador 1</h2>
@@ -71,13 +71,13 @@
         class="grillaPersonajes d-flex justify-content-center position-relative px-3"
       >
         <span class="grillaPersonajes__flechaArriba" onclick="scroll_arriba()">
-          <img src="../assets/svg/arrow-up.svg" alt="arrow-up" />
+          <img src="../../assets/svg/arrow-up.svg" alt="arrow-up" />
         </span>
         <div class="grillaPersonajes__contenedor">
           <!-- Acá van los personajes generados via JS -->
         </div>
         <span class="grillaPersonajes__flechaAbajo" onclick="scroll_abajo()">
-          <img src="../assets/svg/arrow-down.svg" alt="arrow-down" />
+          <img src="../../assets/svg/arrow-down.svg" alt="arrow-down" />
         </span>
       </section>
     </main>
@@ -347,7 +347,7 @@
 
       const iniciar_juego = () => {
         navegar_pagina(
-          "/pages/juego.html",
+          "/pages/juego/juego.html",
           estado.jugador1.personaje.id,
           estado.jugador2.personaje.id
         );
