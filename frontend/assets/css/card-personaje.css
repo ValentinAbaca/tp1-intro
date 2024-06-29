@@ -51,3 +51,12 @@ h6 {
     border-radius: 5px;
     background-color: #f58220;
 }
+.scroll-ataques{
+    max-height: 250px;
+    overflow-y: auto;
+}
+
+img {
+    height: 100%;
+    object-fit: cover;
+}
