@@ -1,9 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Font-Awesome para los iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
      <!-- favicon -->
      <link rel="icon" type="image/x-icon" href="../../assets/images/favicon.ico">
      <!-- fuentes -->
@@ -22,7 +24,15 @@
     <title>Creacion de Personaje</title>
 </head>
 
-<body data-bs-theme="dark">
+<body>
+
+    <nav class="navbar navbar-expand-lg text-light">
+        <div class="container-fluid">
+          <a class="navbar-brand text-light fw-bold fs-2 merriweather" href="../personajes/index.html">
+            <i class="fa-solid fa-arrow-left"></i> Volver
+        </a>
+      </nav>
+
     <div class="container my-5">
         <div class="row">
             <div class="col-12 col-md-10 col-lg-8 mx-auto">
@@ -56,18 +66,18 @@
 
                             <div class="mb-3">
                                 <label for="descripcion" class="form-label">Descripcion</label>
-                                <input type="text" class="form-control" id="descripcion" name="descripcion" placeholder="guerrero"
+                                <input type="text" class="form-control" id="descripcion" name="descripcion" placeholder="Guerrero"
                                     required>
                             </div>
 
                             <div class="mb-3">
                                 <label for="imagen" class="form-label">Imagen</label>
-                                <input type="text" class="form-control" id="imagen" name="imagen" placeholder="url a la imagen" required>
+                                <input type="text" class="form-control" id="imagen" name="imagen" placeholder="Url a la imagen" required>
                             </div>
 
                             <div class="mb-3">
                                 <label for="ataques" class="form-label">Ataques:</label>
-                                <ul id="lista_ataques_personajes" class="list-group list-group-flush texto-blanco">
+                                <ul id="lista_ataques_personajes" class="list-group list-group-flush texto-blanco overflow-auto">
                                 </ul>
                                 </select>
                             </div>
