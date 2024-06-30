@@ -112,7 +112,7 @@
             const dano_min= formData.get("dano_min")
             const costo_ki= formData.get("costo_ki")
 
-            fetch(`http://localhost:5000/modificar_ataque/${id}`, {
+            fetch(`http://localhost:5000/ataques/${id}`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json"

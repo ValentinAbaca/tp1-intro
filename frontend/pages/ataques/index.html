@@ -73,7 +73,7 @@
         <script>
             // ELIMINAR ATAQUE
             function eliminar_ataque(id) {
-                fetch(`http://localhost:5000/borrar_ataque/${id}`, 
+                fetch(`http://localhost:5000/ataques/${id}`, 
                     { method: "DELETE" }
                 )
                     .then((res) => res.json())
