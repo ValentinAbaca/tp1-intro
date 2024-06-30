@@ -67,6 +67,7 @@
                                 <h4 id="nombre"></h4>
                                 <div>
                                     <p id="texto" class="card-text"></p>
+                                    <p id="descripcion" class="overflow-auto card-text"></p>
 
                                 </div>
                                 <h3>Ataques: </h3>
@@ -113,9 +114,9 @@
             texto.innerText = `Raza: ${personaje.raza}
             Vida: ${personaje.vida}
             KI: ${personaje.ki}
-
-            ${personaje.descripcion}
             `;
+            const descripcion = document.getElementById("descripcion");
+            descripcion.innerText = personaje.descripcion;
             
             const l_ataques =  personaje.ataques
             const ataques = document.getElementById("ataques");
