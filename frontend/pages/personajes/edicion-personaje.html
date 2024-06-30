@@ -56,13 +56,13 @@
 
                             <div class="mb-3">
                                 <label for="ki" class="form-label">Ki</label>
-                                <input type="text" class="form-control" id="ki" name="ki" placeholder="1000"
+                                <input type="number" class="form-control" id="ki" name="ki" placeholder="1000"
                                     required>
                             </div>
 
                             <div class="mb-3">
                                 <label for="vida" class="form-label">Vida</label>
-                                <input type="text" class="form-control" id="vida" name="vida" placeholder="1000"
+                                <input type="number" class="form-control" id="vida" name="vida" placeholder="1000"
                                     required>
                             </div>
 
@@ -209,7 +209,7 @@
         function manejo_respuesta(data) {
             if (data.success) {
                 alert("Personaje modificado");
-                console.log(data.personaje);
+                window.location.href = `/pages/personajes/personajes-detalles.html?id=${data.personaje.id}`;
             } else {
                 alert("Error");
             }

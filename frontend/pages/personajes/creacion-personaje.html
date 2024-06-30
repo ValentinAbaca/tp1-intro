@@ -54,13 +54,13 @@
 
                             <div class="mb-3">
                                 <label for="ki" class="form-label">Ki</label>
-                                <input type="text" class="form-control" id="ki" name="ki" placeholder="1000"
+                                <input type="number" class="form-control" id="ki" name="ki" placeholder="1000"
                                     required>
                             </div>
 
                             <div class="mb-3">
                                 <label for="vida" class="form-label">Vida</label>
-                                <input type="text" class="form-control" id="vida" name="vida" placeholder="1000"
+                                <input type="number" class="form-control" id="vida" name="vida" placeholder="1000"
                                     required>
                             </div>
 
@@ -79,7 +79,6 @@
                                 <label for="ataques" class="form-label">Ataques:</label>
                                 <ul id="lista_ataques_personajes" class="list-group list-group-flush texto-blanco overflow-auto">
                                 </ul>
-                                </select>
                             </div>
 
                             <div class="mb-3">
@@ -106,7 +105,7 @@
         function handle_response(data) {
             if (data.success) {
                 alert("Personaje creado exitosamente");
-                console.log(data.personaje);
+                window.location.href = `/pages/personajes/personajes-detalles.html?id=${data.personaje.id}`;
             } else {
                 console.log(data);
                 alert("Error al crear el personaje");
@@ -188,6 +187,11 @@
 
 
         function manejo_data_ataques(data) {
+            if (data.length == 0) {
+                alert("No hay ataques disponibles, crea un ataque primero");
+                window.location.href = "/pages/ataques/creacion-ataque.html";
+                return;
+            }
             const ataques = data;
             const select = document.getElementById("select_ataques");
             for (let index = 0; index < ataques.length; index++) {

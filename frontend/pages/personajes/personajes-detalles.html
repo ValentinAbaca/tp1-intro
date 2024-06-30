@@ -63,10 +63,11 @@
                             <div class="col-12 col-md-6">
                                 <img src="" alt="" id="image" class="w-100 img-fluid">
                             </div>
-                            <div class="col-12 col-md-6 card text-bg-primary mt-3 mt-md-0">
+                            <div class="col-12 col-md-6 text-bg-primary mt-3 mt-md-0 pt-2">
                                 <h4 id="nombre"></h4>
                                 <div>
                                     <p id="texto" class="card-text"></p>
+                                    <p id="descripcion" class="overflow-auto card-text"></p>
 
                                 </div>
                                 <h3>Ataques: </h3>
@@ -108,14 +109,15 @@
             const imagen = document.getElementById("image");
             imagen.setAttribute("src", personaje.imagen);
             imagen.setAttribute("class", "imagen");
+            imagen.setAttribute("alt", personaje.nombre);
 
             const texto = document.getElementById("texto");
             texto.innerText = `Raza: ${personaje.raza}
             Vida: ${personaje.vida}
             KI: ${personaje.ki}
-
-            ${personaje.descripcion}
             `;
+            const descripcion = document.getElementById("descripcion");
+            descripcion.innerText = personaje.descripcion;
             
             const l_ataques =  personaje.ataques
             const ataques = document.getElementById("ataques");
