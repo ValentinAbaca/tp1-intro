@@ -62,7 +62,7 @@ def crear_personaje():
     else:
         return jsonify(personaje), 500
 
-@app.route('/nuevo_ataque', methods=['POST'])
+@app.route('/ataques', methods=['POST'])
 def crear_ataque():
     data = request.json
     ataque = crear_nuevo_ataque(data)
@@ -71,7 +71,7 @@ def crear_ataque():
     else:
         return jsonify(ataque), 500
 
-@app.route('/borrar_personaje/<id>', methods=['DELETE'])
+@app.route('/personajes/<id>', methods=['DELETE'])
 def borrar_personaje_por_id(id):
     borrar = borrar_personaje(id)
     if borrar['success']:
@@ -79,7 +79,7 @@ def borrar_personaje_por_id(id):
     else:
         return jsonify(borrar), 500
 
-@app.route('/borrar_ataque/<id>', methods=['DELETE'])
+@app.route('/ataques/<id>', methods=['DELETE'])
 def borrar_ataque_por_id(id):
     borrar = borrar_ataque(id)
     if borrar['success']:
@@ -87,7 +87,7 @@ def borrar_ataque_por_id(id):
     else:
         return jsonify(borrar), 500
 
-@app.route('/modificar_ataque/<id>', methods=['PUT'])
+@app.route('/ataques/<id>', methods=['PUT'])
 def modificar_ataque_por_id(id):
     data = request.json
     ataque = modificar_ataque(id, data)
@@ -96,7 +96,7 @@ def modificar_ataque_por_id(id):
     else:
         return jsonify(ataque), 500
 
-@app.route('/modificar_personaje/<id>', methods=['PUT'])
+@app.route('/personajes/<id>', methods=['PUT'])
 def modificar_personaje_por_id(id):
     data = request.json
     personaje = modificar_personaje(id, data)
