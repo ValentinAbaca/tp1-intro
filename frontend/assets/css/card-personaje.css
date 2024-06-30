@@ -6,7 +6,6 @@ body {
 
 .navbar {
     background-color: #f58220; 
-    height: 10vh;
 }
 
 a {
@@ -51,12 +50,21 @@ h6 {
     border-radius: 5px;
     background-color: #f58220;
 }
-.scroll-ataques{
-    max-height: 250px;
-    overflow-y: auto;
+
+#ataques {
+    max-height: 210px;
 }
 
-img {
-    height: 100%;
-    object-fit: cover;
+.imagen {
+    width: 100%;
+    height: 300px;
+    object-fit: cover; 
+    border-radius: 10px;
+}
+
+@media (min-width: 768px) {
+    .imagen {
+        height: 600px;
+    }
+    
 }
