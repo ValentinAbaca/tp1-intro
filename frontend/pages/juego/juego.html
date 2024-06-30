@@ -4,14 +4,18 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- favicon -->
-    <link rel="icon" type="image/x-icon" href="../../assets/images/favicon.ico">
-     <!-- fuentes -->
-     <link rel="preconnect" href="https://fonts.googleapis.com" />
-     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-     <link
-       href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
-       rel="stylesheet"
-     />
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="../../assets/images/favicon.ico"
+    />
+    <!-- fuentes -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
     <!-- estilos -->
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
@@ -36,15 +40,16 @@
               <li class="list-group-item">
                 Vida:
                 <div
-                  class="progress"
+                  class="progress position-relative"
                   role="progressbar"
                   aria-label="Vida"
                   aria-valuenow="25"
                   aria-valuemin="0"
                   aria-valuemax="100"
                 >
+                  <span class="jugador__vida"></span>
                   <div
-                    class="jugador__vida progress-bar progress-bar-striped progress-bar-animated bg-danger fs-5 text-dark"
+                    class="jugador__barraVida progress-bar progress-bar-striped progress-bar-animated bg-danger"
                     style="width: 25%"
                   ></div>
                 </div>
@@ -52,15 +57,16 @@
               <li class="list-group-item">
                 Ki:
                 <div
-                  class="progress"
+                  class="progress position-relative"
                   role="progressbar"
                   aria-label="Ki"
                   aria-valuenow="25"
                   aria-valuemin="0"
                   aria-valuemax="100"
                 >
+                  <span class="jugador__ki"></span>
                   <div
-                    class="jugador__ki progress-bar progress-bar-striped progress-bar-animated bg-info fs-5 text-dark"
+                    class="jugador__barraKi progress-bar progress-bar-striped progress-bar-animated bg-info"
                     style="width: 25%"
                   ></div>
                 </div>
@@ -94,7 +100,9 @@
             </div>
           </div>
         </article>
-        <article class="col-12 col-md-6 d-flex flex-column justify-content-center align-items-center text-light text-center">
+        <article
+          class="col-12 col-md-6 d-flex flex-column justify-content-center align-items-center text-light text-center"
+        >
           <h2 class="display-1">Turno <span id="turno">1</span></h2>
           <button
             class="btn boton__atacar"
@@ -115,15 +123,16 @@
               <li class="list-group-item">
                 Vida:
                 <div
-                  class="progress"
+                  class="progress position-relative"
                   role="progressbar"
                   aria-label="Basic example"
                   aria-valuenow="25"
                   aria-valuemin="0"
                   aria-valuemax="100"
                 >
+                  <span class="jugador__vida"></span>
                   <div
-                    class="jugador__vida progress-bar progress-bar-striped progress-bar-animated bg-danger fs-5 text-dark"
+                    class="jugador__barraVida progress-bar progress-bar-striped progress-bar-animated bg-danger"
                     style="width: 25%"
                   ></div>
                 </div>
@@ -131,15 +140,16 @@
               <li class="list-group-item">
                 Ki:
                 <div
-                  class="progress"
+                  class="progress position-relative"
                   role="progressbar"
                   aria-label="Basic example"
                   aria-valuenow="25"
                   aria-valuemin="0"
                   aria-valuemax="100"
                 >
+                  <span class="jugador__ki"></span>
                   <div
-                    class="jugador__ki progress-bar progress-bar-striped progress-bar-animated bg-info fs-5 text-dark"
+                    class="jugador__barraKi progress-bar progress-bar-striped progress-bar-animated bg-info"
                     style="width: 25%"
                   ></div>
                 </div>
@@ -204,16 +214,21 @@
           jugador.personaje.nombre;
         contenedor_personaje.querySelector(".jugador__imagen").src =
           jugador.personaje.imagen;
-        const barra_vida = contenedor_personaje.querySelector(".jugador__vida");
+        const barra_vida = contenedor_personaje.querySelector(
+          ".jugador__barraVida"
+        );
+        const vida = contenedor_personaje.querySelector(".jugador__vida");
         barra_vida.style.width = `${
           (jugador.personaje.vida * 100) / jugador.personaje.vida_max
         }%`;
-        barra_vida.innerText = `Vida: ${jugador.personaje.vida}/${jugador.personaje.vida_max}`;
-        const barra_ki = contenedor_personaje.querySelector(".jugador__ki");
+        vida.innerText = `Vida: ${jugador.personaje.vida}/${jugador.personaje.vida_max}`;
+        const barra_ki =
+          contenedor_personaje.querySelector(".jugador__barraKi");
+        const ki = contenedor_personaje.querySelector(".jugador__ki");
         barra_ki.style.width = `${
           (jugador.personaje.ki * 100) / jugador.personaje.ki_max
         }%`;
-        barra_ki.innerText = `Ki: ${jugador.personaje.ki}/${jugador.personaje.ki_max}`;
+        ki.innerText = `Ki: ${jugador.personaje.ki}/${jugador.personaje.ki_max}`;
         let opciones = "";
         for (const ataque of jugador.personaje.ataques) {
           opciones += `<option value="${ataque.id}">${ataque.nombre}</option>`;
@@ -271,8 +286,8 @@
           })
           .catch((error) => {
             location.assign("/pages/juego/seleccion-personajes.html");
-            alert('Error! no se pudo obtener el personaje 1');
-          })
+            alert("Error! no se pudo obtener el personaje 1");
+          });
       };
       const fetch_personaje2 = () => {
         const parametros = obtener_parametros_url();
@@ -291,9 +306,10 @@
             rellenar_info_personaje(estado.jugador2, contenedor_jugador2);
           })
           .catch((error) => {
-            location.assign("/pages/juego/seleccion-personajes.html");
-            alert('Error! no se pudo obtener el personaje 2');
-          })
+            console.log(error);
+            // location.assign("/pages/juego/seleccion-personajes.html");
+            // alert("Error! no se pudo obtener el personaje 2");
+          });
       };
       //Funciones de Eventos
       const reiniciar = () => {
