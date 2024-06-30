@@ -188,6 +188,11 @@
 
 
         function manejo_data_ataques(data) {
+            if (data.length == 0) {
+                alert("No hay ataques disponibles, crea un ataque primero");
+                window.location.href = "/pages/ataques/creacion-ataque.html";
+                return;
+            }
             const ataques = data;
             const select = document.getElementById("select_ataques");
             for (let index = 0; index < ataques.length; index++) {
