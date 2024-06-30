@@ -49,3 +49,10 @@ h6 {
 .btn-danger .btn-warning{
     color: #212121;
 }
+
+.imagen-card {
+    width: 100%;
+    height: 350px; 
+    object-fit: cover;
+    overflow: hidden; 
+}
