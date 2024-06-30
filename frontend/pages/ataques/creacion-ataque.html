@@ -74,7 +74,7 @@
         function manejo_respuesta(data) {
             if (data.success){
                 alert("Ataque creado exitosamente")
-                console.log(data.ataque)
+                window.location.href = "../ataques/index.html"
             } else {
                 alert("Error al crear el ataque")
                 console.log(data.error)

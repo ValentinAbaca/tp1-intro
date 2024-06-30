@@ -106,7 +106,7 @@
         function handle_response(data) {
             if (data.success) {
                 alert("Personaje creado exitosamente");
-                console.log(data.personaje);
+                window.location.href = `/pages/personajes/personajes-detalles.html?id=${data.personaje.id}`;
             } else {
                 console.log(data);
                 alert("Error al crear el personaje");

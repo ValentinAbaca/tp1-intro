@@ -209,7 +209,7 @@
         function manejo_respuesta(data) {
             if (data.success) {
                 alert("Personaje modificado");
-                console.log(data.personaje);
+                window.location.href = `/pages/personajes/personajes-detalles.html?id=${data.personaje.id}`;
             } else {
                 alert("Error");
             }
