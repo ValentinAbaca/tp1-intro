@@ -145,7 +145,7 @@
         }
 
         function eliminar_personaje() {
-            fetch(`http://localhost:5000/borrar_personaje/${id}`, 
+            fetch(`http://localhost:5000/personajes/${id}`, 
                 { method: "DELETE" })
                 .then((res) => res.json())
                 .then(respuesta_eliminar)

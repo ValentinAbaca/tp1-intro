@@ -53,7 +53,7 @@ def obtener_ataque_id(id):
     else:
         return jsonify(ataque_data['error']), 500
 
-@app.route('/nuevo_personaje', methods=['POST'])
+@app.route('/personajes', methods=['POST'])
 def crear_personaje():
     data = request.json
     personaje = crear_nuevo_personaje(data)

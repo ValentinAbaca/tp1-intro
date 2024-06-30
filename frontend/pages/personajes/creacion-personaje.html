@@ -129,7 +129,7 @@
             const descripcion = formData.get("descripcion");
             const imagen = formData.get("imagen");
 
-            fetch("http://localhost:5000/nuevo_personaje", {
+            fetch("http://localhost:5000/personajes", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
