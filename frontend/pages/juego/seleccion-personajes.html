@@ -97,13 +97,11 @@
     ></script>
     <script>
       //Helpers
-
       /**
        * Renderiza la lista de personajes dada en el elemento de contenedor especificado.
        *
        * @param {HTMLDivElement} grilla - El elemento de contenedor donde se renderizarán los personajes.
        * @param {Array<Object>} personajes - La lista de personajes a renderizar.
-       * @return {void} Esta función no devuelve nada.
        */
       const renderizar_personajes = (grilla, personajes) => {
         const COLUMNAS = 5;
@@ -200,10 +198,10 @@
       };
 
       /**
-       * Desmarca un personaje como seleccionado en una grilla de personajes.
+       * Desmarca un personaje seleccionado en una grilla de personajes.
        *
        * @param {HTMLDivElement} grilla_personajes - El contenedor de la grilla de personajes.
-       * @param {string} id_personaje_elegido - El ID del personaje a desmarcar como seleccionado.
+       * @param {string} id_personaje_elegido - El ID del personaje a desmarcar.
        */
       const desmarcar_seleccion = (grilla_personajes, id_personaje_elegido) => {
         const icono_personaje = grilla_personajes.querySelector(

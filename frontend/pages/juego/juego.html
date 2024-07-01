@@ -199,6 +199,12 @@
     ></script>
     <script>
       //Helpers
+      /**
+       * Actualiza la información de un ataque en el contenedor especificado.
+       *
+       * @param {Object} ataque - El objeto que contiene la información del ataque.
+       * @param {HTMLDivElement} contenedor_ataque - El contenedor donde se actualizará la información del ataque.
+       */
       const actualizar_info_ataque = (ataque, contenedor_ataque) => {
         contenedor_ataque.querySelector(
           ".jugador__ataque_dano_minimo"
@@ -209,6 +215,14 @@
         contenedor_ataque.querySelector(".jugador__ataque_costo_ki").innerText =
           ataque.costo_ki;
       };
+      /**
+       * Rellena la información de un jugador en el contenedor especificado.
+       * Calcula el porcentaje de vida y el porcentaje de ki para setearlo como
+       * el ancho de las barras.
+       *
+       * @param {Object} jugador - El objeto de jugador que contiene la información.
+       * @param {HTMLDivElement} contenedor_personaje - El contenedor donde se actualizará la información.
+       */
       const rellenar_info_personaje = (jugador, contenedor_personaje) => {
         contenedor_personaje.querySelector(".jugador__nombre").innerHTML =
           jugador.personaje.nombre;
@@ -240,10 +254,24 @@
           contenedor_personaje
         );
       };
+       /**
+       * Genera un número entero aleatorio entre los valores mínimo y máximo dados (inclusivos).
+       *
+       * @param {number} min - El valor mínimo del rango (número).
+       * @param {number} max - El valor máximo del rango (número).
+       * @return {number} - Un número entero aleatorio entre los valores mínimo y máximo (número).
+       */
       const numero_random = (min, max) => {
         return Math.floor(Math.random() * (max - min + 1) + min);
       };
       const obtener_parametros_url = () => new URLSearchParams(location.search);
+      /**
+       * Abre un dialogo de final de juego.
+       *
+       * @param {string} title - El titulo del dialogo.
+       * @param {string} text - El texto del dialogo.
+       * @param {HTMLDialogElement} dialog - El elemento dialogo.
+       */
       const abrir_dialogo = (title, text, dialog) => {
         dialog.querySelector(".endMessage__title").innerText = title;
         dialog.querySelector(".endMessage__text").innerText = text;
