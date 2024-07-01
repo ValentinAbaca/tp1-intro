@@ -276,7 +276,7 @@
           .then((data) => {
             estado.jugador1 = {
               personaje: {
-                ...data,
+                ...data, //spread
                 vida_max: data.vida,
                 ki_max: data.ki,
               },
@@ -285,8 +285,8 @@
             rellenar_info_personaje(estado.jugador1, contenedor_jugador1);
           })
           .catch((error) => {
-            location.assign("/pages/juego/seleccion-personajes.html");
             alert("Error! no se pudo obtener el personaje 1");
+            location.assign("/pages/juego/seleccion-personajes.html");
           });
       };
       const fetch_personaje2 = () => {
@@ -306,15 +306,11 @@
             rellenar_info_personaje(estado.jugador2, contenedor_jugador2);
           })
           .catch((error) => {
-            console.log(error);
-            // location.assign("/pages/juego/seleccion-personajes.html");
-            // alert("Error! no se pudo obtener el personaje 2");
+            alert("Error! no se pudo obtener el personaje 2");
+            location.assign("/pages/juego/seleccion-personajes.html");
           });
       };
       //Funciones de Eventos
-      const reiniciar = () => {
-        location.assign("/pages/seleccion-personajes.html");
-      };
       const seleccionar_ataque_jugador_1 = (event) => {
         const ataque = parseInt(event.target.value);
         estado.jugador1.ataque_seleccionado =
