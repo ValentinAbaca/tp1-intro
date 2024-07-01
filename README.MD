@@ -106,7 +106,11 @@ Una vez dentro instalaremos los requerimientos necesarios.
 
 ```
 
-pip install requeriments.txt
+pip install Flask
+pip install Flask-Cors
+pip install Flask-SQLAlchemy
+pip install python-dotenv
+pip install psycopg2
 
 ```
 
